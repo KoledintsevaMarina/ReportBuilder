@@ -1,0 +1,45 @@
+QPushButton {
+    font: 8pt "Ubuntu";
+}
+
+QPushButton:checked {
+    background-color: rgb(0, 255, 0);
+}
+
+QGroupBox {
+	font: 500 8pt "Ubuntu";
+}
+
+QAbstractSpinBox::up-button {
+    subcontrol-position: right; /* position at the top right corner */
+    border-width: 1px;
+    background: #FCFBFB;   
+    width: 25%;
+    height: 25%;
+    
+    border: 1px solid #ADA39A;
+    border-radius: 3px;
+    
+    image: url(:/icons/icons/plus.png);
+}
+
+QAbstractSpinBox::down-button {
+    subcontrol-position: left; /* position at the top right corner */
+    border-width: 1px;
+    background: #FCFBFB;   
+    width: 25%;
+    height: 25%;    
+    
+    border: 1px solid #ADA39A;
+    border-radius: 3px;
+
+    image: url(:/icons/icons/minus.png);    
+}
+
+QAbstractSpinBox::up-button:pressed {
+    background: green;
+}
+
+QAbstractSpinBox::down-button:pressed {
+    background: green;
+}

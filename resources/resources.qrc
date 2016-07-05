@@ -1,0 +1,57 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/circle.ico</file>
+        <file>icons/pie.ico</file>
+        <file>icons/Ring.ico</file>
+        <file>icons/Sector.ico</file>
+        <file>icons/Selection_Layer.ico</file>
+        <file>icons/eye.ico</file>
+        <file>icons/eye_inv.ico</file>
+        <file>icons/layers.ico</file>
+        <file>icons/grid.ico</file>
+        <file>icons/antenna.ico</file>
+        <file>icons/liner.ico</file>
+        <file>icons/scaleRect.ico</file>
+        <file>icons/ZoomIn.ico</file>
+        <file>icons/ZoomOut.ico</file>
+        <file>icons/plane.ico</file>
+        <file>icons/pricel.ico</file>
+        <file>icons/nick.ico</file>
+        <file>icons/move.ico</file>
+        <file>icons/plus.png</file>
+        <file>icons/minus.png</file>
+    </qresource>
+    <qresource prefix="/cursors">
+        <file>cursors/c.xpm</file>
+        <file>cursors/default.xpm</file>
+        <file>cursors/form.xpm</file>
+        <file>cursors/green.xpm</file>
+        <file>cursors/hd.xpm</file>
+        <file>cursors/i.xpm</file>
+        <file>cursors/k.xpm</file>
+        <file>cursors/km.xpm</file>
+        <file>cursors/ks.xpm</file>
+        <file>cursors/mash.xpm</file>
+        <file>cursors/oy.xpm</file>
+        <file>cursors/p.xpm</file>
+        <file>cursors/par.xpm</file>
+        <file>cursors/red.xpm</file>
+        <file>cursors/ro.xpm</file>
+        <file>cursors/s.xpm</file>
+        <file>cursors/setmash.xpm</file>
+        <file>cursors/t.xpm</file>
+        <file>cursors/yo.xpm</file>
+        <file>cursors/zi.xpm</file>
+        <file>cursors/zo.xpm</file>
+        <file>cursors/zt.xpm</file>
+        <file>cursors/zv.xpm</file>
+        <file>cursors/zz.xpm</file>
+        <file>cursors/pa.xpm</file>
+    </qresource>
+    <qresource prefix="/qssStyles">
+        <file>qssStyles/main.qss</file>
+    </qresource>
+    <qresource prefix="/translations">
+        <file>translations/translation.ru.qm</file>
+    </qresource>
+</RCC>
