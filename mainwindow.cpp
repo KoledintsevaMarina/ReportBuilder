@@ -9,10 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->openReportDialogButton, &QPushButton::clicked, this, [=]() {
-        ReportDialog rd;
-        rd.exec();
-    });
+//    connect(ui->openReportDialogButton, &QPushButton::clicked, this, [=]() {
+//        ReportDialog rd;
+//        rd.exec();
+//    });
 }
 
 MainWindow::~MainWindow()
