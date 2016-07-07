@@ -17,7 +17,7 @@ def target():
 def angle():
     coodogramType = "2"
     time = "%02d:%02d:%04d %02d.%02d.%02d" % (random.randint(1, 31),random.randint(1, 12),2016,random.randint(0, 24),random.randint(0, 60),random.randint(0, 60))
-    angleZX= "%02d" % ( random.randint(0, 360) )
+    angleZX= "%03d" % ( random.randint(0, 360) )
     angleZY= "%02d" % ( random.randint(0, 90) )
     fields = []    
     fields.append(coodogramType)
@@ -29,7 +29,7 @@ def angle():
 def power():
     coodogramType = "3"
     time = "%02d:%02d:%04d %02d.%02d.%02d" % (random.randint(1, 31),random.randint(1, 12),2016,random.randint(0, 24),random.randint(0, 60),random.randint(0, 60))
-    power = "%02d" % ( random.randint(1, 1000) )
+    power = "%03d" % ( random.randint(1, 999) )
     fields = []
     fields.append(coodogramType)
     fields.append(time)
