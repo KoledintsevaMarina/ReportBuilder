@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QDateTime>
 #include <QDebug>
+#include <QVariant>
 
 namespace Ui {
 class MainWindow;
@@ -46,46 +47,44 @@ class Log
 public:
     void Read_codogram (QString codogram)
     {
-        switch ((codogram.left(1)).toInt()) //определение типа кодограммы
+        QStringList codogram_list = codogram.split(",");
+        switch (codogram_list.at(0).toInt()) //определение типа кодограммы
         {
         case 1://Target
         {
-            QDate date(((codogram.mid(2,2)).toInt()),((codogram.mid(5,2)).toInt()),((codogram.mid(8,4)).toInt()));
-            QTime time(((codogram.mid(13,2)).toInt()),((codogram.mid(17,2)).toInt()),((codogram.mid(19,2)).toInt()));
             Target t;
-            t.creationTime = QDateTime(date, time);
-            t.coordinate[0] = (codogram.mid(22,4)).toInt();
-            t.coordinate[1] = (codogram.mid(27,4)).toInt();
-            t.coordinate[2] = (codogram.mid(32,4)).toInt();
-            t.object_type = (codogram.mid(36,1)).toInt();
+            Log l;
+            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
+            t.coordinate[0] = (codogram_list.at(2)).toInt();
+            t.coordinate[1] = (codogram_list.at(3)).toInt();
+            t.coordinate[2] = (codogram_list.at(4)).toInt();
+            t.speed = (codogram_list.at(5)).toInt();
+            t.object_type = (codogram_list.at(6)).toInt();
             break;
         }
         case 2://Antenna_Angle
         {
-            QDate date(((codogram.mid(2,2)).toInt()),((codogram.mid(5,2)).toInt()),((codogram.mid(8,4)).toInt()));
-            QTime time(((codogram.mid(13,2)).toInt()),((codogram.mid(17,2)).toInt()),((codogram.mid(19,2)).toInt()));
             Antenna_Angle t;
-            t.creationTime = QDateTime(date, time);
-            t.angle_ZX = (codogram.mid(22,3)).toInt();
-            t.angle_ZY = (codogram.mid(26,2)).toInt();
+            Log l;
+            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
+            t.angle_ZX = (codogram_list.at(2)).toInt();
+            t.angle_ZY = (codogram_list.at(3)).toInt();
             break;
         }
         case 3://Power_Codogram
         {
-            QDate date(((codogram.mid(2,2)).toInt()),((codogram.mid(5,2)).toInt()),((codogram.mid(8,4)).toInt()));
-            QTime time(((codogram.mid(13,2)).toInt()),((codogram.mid(17,2)).toInt()),((codogram.mid(19,2)).toInt()));
             Power_Coodogram t;
-            t.creationTime = QDateTime(date, time);
-            t.powerValue = (codogram.mid(22,3)).toInt();
+            Log l;
+            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
+            t.powerValue = codogram_list.at(2).toInt();
             break;
         }
         default://Mode
         {
-            QDate date(((codogram.mid(2,2)).toInt()),((codogram.mid(5,2)).toInt()),((codogram.mid(8,4)).toInt()));
-            QTime time(((codogram.mid(13,2)).toInt()),((codogram.mid(17,2)).toInt()),((codogram.mid(19,2)).toInt()));
             Mode t;
-            t.creationTime = QDateTime(date, time);
-            t.modeValue = (codogram.mid(22,1)).toInt();
+            Log l;
+            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
+            t.modeValue = codogram_list.at(2).toInt();
             break;
         }
         }
@@ -100,6 +99,23 @@ private:
     QVector<Antenna_Angle> codogram_2;
     QVector<Power_Coodogram> codogram_3;
     QVector<Mode> codogram_4;
+
+
+    QDateTime string_to_DataTime(QString str_DatTim)
+        {
+        int day = (str_DatTim.mid(0,2)).toInt();
+        int mounth = (str_DatTim.mid(3,2)).toInt();
+        int year = (str_DatTim.mid(6,4)).toInt();
+        QDate date(year, mounth, day);
+
+        int hour = (str_DatTim.mid(11,2)).toInt();
+        int minute = (str_DatTim.mid(14,2)).toInt();
+        int second = (str_DatTim.mid(17,2)).toInt();
+        QTime time(hour, minute, second);
+
+        QDateTime  dat_tim = QDateTime(date, time);
+        return dat_tim;
+        }
 
 };
 

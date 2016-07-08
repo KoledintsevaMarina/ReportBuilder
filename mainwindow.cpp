@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 QString codogram = file.readLine(); //считывание кодограммы (одной строки)
                 Log l;
                 l.Read_codogram(codogram);
+
             }
 
             file.close();
@@ -61,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     connect (ui->action_Close_log, &QAction::triggered, this, [this] () {//возможно доделать
-        qDebug()<<"Close codogram";
+        qDebug()<<"Close log";
         ui->plainTextEdit->clear();
 
         ui->workField_xyButton->setChecked(1);
@@ -99,7 +100,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->comboBox_4->setCurrentIndex(0);
         ui->comboBox_5->setCurrentIndex(0);
 
-//        ui->dateTimeEdit->setDateTime(ui->dateTimeEdit->minimumDateTime());
         ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
         ui->dateTimeEdit_2->setDateTime(QDateTime::currentDateTime());
         ui->dateTimeEdit_3->setDateTime(QDateTime::currentDateTime());
