@@ -754,9 +754,53 @@ MainWindow::MainWindow(QWidget *parent) :
                     ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-Y: " + QString::number(angleZY_min) + "\n");
                     //====================================================================================================================================     }вывод min и max значений полей
                 }
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n\nИспользуемые сокращения: \nТК - тип кодограммы\n");
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
             }
+            if (m_l.codogram_3.size() != 0)
+            {
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    Мощность\n");
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
+                                                "_____________________________________________________________________________________________________\n");
+                QDateTime dt_max = ui->dateTimeEdit_3->minimumDateTime();
+                QDateTime dt_min = ui->dateTimeEdit_3->maximumDateTime();
+                uint power_max = 1, power_min = 999;
+                uint number_c = 0;
+                for (Power_Coodogram & c: m_l.codogram_3)
+                {
+                    //------------------------------      отбор кодограмм{       --------------------------------------------------------------------------------
+                    if ((c.creationTime <= inter_state.interfase3.time_gen_Max and c.creationTime >= inter_state.interfase3.time_gen_Min)
+                            or ui->checkBox_15->checkState() == 0)
+                    {
+                        if ((c.powerValue >= inter_state.interfase3.energy[0] and c.powerValue <= inter_state.interfase3.energy[1])
+                                or ui->checkBox_13->checkState() == 0)
+                        {
+                            ++number_c;
+                            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   3          " + c.creationTime.toString() +
+                                                            "              " + QString::number(c.powerValue) + "\n");
 
+                            dt_max = qMax(dt_max, c.creationTime);
+                            dt_min = qMin(dt_min, c.creationTime);
+                            power_max = qMax(power_max, c.powerValue);
+                            power_min = qMin(power_min, c.powerValue);
+                        }
+                    }
+                }
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм в логе: " +
+                                                QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
+                if (number_c != 0)
+                {
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМаксимальные значения полей: \n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_max.toString() + "\n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Мощность: " + QString::number(power_max) + "\n");
+
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМинимальные значения полей: \n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_min.toString() + "\n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Мощность: " + QString::number(power_min) + "\n");
+                    //====================================================================================================================================     }вывод min и max значений полей
+                }
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
+            }
 
         }
     }
