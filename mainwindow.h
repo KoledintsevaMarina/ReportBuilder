@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QVector>
 #include <QDateTime>
-#include <QDebug>
+#include <QDebug>//====================================      потом удалить    ===================================================================
 #include <QVariant>
 
 namespace Ui {
@@ -42,67 +42,64 @@ struct Mode
     bool modeValue;
 };
 
+
+struct Interface_1
+{
+    QDateTime time_gen_Min;
+    QDateTime time_gen_Max;
+    QString coordinate1;
+    QString coordinate2;
+    double scope[3][2];
+    uint pace[2];
+    uint object;
+};
+
+struct Interface_2
+{
+    QDateTime time_gen_Min;
+    QDateTime time_gen_Max;
+    int angleZX[2];
+    int angleZY[2];
+};
+struct Interface_3
+{
+    QDateTime time_gen_Min;
+    QDateTime time_gen_Max;
+    uint energy[2];
+};
+struct Interface_4
+{
+    QDateTime time_gen_Min;
+    QDateTime time_gen_Max;
+    bool mode;
+};
+
+struct InterfaceState
+{
+Interface_1 interfase1;
+Interface_2 interfase2;
+Interface_3 interfase3;
+Interface_4 interfase4;
+};
+
 class Log
 {
 public:
-    void Read_codogram (QString codogram)
-    {
-        QStringList codogram_list = codogram.split(",");
-        switch (codogram_list.at(0).toInt()) //определение типа кодограммы
-        {
-        case 1://Target
-        {
-            Target t;
-            Log l;
-            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
-            t.coordinate[0] = (codogram_list.at(2)).toInt();
-            t.coordinate[1] = (codogram_list.at(3)).toInt();
-            t.coordinate[2] = (codogram_list.at(4)).toInt();
-            t.speed = (codogram_list.at(5)).toInt();
-            t.object_type = (codogram_list.at(6)).toInt();
-            break;
-        }
-        case 2://Antenna_Angle
-        {
-            Antenna_Angle t;
-            Log l;
-            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
-            t.angle_ZX = (codogram_list.at(2)).toInt();
-            t.angle_ZY = (codogram_list.at(3)).toInt();
-            break;
-        }
-        case 3://Power_Codogram
-        {
-            Power_Coodogram t;
-            Log l;
-            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
-            t.powerValue = codogram_list.at(2).toInt();
-            break;
-        }
-        default://Mode
-        {
-            Mode t;
-            Log l;
-            t.creationTime = l.string_to_DataTime(codogram_list.at(1));
-            t.modeValue = codogram_list.at(2).toInt();
-            break;
-        }
-        }
-    }
+    void Read_codogram (QString codogram);
 
-    void Write()
-    {
-
-    }
-private:
     QVector<Target> codogram_1;
     QVector<Antenna_Angle> codogram_2;
     QVector<Power_Coodogram> codogram_3;
     QVector<Mode> codogram_4;
 
+private:
+//    QVector<Target> codogram_1;
+//    QVector<Antenna_Angle> codogram_2;
+//    QVector<Power_Coodogram> codogram_3;
+//    QVector<Mode> codogram_4;
 
-    QDateTime string_to_DataTime(QString str_DatTim)
-        {
+    static QDateTime string_to_DataTime(QString str_DatTim)
+    {
         int day = (str_DatTim.mid(0,2)).toInt();
         int mounth = (str_DatTim.mid(3,2)).toInt();
         int year = (str_DatTim.mid(6,4)).toInt();
@@ -115,7 +112,7 @@ private:
 
         QDateTime  dat_tim = QDateTime(date, time);
         return dat_tim;
-        }
+    }
 
 };
 
@@ -127,8 +124,20 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void Read_interface();
+    void Analisis_codogram();
+    void Report_points_1_2(int index);
+    void Table_codogram (int index);
+
+
+
+    bool workField=1;
+
 private:
     Ui::MainWindow *ui;
+    Log m_l;
+    InterfaceState inter_state;
+
 };
 
 #endif // MAINWINDOW_H
