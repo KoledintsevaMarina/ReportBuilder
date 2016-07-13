@@ -801,7 +801,53 @@ MainWindow::MainWindow(QWidget *parent) :
                 }
                 ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
             }
-
+            if (m_l.codogram_4.size() != 0)
+            {
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    Режим\n");
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
+                                                "_____________________________________________________________________________________________________\n");
+                QDateTime dt_max = ui->dateTimeEdit_3->minimumDateTime();
+                QDateTime dt_min = ui->dateTimeEdit_3->maximumDateTime();
+                uint number_c = 0, mode_0 = 0, mode_1 = 0;
+                for (Mode & c: m_l.codogram_4)
+                {
+                    //------------------------------      отбор кодограмм{       --------------------------------------------------------------------------------
+                    if ((c.creationTime <= inter_state.interfase4.time_gen_Max and c.creationTime >= inter_state.interfase4.time_gen_Min)
+                            or ui->checkBox_16->checkState() == 0)
+                    {
+                        if (c.modeValue == inter_state.interfase4.mode or ui->checkBox_14->checkState() == 0)
+                        {
+                            ++number_c;
+                            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   4          " + c.creationTime.toString() +
+                                                            "              " + QString::number(c.modeValue) + "\n");
+                            dt_max = qMax(dt_max, c.creationTime);
+                            dt_min = qMin(dt_min, c.creationTime);
+                            if (c.modeValue == 0)
+                            {
+                                ++mode_0;
+                            }
+                            if (c.modeValue == 1)
+                            {
+                                ++mode_1;
+                            }
+                        }
+                    }
+                }
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм в логе: " +
+                                                QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
+                if (number_c != 0)
+                {
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМаксимальные значения полей: \n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_max.toString() + "\n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМинимальные значения полей: \n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_min.toString() + "\n\n");
+                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "Дежурный режим включен " + QString::number(mode_0) +
+                                                    " раз.\n Боевой режим включен " + QString::number(mode_1) + " раз.\n");
+                    //====================================================================================================================================     }вывод min и max значений полей
+                }
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
+            }
         }
     }
 
