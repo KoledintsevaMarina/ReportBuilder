@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->workField_daButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(0);
         workField=0;
+        //дописать перевод ху да
 
         MainWindow::Read_interface();
         MainWindow::Analisis_codogram();
@@ -54,7 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     connect (ui->pushButton, &QPushButton::toggled, this, [=] (bool){
-        //дописать перевод м км
         if (posButton_index == 1)
         {
             ui->label_32->setText("Х [м]");
@@ -80,7 +80,6 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     connect (ui->pushButton_2, &QPushButton::toggled, this, [=] (bool){
-        //дописать перевод м км
         if (posButton_index == 0)
         {
             ui->label_32->setText("Х [км]");
@@ -669,8 +668,17 @@ MainWindow::MainWindow(QWidget *parent) :
         if (index ==0)
         {
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    "
-                                            + "             " + inter_state.interfase1.coordinate1 + "                         " +
-                                            inter_state.interfase1.coordinate2 + "              Высота    Скорость    Тип цели\n");
+                                            + "             " +  inter_state.interfase1.coordinate1);
+            if(workField == 1)
+            {
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + ui->label_35->text().right(4));
+            }
+            else
+            {
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "[град]");
+            }
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                  " + inter_state.interfase1.coordinate2 +
+                 ui->label_35->text().right(4) + "              " + ui->label_3->text() + "    Скорость [" + ui->comboBox_4->currentText() + "]   Тип ВО\n");
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
                                             "_____________________________________________________________________________________________________\n");
 
@@ -703,11 +711,11 @@ MainWindow::MainWindow(QWidget *parent) :
                                     {
                                         ++number_c;
                                         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   1          " + c.creationTime.toString() +
-                                                                        "                    " + QString::number(c.coordinate[0]) + "                    "
-                                                + QString::number(c.coordinate[1]) + "              " +
-                                                QString::number(c.coordinate[2]) + "         " + QString::number(c.speed) + "                 "
-                                                + QString::number(c.object_type) + "\n");
-                                        //------------------------------      }отбор кодограмм       -----------------------------------------------------------------
+                                                                        "                    " + QString::number(c.coordinate[0] / pow(1000, posButton_index)) + "                    "
+                                                + QString::number(c.coordinate[1] / pow(1000, posButton_index)) + "              " +
+                                                QString::number(c.coordinate[2] / pow(1000, posButton_index)) + "         " +
+                                                QString::number(c.speed * pow(3.6, speedButton_index)) + "                 " + QString::number(c.object_type) + "\n");
+//                                                         //------------------------------      }отбор кодограмм       -----------------------------------------------------------------
 
                                         // =============================================   поиск min max значений полей      ================================
 
