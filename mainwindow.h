@@ -121,9 +121,10 @@ public:
     void Read_interface();
     void Analisis_codogram();
     void Report_points_1_2(int index);
-    void Table_codogram (int index);
-
-
+    void Table_codogram_1 ();
+    void Table_codogram_2 ();
+    void Table_codogram_3 ();
+    void Table_codogram_4 ();
 
     bool workField = 1;
     bool speedButton_index = 0;
