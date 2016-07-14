@@ -53,15 +53,79 @@ MainWindow::MainWindow(QWidget *parent) :
         MainWindow::Analisis_codogram();
     });
 
-    connect (ui->pushButton_5, &QPushButton::toggled, this, [=] (bool){
+    connect (ui->pushButton, &QPushButton::toggled, this, [=] (bool){
         //дописать перевод м км
+        if (posButton_index == 1)
+        {
+            ui->label_32->setText("Х [м]");
+            ui->label_35->setText("Y [м]");
+            ui->label_38->setText("Высота [м]");
+            ui->label_3->setText("Высота [м]");
+            ui->label_2->setText("Дальность [м]");
+            ui->spinBox->setValue(ui->spinBox->value() * 1000);
+            ui->spinBox_2->setValue(ui->spinBox_2->value() * 1000);
+            ui->spinBox_3->setValue(ui->spinBox_3->value() * 1000);
+            ui->spinBox_4->setValue(ui->spinBox_4->value() * 1000);
+            ui->spinBox_5->setValue(ui->spinBox_5->value() * 1000);
+            ui->spinBox_6->setValue(ui->spinBox_6->value() * 1000);
+            ui->doubleSpinBox_3->setValue(ui->doubleSpinBox_3->value() * 1000);
+            ui->doubleSpinBox_4->setValue(ui->doubleSpinBox_4->value() * 1000);
+            ui->doubleSpinBox_5->setValue(ui->doubleSpinBox_5->value() * 1000);
+            ui->doubleSpinBox_6->setValue(ui->doubleSpinBox_6->value() * 1000);
+            posButton_index = 0;
+        }
+        MainWindow::Read_interface();
+        MainWindow::Analisis_codogram();
 
+    });
+
+    connect (ui->pushButton_2, &QPushButton::toggled, this, [=] (bool){
+        //дописать перевод м км
+        if (posButton_index == 0)
+        {
+            ui->label_32->setText("Х [км]");
+            ui->label_35->setText("Y [км]");
+            ui->label_38->setText("Высота [км]");
+            ui->label_3->setText("Высота [км]");
+            ui->label_2->setText("Дальность [км]");
+            ui->spinBox->setValue(ui->spinBox->value() / 1000);
+            ui->spinBox_2->setValue(ui->spinBox_2->value() / 1000);
+            ui->spinBox_3->setValue(ui->spinBox_3->value() / 1000);
+            ui->spinBox_4->setValue(ui->spinBox_4->value() / 1000);
+            ui->spinBox_5->setValue(ui->spinBox_5->value() / 1000);
+            ui->spinBox_6->setValue(ui->spinBox_6->value() / 1000);
+            ui->doubleSpinBox_3->setValue(ui->doubleSpinBox_3->value() / 1000);
+            ui->doubleSpinBox_4->setValue(ui->doubleSpinBox_4->value() / 1000);
+            ui->doubleSpinBox_5->setValue(ui->doubleSpinBox_5->value() / 1000);
+            ui->doubleSpinBox_6->setValue(ui->doubleSpinBox_6->value() / 1000);
+            posButton_index = 1;
+        }
+        MainWindow::Read_interface();
+        MainWindow::Analisis_codogram();
+    });
+
+    connect (ui->pushButton_5, &QPushButton::toggled, this, [=] (bool){
+        if (speedButton_index == 1)
+        {
+            ui->comboBox_4->setCurrentIndex(0);
+            ui->doubleSpinBox_7->setValue(ui->doubleSpinBox_7->value() * 0.278);
+            ui->doubleSpinBox_8->setValue(ui->doubleSpinBox_8->value() * 0.278);
+            speedButton_index = 0;
+        }
         MainWindow::Read_interface();
         MainWindow::Analisis_codogram();
     });
 
     connect (ui->pushButton_6, &QPushButton::toggled, this, [=] (bool){
-        //дописать перевод м км
+        if (speedButton_index == 0)
+        {
+            ui->comboBox_4->setCurrentIndex(1);
+            ui->doubleSpinBox_7->setValue(ui->doubleSpinBox_7->value() * 3.6);
+            ui->doubleSpinBox_8->setValue(ui->doubleSpinBox_8->value() * 3.6);
+            speedButton_index = 1;
+        }
+
+        ui->spinBox->setValue(ui->doubleSpinBox_7->value() / 1000);
 
         MainWindow::Read_interface();
         MainWindow::Analisis_codogram();

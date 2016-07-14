@@ -92,12 +92,6 @@ public:
     QVector<Power_Coodogram> codogram_3;
     QVector<Mode> codogram_4;
 
-private:
-//    QVector<Target> codogram_1;
-//    QVector<Antenna_Angle> codogram_2;
-//    QVector<Power_Coodogram> codogram_3;
-//    QVector<Mode> codogram_4;
-
     static QDateTime string_to_DataTime(QString str_DatTim)
     {
         int day = (str_DatTim.mid(0,2)).toInt();
@@ -131,7 +125,9 @@ public:
 
 
 
-    bool workField=1;
+    bool workField = 1;
+    bool speedButton_index = 0;
+    bool posButton_index = 0;
 
 private:
     Ui::MainWindow *ui;
