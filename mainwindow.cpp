@@ -22,36 +22,34 @@ MainWindow::MainWindow(QWidget *parent) :
     //=====================================================================================================================
     connect(ui->workField_xyButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(1);
-        workField=1;
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        inter_state.workField = 1;
+        read_interface();
+        write_report();
     });
 
     connect(ui->workField_daButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(0);
-        workField=0;
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        inter_state.workField = 0;
+        read_interface();
+        write_report();
     });
 
     connect(ui->workField_xyButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(1);
-        workField=1;
-
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        inter_state.workField = 1;
+        read_interface();
+        write_report();
     });
 
     connect(ui->workField_daButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(0);
-        workField=0;
-
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        inter_state.workField = 0;
+        read_interface();
+        write_report();
     });
 
     connect (ui->pushButton, &QPushButton::toggled, this, [=] (bool){
-        if (posButton_index == 1)
+        if (inter_state.posButton_index == 1)
         {
             ui->label_32->setText("Х [м]");
             ui->label_35->setText("Y [м]");
@@ -68,15 +66,14 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->doubleSpinBox_4->setValue(ui->doubleSpinBox_4->value() * 1000);
             ui->doubleSpinBox_5->setValue(ui->doubleSpinBox_5->value() * 1000);
             ui->doubleSpinBox_6->setValue(ui->doubleSpinBox_6->value() * 1000);
-            posButton_index = 0;
+            inter_state.posButton_index = 0;
         }
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
-
+        read_interface();
+        write_report();
     });
 
     connect (ui->pushButton_2, &QPushButton::toggled, this, [=] (bool){
-        if (posButton_index == 0)
+        if (inter_state.posButton_index == 0)
         {
             ui->label_32->setText("Х [км]");
             ui->label_35->setText("Y [км]");
@@ -93,283 +90,279 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->doubleSpinBox_4->setValue(ui->doubleSpinBox_4->value() / 1000);
             ui->doubleSpinBox_5->setValue(ui->doubleSpinBox_5->value() / 1000);
             ui->doubleSpinBox_6->setValue(ui->doubleSpinBox_6->value() / 1000);
-            posButton_index = 1;
+            inter_state.posButton_index = 1;
         }
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->pushButton_5, &QPushButton::toggled, this, [=] (bool){
-        if (speedButton_index == 1)
+        if (inter_state.speedButton_index == 1)
         {
             ui->comboBox_4->setCurrentIndex(0);
             ui->doubleSpinBox_7->setValue(ui->doubleSpinBox_7->value() * 0.278);
             ui->doubleSpinBox_8->setValue(ui->doubleSpinBox_8->value() * 0.278);
-            speedButton_index = 0;
+            inter_state.speedButton_index = 0;
         }
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->pushButton_6, &QPushButton::toggled, this, [=] (bool){
-        if (speedButton_index == 0)
+        if (inter_state.speedButton_index == 0)
         {
             ui->comboBox_4->setCurrentIndex(1);
             ui->doubleSpinBox_7->setValue(ui->doubleSpinBox_7->value() * 3.6);
             ui->doubleSpinBox_8->setValue(ui->doubleSpinBox_8->value() * 3.6);
-            speedButton_index = 1;
+            inter_state.speedButton_index = 1;
         }
-
         ui->spinBox->setValue(ui->doubleSpinBox_7->value() / 1000);
-
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_20, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_21, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_22, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_3, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_4, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_5, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_6, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_7, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_2, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        MainWindow::read_interface();
+        MainWindow::write_report();
     });
 
     connect (ui->checkBox_8, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_12, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_13, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_15, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_16, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->checkBox_14, &QCheckBox::clicked, this, [=] (bool){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->comboBox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->comboBox_4, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->comboBox_5, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->spinBox_2, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->spinBox_3, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->spinBox_4, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->spinBox_5, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->spinBox_6, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (int){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_2, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_3, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_4, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_5, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_6, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_7, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_8, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_35, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_36, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_37, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_38, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_39, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->doubleSpinBox_40, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (double){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit_2, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit_3, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit_4, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit_5, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit_6, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit_7, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->dateTimeEdit_8, &QDateTimeEdit::dateTimeChanged, this, [=] (const QDateTime &){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
 
     connect (ui->listWidget, &QListWidget::itemClicked, this, [=] (QListWidgetItem *){
-        MainWindow::Read_interface();
-        MainWindow::Analisis_codogram();
+        read_interface();
+        write_report();
     });
-
     //=======================================================================================================================
 
-
-        connect (ui->action_Open_log, &QAction::triggered, this, [this] () {
+    connect (ui->action_Open_log, &QAction::triggered, this, [this] () {
             QString fileName = QFileDialog::getOpenFileName(this, "Open File", "", "*.txt");
             if (fileName !="")
             {
@@ -381,13 +374,12 @@ MainWindow::MainWindow(QWidget *parent) :
                 }
                 while(!file.atEnd())
                 {
-                    QString codogram = file.readLine(); //считывание кодограммы (одной строки)
+                    QString codogram = file.readLine();
                     m_l.Read_codogram(codogram);
-
-                    MainWindow::Read_interface();
-                    MainWindow::Analisis_codogram();
                 }
                 file.close();
+                MainWindow::read_interface();
+                MainWindow::write_report();
             }
         });
 
@@ -444,7 +436,7 @@ MainWindow::MainWindow(QWidget *parent) :
         });
 
         #if !defined(QT_NO_PRINTER) && !defined(QT_NO_PRINTDIALOG)
-        connect (ui ->action_Print, &QAction::triggered, this, [this]() {//я не уверенна, что работает
+        connect (ui ->action_Print, &QAction::triggered, this, [this]() {
             QPrinter printer;
             QPrintDialog* pPrintDialog = new QPrintDialog(&printer, this);
             if (pPrintDialog->exec())
@@ -455,11 +447,10 @@ MainWindow::MainWindow(QWidget *parent) :
         });
         #endif // QT_NO_PRINTER
 
-        connect(ui->action_Exit, &QAction::triggered, this, [this] (){//доделать +окно
+        connect(ui->action_Exit, &QAction::triggered, this, [this] (){
             qDebug()<<"Exit";
             QMainWindow::close();
         });
-
     }
 
     MainWindow::~MainWindow()
@@ -467,12 +458,12 @@ MainWindow::MainWindow(QWidget *parent) :
         delete ui;
     }
 
-    void MainWindow::Read_interface()
+    void MainWindow::read_interface()
     {
         Interface_1 inter1;
         inter1.time_gen_Min = ui->dateTimeEdit->dateTime();
         inter1.time_gen_Max = ui->dateTimeEdit_2->dateTime();
-        if (workField == 1)
+        if (inter_state.workField == 1)
         {
             inter1.scope[0][0] = ui->spinBox->value();
             inter1.scope[0][1] = ui->spinBox_2->value();
@@ -483,7 +474,7 @@ MainWindow::MainWindow(QWidget *parent) :
             inter1.coordinate1 = "X";
             inter1.coordinate2 = "Y ";
         }
-        else if (workField ==0)
+        else if (inter_state.workField ==0)
         {
             inter1.scope[0][0] = ui->doubleSpinBox->value();
             inter1.scope[0][1] = ui->doubleSpinBox_2->value();
@@ -522,39 +513,38 @@ MainWindow::MainWindow(QWidget *parent) :
         inter_state.interfase4=inter4;
     }
 
-    void MainWindow::Analisis_codogram()
+    void MainWindow::write_report()
     {
         ui->plainTextEdit->setPlainText("                                                                                       ОТЧЕТ\n");
         if (ui->listWidget->currentRow() ==0)
         {
-            MainWindow::TopReport_1();
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n3. Таблица кодограмм:\n");
-            MainWindow::Table_codogram_1();
+            MainWindow::write_top_report_1();
+            MainWindow::table_generation_1();
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
                                             "\n\nИспользуемые сокращения: \nТК - тип кодограммы;\nА - Азимут;\nД - Дальность\nТип ВО: " +
                                             "0 - Самолет\n              1 - Вертолет\n              2 - БПЛА\n              3 - Снаряд\n");
         }
         else if (ui->listWidget->currentRow() == 1)
         {
-            MainWindow::TopReport_2();
+            MainWindow::write_top_report_2();
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n3. Таблица кодограмм:\n");
             if (m_l.codogram_2.size() != 0)
             {
-                MainWindow::Table_codogram_2();
+                MainWindow::table_generation_2();
             }
             if (m_l.codogram_3.size() != 0)
             {
-                MainWindow::Table_codogram_3();
+                MainWindow::table_generation_3();
             }
             if (m_l.codogram_4.size() != 0)
             {
-                MainWindow::Table_codogram_4();
+                MainWindow::table_generation_4();
             }
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
         }
-
     }
 
-    void MainWindow::TopReport_1()
+    void MainWindow::write_top_report_1()
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n" +
            "                                                                                 Рабочее поле\n" + "\n\n");
@@ -610,7 +600,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    void MainWindow::TopReport_2()
+    void MainWindow::write_top_report_2()
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n" +
            "                                                                                 Действия оператора\n" + "\n\n");
@@ -676,11 +666,12 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    void MainWindow::Table_codogram_1()
+    void MainWindow::table_generation_1()
     {
+        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n3. Таблица кодограмм:\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы                 "
                                         + inter_state.interfase1.coordinate1);
-        if(workField == 1)
+        if(inter_state.workField == 1)
         {
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + ui->label_35->text().right(4));
         }
@@ -689,7 +680,8 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "[град]");
         }
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                  " + inter_state.interfase1.coordinate2 +
-             ui->label_35->text().right(4) + "              " + ui->label_3->text() + "    Скорость [" + ui->comboBox_4->currentText() + "]   Тип ВО\n");
+                                        ui->label_35->text().right(4) + "              " + ui->label_3->text() +
+                                        "    Скорость [" + ui->comboBox_4->currentText() + "]   Тип ВО\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
                                         "_____________________________________________________________________________________________________\n");
 
@@ -702,7 +694,7 @@ MainWindow::MainWindow(QWidget *parent) :
         uint number_c = 0;
         for (Target & c: m_l.codogram_1)//------------------------------------------------------------------------}
         {
-            //------------------------------      отбор кодограмм{       --------------------------------------------------------------------------------
+            //------------------------------      отбор кодограмм{       -------------------------------------------------------------------------
             if ((c.coordinate[0] >= inter_state.interfase1.scope[0][0] and c.coordinate[0] <= inter_state.interfase1.scope[0][1])
                     or ui->checkBox_20->checkState() == 0)//X
             {
@@ -731,24 +723,23 @@ MainWindow::MainWindow(QWidget *parent) :
                                             ++number_c;
                                             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   1          " + c.creationTime.toString() +
                                                                             "                       ");
-                                            if (workField == 1)
+                                            if (inter_state.workField == 1)
                                             {
                                                 ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                                                        QString::number(round(c.coordinate[0] / pow(1000, posButton_index) * 100) / 100) + "                    " +
-                                                        QString::number(round(c.coordinate[1] / pow(1000, posButton_index) * 100) / 100) + "                   " +
-                                                        QString::number(round(c.coordinate[2] / pow(1000, posButton_index) * 100) / 100));
+                                                        QString::number(round(c.coordinate[0] / pow(1000, inter_state.posButton_index) * 100) / 100) + "                    " +
+                                                        QString::number(round(c.coordinate[1] / pow(1000, inter_state.posButton_index) * 100) / 100) + "                   " +
+                                                        QString::number(round(c.coordinate[2] / pow(1000, inter_state.posButton_index) * 100) / 100));
                                             }
-                                            else if (workField == 0)
+                                            else if (inter_state.workField == 0)
                                             {
                                                 ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
                                                         QString::number(round(atan(c.coordinate[1]/c.coordinate[0]) * 100) / 100) + "                    " +
-                                                        QString::number(round(sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) / pow(1000, posButton_index) * 100) / 100)
-                                                         + "                  " + QString::number(round(c.coordinate[2] / pow(1000, posButton_index) * 100) / 100));
+                                                        QString::number(round(sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) / pow(1000, inter_state.posButton_index) * 100) / 100)
+                                                         + "                  " + QString::number(round(c.coordinate[2] / pow(1000, inter_state.posButton_index) * 100) / 100));
                                             }
                                             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                    " +
-                                                 QString::number(round(c.speed * pow(3.6, speedButton_index) * 100) / 100) + "                      "
+                                                 QString::number(round(c.speed * pow(3.6, inter_state.speedButton_index) * 100) / 100) + "                      "
                                                                             + QString::number(c.object_type) + "\n");
-
                                             //                                                         //------------------------------      }отбор кодограмм       -----------------------------------------------------------------
 
                                             // =============================================   поиск min max значений полей      ================================
@@ -801,7 +792,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    void MainWindow::Table_codogram_2()
+    void MainWindow::table_generation_2()
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Время генерации кодограммы    Угол Z-X     Угол Z-Y\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
@@ -860,7 +851,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    void MainWindow::Table_codogram_3()
+    void MainWindow::table_generation_3()
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    Мощность\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
@@ -905,7 +896,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    void MainWindow::Table_codogram_4()
+    void MainWindow::table_generation_4()
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    Режим\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +

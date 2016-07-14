@@ -80,6 +80,9 @@ Interface_1 interfase1;
 Interface_2 interfase2;
 Interface_3 interfase3;
 Interface_4 interfase4;
+bool workField = 1;
+bool speedButton_index = 0;
+bool posButton_index = 0;
 };
 
 class Log
@@ -118,19 +121,17 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void Read_interface();
-    void Analisis_codogram();
-    void TopReport_1();
-    void TopReport_2();
+    void read_interface();
 
-    void Table_codogram_1 ();
-    void Table_codogram_2 ();
-    void Table_codogram_3 ();
-    void Table_codogram_4 ();
+    void write_report();
 
-    bool workField = 1;
-    bool speedButton_index = 0;
-    bool posButton_index = 0;
+    void write_top_report_1();
+    void write_top_report_2();
+
+    void table_generation_1();
+    void table_generation_2();
+    void table_generation_3();
+    void table_generation_4();
 
 private:
     Ui::MainWindow *ui;
