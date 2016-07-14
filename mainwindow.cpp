@@ -693,44 +693,68 @@ MainWindow::MainWindow(QWidget *parent) :
             {
                 //------------------------------      отбор кодограмм{       --------------------------------------------------------------------------------
                 if ((c.coordinate[0] >= inter_state.interfase1.scope[0][0] and c.coordinate[0] <= inter_state.interfase1.scope[0][1])
-                        or ui->checkBox_20->checkState() == 0 or ui->checkBox_5->checkState() == 0)//X
+                        or ui->checkBox_20->checkState() == 0)//X
                 {
                     if ((c.coordinate[1] >= inter_state.interfase1.scope[1][0] and c.coordinate[1] <= inter_state.interfase1.scope[1][1])
-                            or ui->checkBox_21->checkState() == 0 or ui->checkBox_6->checkState() == 0)//Y
+                            or ui->checkBox_21->checkState() == 0)//Y
                     {
                         if ((c.coordinate[2] >= inter_state.interfase1.scope[2][0] and c.coordinate[2] <= inter_state.interfase1.scope[2][1])
                                 or ui->checkBox_22->checkState() == 0 or ui->checkBox_7->checkState() == 0)//Высота
                         {
-                            if ((c.speed >= inter_state.interfase1.pace[0] and c.speed <= inter_state.interfase1.pace[1])
-                                    or ui->checkBox_3->checkState() == 0)//Скорость
+                            if ((atan(c.coordinate[1]/c.coordinate[0]) >= inter_state.interfase1.scope[1][0]
+                                 and atan(c.coordinate[1]/c.coordinate[0]) <= inter_state.interfase1.scope[1][1])
+                                    or ui->checkBox_5->checkState() == 0)//Азимут
                             {
-                                if ((c.creationTime <= inter_state.interfase1.time_gen_Max and c.creationTime >= inter_state.interfase1.time_gen_Min)
-                                        or ui->checkBox->checkState() == 0)//Время
+                                if((sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) >= inter_state.interfase1.scope[0][0]
+                                    and sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) <= inter_state.interfase1.scope[0][1])
+                                    or ui->checkBox_6->checkState() == 0)//Дальность
                                 {
-                                    if (c.object_type == inter_state.interfase1.object or ui->checkBox_4->checkState() == 0)//Цель
+                                    if ((c.speed >= inter_state.interfase1.pace[0] and c.speed <= inter_state.interfase1.pace[1])
+                                            or ui->checkBox_3->checkState() == 0)//Скорость
                                     {
-                                        ++number_c;
-                                        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   1          " + c.creationTime.toString() +
-                                                                        "                    " + QString::number(c.coordinate[0] / pow(1000, posButton_index)) + "                    "
-                                                + QString::number(c.coordinate[1] / pow(1000, posButton_index)) + "              " +
-                                                QString::number(c.coordinate[2] / pow(1000, posButton_index)) + "         " +
-                                                QString::number(c.speed * pow(3.6, speedButton_index)) + "                 " + QString::number(c.object_type) + "\n");
-//                                                         //------------------------------      }отбор кодограмм       -----------------------------------------------------------------
+                                        if ((c.creationTime <= inter_state.interfase1.time_gen_Max and c.creationTime >= inter_state.interfase1.time_gen_Min)
+                                                or ui->checkBox->checkState() == 0)//Время
+                                        {
+                                            if (c.object_type == inter_state.interfase1.object or ui->checkBox_4->checkState() == 0)//Цель
+                                            {
+                                                ++number_c;
+                                                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   1          " + c.creationTime.toString() +
+                                                                                "                    ");
+                                                if (workField == 1)
+                                                {
+                                                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
+                                                            QString::number(round(c.coordinate[0] / pow(1000, posButton_index) * 100) / 100) + "                    " +
+                                                            QString::number(round(c.coordinate[1] / pow(1000, posButton_index) * 100) / 100) + "              " +
+                                                            QString::number(round(c.coordinate[2] / pow(1000, posButton_index) * 100) / 100));
+                                                }
+                                                else if (workField == 0)
+                                                {
+                                                    ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
+                                                            QString::number(round(atan(c.coordinate[1]/c.coordinate[0]) * 100) / 100) + "                    " +
+                                                            QString::number(round(sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) / pow(1000, posButton_index) * 100) / 100)
+                                                             + "              " + QString::number(round(c.coordinate[2] / pow(1000, posButton_index) * 100) / 100));
+                                                }
+                                                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "         " +
+                                                     QString::number(round(c.speed * pow(3.6, speedButton_index) * 100) / 100) + "                 " + QString::number(c.object_type) + "\n");
 
-                                        // =============================================   поиск min max значений полей      ================================
+                                                //                                                         //------------------------------      }отбор кодограмм       -----------------------------------------------------------------
 
-                                        dt_max = qMax(dt_max, c.creationTime);
-                                        dt_min = qMin(dt_min, c.creationTime);
-                                        coord_max[0] = qMax(coord_max[0], c.coordinate[0]);
-                                        coord_min[0] = qMin(coord_min[0], c.coordinate[0]);
-                                        coord_max[1] = qMax(coord_max[1], c.coordinate[0]);
-                                        coord_min[1] = qMin(coord_min[1], c.coordinate[0]);
-                                        coord_max[2] = qMax(coord_max[2], c.coordinate[0]);
-                                        coord_min[2] = qMin(coord_min[2], c.coordinate[0]);
-                                        speed_max = qMax(speed_max, c.speed);
-                                        speed_min = qMin(speed_min, c.speed);
+                                                // =============================================   поиск min max значений полей      ================================
 
-                                        // =============================================   поиск min и max значений полей      ================================
+                                                dt_max = qMax(dt_max, c.creationTime);
+                                                dt_min = qMin(dt_min, c.creationTime);
+                                                coord_max[0] = qMax(coord_max[0], c.coordinate[0]);
+                                                coord_min[0] = qMin(coord_min[0], c.coordinate[0]);
+                                                coord_max[1] = qMax(coord_max[1], c.coordinate[0]);
+                                                coord_min[1] = qMin(coord_min[1], c.coordinate[0]);
+                                                coord_max[2] = qMax(coord_max[2], c.coordinate[0]);
+                                                coord_min[2] = qMin(coord_min[2], c.coordinate[0]);
+                                                speed_max = qMax(speed_max, c.speed);
+                                                speed_min = qMin(speed_min, c.speed);
+
+                                                // =============================================   поиск min и max значений полей      ================================
+                                            }
+                                        }
                                     }
                                 }
                             }
