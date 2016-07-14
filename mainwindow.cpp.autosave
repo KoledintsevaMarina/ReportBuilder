@@ -704,7 +704,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                         if (c.object_type == inter_state.interfase1.object or ui->checkBox_4->checkState() == 0)//Цель
                                         {
                                             ++number_c;
-                                            write_codogram_to_table1(c);
+                                            entry_codogram_to_table1(c);
                                             dt_max = qMax(dt_max, c.creationTime);
                                             dt_min = qMin(dt_min, c.creationTime);
                                             coord_max[0] = qMax(coord_max[0], c.coordinate[0]);
@@ -770,7 +770,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                         "_____________________________________________________________________________________________________\n");
     }
 
-    void MainWindow::write_codogram_to_table1(Target c)
+    void MainWindow::entry_codogram_to_table1(Target c)
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   1          " + c.creationTime.toString() +
                                         "                       ");
