@@ -600,58 +600,48 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\n2. Условия выбора данных для отчета:\n");
         if (ui->checkBox_2->checkState() != 0 or ui->checkBox_8->checkState() != 0 or ui->checkBox_12->checkState() != 0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                    Отбор по углу поворота антенны:\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  Отбор по углу поворота антенны:\n");
             if (ui->checkBox_2->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                                Отбор по времени от " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "            Отбор по времени от " +
                     inter_state.interfase2.time_gen_Min.toString() + " до " + inter_state.interfase2.time_gen_Max.toString() + "\n");
             }
             if (ui->checkBox_8->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                                Угол в плоскости Z-X от " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "            Угол в плоскости Z-X от " +
                     QString::number(inter_state.interfase2.angleZX[0]) + " до " + QString::number(inter_state.interfase2.angleZX[1]) + "\n");
             }
             if (ui->checkBox_12->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                                Угол в плоскости Z-Y от " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "            Угол в плоскости Z-Y от " +
                     QString::number(inter_state.interfase2.angleZY[0]) + " до " + QString::number(inter_state.interfase2.angleZY[1]) + "\n");
             }
         }
         if (ui->checkBox_15->checkState() != 0 or ui->checkBox_13->checkState() != 0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                    Отбор по мощности излучения:\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  Отбор по мощности излучения:\n");
             if (ui->checkBox_15->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                                Отбор по времени от " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "            Отбор по времени от " +
                     inter_state.interfase3.time_gen_Min.toString() + " до " + inter_state.interfase3.time_gen_Max.toString() + "\n");
             }
             if (ui->checkBox_13->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                                Мощность излучения от " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "            Мощность излучения от " +
                     QString::number(inter_state.interfase3.energy[0]) + " до " + QString::number(inter_state.interfase3.energy[1]) + "\n");
             }
         }
         if (ui->checkBox_16->checkState() != 0 or ui->checkBox_14->checkState() != 0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                    Отбор по режиму:\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  Отбор по режиму:\n");
             if (ui->checkBox_16->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                                Отбор по времени от " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "            Отбор по времени от " +
                     inter_state.interfase4.time_gen_Min.toString() + " до " + inter_state.interfase4.time_gen_Max.toString() + "\n");
             }
             if (ui->checkBox_14->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                                Режим " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "            Режим " +
                     QString::number(inter_state.interfase4.mode) + "\n");
             }
         }
