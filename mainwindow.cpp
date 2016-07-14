@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //=====================================================================================================================
     connect(ui->workField_xyButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(1);
         inter_state.workField = 1;
@@ -360,7 +359,6 @@ MainWindow::MainWindow(QWidget *parent) :
         read_interface();
         write_report();
     });
-    //=======================================================================================================================
 
     connect (ui->action_Open_log, &QAction::triggered, this, [this] () {
             QString fileName = QFileDialog::getOpenFileName(this, "Open File", "", "*.txt");
@@ -390,16 +388,26 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->workField_daButton->setChecked(0);
             ui->pushButton_5->setChecked(1);
             ui->pushButton_6->setChecked(0);
-
             ui->doubleSpinBox->setValue(0);
-            ui->doubleSpinBox_2->setValue(0);
+            ui->doubleSpinBox_2->setValue(360);
             ui->doubleSpinBox_3->setValue(0);
-            ui->doubleSpinBox_4->setValue(0);
+            ui->doubleSpinBox_4->setValue(9999);
             ui->doubleSpinBox_5->setValue(0);
-            ui->doubleSpinBox_6->setValue(0);
+            ui->doubleSpinBox_6->setValue(9999);
             ui->doubleSpinBox_7->setValue(0);
             ui->doubleSpinBox_8->setValue(0);
-
+            ui->doubleSpinBox_35->setValue(0);
+            ui->doubleSpinBox_36->setValue(360);
+            ui->doubleSpinBox_37->setValue(0);
+            ui->doubleSpinBox_38->setValue(90);
+            ui->doubleSpinBox_39->setValue(0);
+            ui->doubleSpinBox_40->setValue(999);
+            ui->spinBox->setValue(0);
+            ui->spinBox_2->setValue(9999);
+            ui->spinBox_3->setValue(0);
+            ui->spinBox_4->setValue(9999);
+            ui->spinBox_5->setValue(0);
+            ui->spinBox_6->setValue(9999);
             ui->checkBox->setChecked(0);
             ui->checkBox_3->setChecked(0);
             ui->checkBox_2->setChecked(0);
@@ -411,16 +419,22 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->checkBox_12->setChecked(0);
             ui->checkBox_13->setChecked(0);
             ui->checkBox_14->setChecked(0);
-
+            ui->checkBox_15->setChecked(0);
+            ui->checkBox_16->setChecked(0);
+            ui->checkBox_20->setChecked(0);
+            ui->checkBox_21->setChecked(0);
+            ui->checkBox_22->setChecked(0);
             ui->comboBox->setCurrentIndex(0);
             ui->comboBox_4->setCurrentIndex(0);
             ui->comboBox_5->setCurrentIndex(0);
-
             ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
             ui->dateTimeEdit_2->setDateTime(QDateTime::currentDateTime());
             ui->dateTimeEdit_3->setDateTime(QDateTime::currentDateTime());
             ui->dateTimeEdit_4->setDateTime(QDateTime::currentDateTime());
-
+            ui->dateTimeEdit_5->setDateTime(QDateTime::currentDateTime());
+            ui->dateTimeEdit_6->setDateTime(QDateTime::currentDateTime());
+            ui->dateTimeEdit_7->setDateTime(QDateTime::currentDateTime());
+            ui->dateTimeEdit_8->setDateTime(QDateTime::currentDateTime());
             ui->plainTextEdit->clear();
         });
 
@@ -667,19 +681,19 @@ MainWindow::MainWindow(QWidget *parent) :
                     if ((c.coordinate[2] >= inter_state.interfase1.scope[2][0] and c.coordinate[2] <= inter_state.interfase1.scope[2][1])
                             or ui->checkBox_22->checkState() == 0 or ui->checkBox_7->checkState() == 0)//Высота
                     {
-                        if ((atan(c.coordinate[1]/c.coordinate[0]) >= inter_state.interfase1.scope[1][0]
-                             and atan(c.coordinate[1]/c.coordinate[0]) <= inter_state.interfase1.scope[1][1])
-                                or ui->checkBox_5->checkState() == 0)//Азимут
+                        if ((c.creationTime <= inter_state.interfase1.time_gen_Max and c.creationTime >= inter_state.interfase1.time_gen_Min)
+                                or ui->checkBox->checkState() == 0)//Время
                         {
-                            if((sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) >= inter_state.interfase1.scope[0][0]
-                                and sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) <= inter_state.interfase1.scope[0][1])
-                                or ui->checkBox_6->checkState() == 0)//Дальность
+                            if ((c.speed >= inter_state.interfase1.pace[0] and c.speed <= inter_state.interfase1.pace[1])
+                                    or ui->checkBox_3->checkState() == 0)//Скорость
                             {
-                                if ((c.speed >= inter_state.interfase1.pace[0] and c.speed <= inter_state.interfase1.pace[1])
-                                        or ui->checkBox_3->checkState() == 0)//Скорость
+                                if ((sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) >= inter_state.interfase1.scope[0][0]
+                                     and sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) <= inter_state.interfase1.scope[0][1])
+                                     or ui->checkBox_6->checkState() == 0)//Дальность
                                 {
-                                    if ((c.creationTime <= inter_state.interfase1.time_gen_Max and c.creationTime >= inter_state.interfase1.time_gen_Min)
-                                            or ui->checkBox->checkState() == 0)//Время
+                                    if ((atan(c.coordinate[1]/c.coordinate[0]) >= inter_state.interfase1.scope[1][0]
+                                         and atan(c.coordinate[1]/c.coordinate[0]) <= inter_state.interfase1.scope[1][1])
+                                            or ui->checkBox_5->checkState() == 0)//Азимут
                                     {
                                         if (c.object_type == inter_state.interfase1.object or ui->checkBox_4->checkState() == 0)//Цель
                                         {
@@ -708,7 +722,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм в логе: " +
             QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
+        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " +
+                                        QString::number(number_c) + "\n");
         if (number_c != 0)
         {
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМаксимальные значения полей: \n");
@@ -721,7 +736,8 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Скорость: " + QString::number(speed_max) + "\n");
 
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМинимальные значения полей: \n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_min.toString() + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " +
+                                            dt_min.toString() + "\n");
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    " + inter_state.interfase1.coordinate1
                                             + ": " + QString::number(coord_min[0]) + "\n");
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    " + inter_state.interfase1.coordinate2
@@ -746,9 +762,9 @@ MainWindow::MainWindow(QWidget *parent) :
         }
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                  " + inter_state.interfase1.coordinate2
                                         + ui->label_35->text().right(4) + "              " + ui->label_3->text() +
-                                        "    Скорость [" + ui->comboBox_4->currentText() + "]   Тип ВО\n");
+                                        "    Скорость [" + ui->comboBox_4->currentText() + "]        Тип ВО\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                                        "_____________________________________________________________________________________________________\n");
+                         "_____________________________________________________________________________________________________\n");
     }
 
     void MainWindow::entry_codogram_to_table1(Target c)
@@ -779,7 +795,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Время генерации кодограммы    Угол Z-X     Угол Z-Y\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                                        "_____________________________________________________________________________________________________\n");
+                           "_____________________________________________________________________________________________________\n");
         QDateTime dt_max = ui->dateTimeEdit_3->minimumDateTime();
         QDateTime dt_min = ui->dateTimeEdit_3->maximumDateTime();
         int angleZX_max = 0, angleZX_min = 360;
@@ -787,7 +803,6 @@ MainWindow::MainWindow(QWidget *parent) :
         uint number_c = 0;
         for (Antenna_Angle & c: m_l.codogram_2)
         {
-            //------------------------------      отбор кодограмм{       --------------------------------------------------------------------------------
             if ((c.creationTime <= inter_state.interfase2.time_gen_Max and c.creationTime >= inter_state.interfase2.time_gen_Min)
                     or ui->checkBox_2->checkState() == 0)
             {
@@ -798,39 +813,39 @@ MainWindow::MainWindow(QWidget *parent) :
                             or ui->checkBox_12->checkState() == 0)
                     {
                         ++number_c;
-                        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   2          " + c.creationTime.toString() +
-                           "              " + QString::number(c.angle_ZX) + "                " + QString::number(c.angle_ZY) + "\n");
-                        //------------------------------      }отбор кодограмм       -----------------------------------------------------------------
-
-                        // =============================================   поиск min max значений полей      ================================
-
+                        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   2          " + c.creationTime.toString()
+                           + "              " + QString::number(c.angle_ZX) + "                " + QString::number(c.angle_ZY) + "\n");
                         dt_max = qMax(dt_max, c.creationTime);
                         dt_min = qMin(dt_min, c.creationTime);
                         angleZX_max = qMax(angleZX_max, c.angle_ZX);
                         angleZX_min = qMin(angleZX_min, c.angle_ZX);
                         angleZY_max = qMax(angleZY_max, c.angle_ZY);
                         angleZY_min = qMin(angleZY_min, c.angle_ZY);
-
-                        // =============================================   поиск min и max значений полей      ================================
                     }
                 }
             }
         }
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм в логе: " +
             QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
+        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " +
+                                        QString::number(number_c) + "\n");
         if (number_c != 0)
         {
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМаксимальные значения полей: \n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_max.toString() + "\n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-X: " + QString::number(angleZX_max) + "\n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-Y: " + QString::number(angleZY_max) + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " +
+                                            dt_max.toString() + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-X: " +
+                                            QString::number(angleZX_max) + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-Y: " +
+                                            QString::number(angleZY_max) + "\n");
 
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМинимальные значения полей: \n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_min.toString() + "\n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-X: " + QString::number(angleZX_min) + "\n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-Y: " + QString::number(angleZY_min) + "\n");
-            //====================================================================================================================================     }вывод min и max значений полей
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " +
+                                            dt_min.toString() + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-X: " +
+                                            QString::number(angleZX_min) + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Угол в плоскости Z-Y: " +
+                                            QString::number(angleZY_min) + "\n");
         }
     }
 
@@ -838,14 +853,13 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    Мощность\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                                        "_____________________________________________________________________________________________________\n");
+                       "_____________________________________________________________________________________________________\n");
         QDateTime dt_max = ui->dateTimeEdit_3->minimumDateTime();
         QDateTime dt_min = ui->dateTimeEdit_3->maximumDateTime();
         uint power_max = 1, power_min = 999;
         uint number_c = 0;
         for (Power_Coodogram & c: m_l.codogram_3)
         {
-            //------------------------------      отбор кодограмм{       --------------------------------------------------------------------------------
             if ((c.creationTime <= inter_state.interfase3.time_gen_Max and c.creationTime >= inter_state.interfase3.time_gen_Min)
                     or ui->checkBox_15->checkState() == 0)
             {
@@ -855,7 +869,6 @@ MainWindow::MainWindow(QWidget *parent) :
                     ++number_c;
                     ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   3          " + c.creationTime.toString() +
                                                     "              " + QString::number(c.powerValue) + "\n");
-
                     dt_max = qMax(dt_max, c.creationTime);
                     dt_min = qMin(dt_min, c.creationTime);
                     power_max = qMax(power_max, c.powerValue);
@@ -864,18 +877,21 @@ MainWindow::MainWindow(QWidget *parent) :
             }
         }
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм в логе: " +
-                                        QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
+                                        QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() +
+                                                        m_l.codogram_4.size()) + "\n");
+        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " +
+                                        QString::number(number_c) + "\n");
         if (number_c != 0)
         {
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМаксимальные значения полей: \n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_max.toString() + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " +
+                                            dt_max.toString() + "\n");
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Мощность: " + QString::number(power_max) + "\n");
 
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМинимальные значения полей: \n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_min.toString() + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " +
+                                            dt_min.toString() + "\n");
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Мощность: " + QString::number(power_min) + "\n");
-            //====================================================================================================================================     }вывод min и max значений полей
         }
     }
 
@@ -883,13 +899,12 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    Режим\n");
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                                        "_____________________________________________________________________________________________________\n");
+                          "_____________________________________________________________________________________________________\n");
         QDateTime dt_max = ui->dateTimeEdit_3->minimumDateTime();
         QDateTime dt_min = ui->dateTimeEdit_3->maximumDateTime();
         uint number_c = 0, mode_0 = 0, mode_1 = 0;
         for (Mode & c: m_l.codogram_4)
         {
-            //------------------------------      отбор кодограмм{       --------------------------------------------------------------------------------
             if ((c.creationTime <= inter_state.interfase4.time_gen_Max and c.creationTime >= inter_state.interfase4.time_gen_Min)
                     or ui->checkBox_16->checkState() == 0)
             {
@@ -912,14 +927,18 @@ MainWindow::MainWindow(QWidget *parent) :
             }
         }
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм в логе: " +
-                                        QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
+                                        QString::number(m_l.codogram_1.size() + m_l.codogram_2.size() + m_l.codogram_3.size() +
+                                                        m_l.codogram_4.size()) + "\n");
+        ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nКолличество кодограмм прошедших выборку: " +
+                                        QString::number(number_c) + "\n");
         if (number_c != 0)
         {
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМаксимальные значения полей: \n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_max.toString() + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " +
+                                            dt_max.toString() + "\n");
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "\nМинимальные значения полей: \n");
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " + dt_min.toString() + "\n\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "    Время герерации кодограммы: " +
+                                            dt_min.toString() + "\n\n");
             ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "Дежурный режим включен " + QString::number(mode_0) +
                                             " раз.\n Боевой режим включен " + QString::number(mode_1) + " раз.\n");
         }
