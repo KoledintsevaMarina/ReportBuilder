@@ -16,17 +16,14 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    ReportDialog.cpp \
     qssStyle.cpp
 
 HEADERS  += \
     mainwindow.h \
-    ReportDialog.h \
     qssStyle.h
 
 FORMS    += \
-    mainwindow.ui \
-    ReportDialog.ui
+    mainwindow.ui
 
 RESOURCES = \
     resources/resources.qrc

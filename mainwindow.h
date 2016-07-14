@@ -121,6 +121,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void appendToReport(QString);
+
     void read_interface();
 
     void write_report();
