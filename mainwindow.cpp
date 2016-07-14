@@ -555,48 +555,38 @@ MainWindow::MainWindow(QWidget *parent) :
                 ui->checkBox_21->checkState() != 0 or ui->checkBox_6->checkState() != 0 or
                 ui->checkBox_22->checkState() != 0 or ui->checkBox_7->checkState() != 0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                          "                                                                    Отбор по области:\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  Отбор по области:\n");
             if (ui->checkBox_20->checkState() != 0 or ui->checkBox_5->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                   "                                                                                                     " +
-                    inter_state.interfase1.coordinate1 + " от " + QString::number(inter_state.interfase1.scope[0][0]) + " до " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                   " +
+                        inter_state.interfase1.coordinate1 + " от " + QString::number(inter_state.interfase1.scope[0][0]) + " до " +
                         QString::number(inter_state.interfase1.scope[0][1]) + "\n");
             }
             if (ui->checkBox_21->checkState() != 0 or ui->checkBox_6->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                    "                                                                                                     " +
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                   " +
                      inter_state.interfase1.coordinate2 + " от " + QString::number(inter_state.interfase1.scope[1][0]) + " до " +
                         QString::number(inter_state.interfase1.scope[1][1]) + "\n");
             }
             if (ui->checkBox_22->checkState() != 0 or ui->checkBox_7->checkState() != 0)
             {
-                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                   "                                                                                                     Высота от " +
-                    QString::number(inter_state.interfase1.scope[2][0]) + " до " +
-                        QString::number(inter_state.interfase1.scope[2][1]) + "\n");
+                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                   Высота от " +
+                    QString::number(inter_state.interfase1.scope[2][0]) + " до " + QString::number(inter_state.interfase1.scope[2][1]) + "\n");
             }
         }
         if (ui->checkBox_3->checkState() != 0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                "                                                                     Отбор по скорости: от " +
-                                            QString::number(inter_state.interfase1.pace[0]) + " до " +
-                    QString::number(inter_state.interfase1.pace[1]) + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  Отбор по скорости: от " +
+               QString::number(inter_state.interfase1.pace[0]) + " до " + QString::number(inter_state.interfase1.pace[1]) + "\n");
         }
         if (ui->checkBox->checkState() != 0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                  "                                                                     Отбор по времени: от " +
-                                            inter_state.interfase1.time_gen_Min.toString() + " до " +
-                    inter_state.interfase1.time_gen_Max.toString() + "\n");
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  Отбор по времени: от " +
+                inter_state.interfase1.time_gen_Min.toString() + " до " + inter_state.interfase1.time_gen_Max.toString() + "\n");
         }
         if (ui->checkBox_4->checkState() != 0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
-                  "                                                                     Отбор по параметрам цели: "+
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  Отбор по параметрам цели: "+
                     QString::number(inter_state.interfase1.object) + "\n");
         }
     }
@@ -704,7 +694,8 @@ MainWindow::MainWindow(QWidget *parent) :
                                         if (c.object_type == inter_state.interfase1.object or ui->checkBox_4->checkState() == 0)//Цель
                                         {
                                             ++number_c;
-                                            write_codogram_to_table1(c);
+                                            entry_codogram_to_table1(c);
+
                                             dt_max = qMax(dt_max, c.creationTime);
                                             dt_min = qMin(dt_min, c.creationTime);
                                             coord_max[0] = qMax(coord_max[0], c.coordinate[0]);
@@ -770,7 +761,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                         "_____________________________________________________________________________________________________\n");
     }
 
-    void MainWindow::write_codogram_to_table1(Target c)
+    void MainWindow::entry_codogram_to_table1(Target c)
     {
         ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   1          " + c.creationTime.toString() +
                                         "                       ");

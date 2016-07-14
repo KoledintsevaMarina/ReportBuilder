@@ -130,7 +130,7 @@ public:
 
     void table_generation_1();
     void write_top_table1();
-    void write_codogram_to_table1(Target c);
+    void entry_codogram_to_table1(Target c);
 
     void table_generation_2();
 
