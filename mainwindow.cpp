@@ -23,8 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->workField_xyButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(1);
         workField=1;
-        //дописать перевод ху да
-
         MainWindow::Read_interface();
         MainWindow::Analisis_codogram();
     });
@@ -32,8 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->workField_daButton, &QPushButton::toggled, this, [=](bool) {
         ui->workField_stackedWidget->setCurrentIndex(0);
         workField=0;
-        //дописать перевод ху да
-
         MainWindow::Read_interface();
         MainWindow::Analisis_codogram();
     });
@@ -667,8 +663,8 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         if (index ==0)
         {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы    "
-                                            + "             " +  inter_state.interfase1.coordinate1);
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "  ТК    Ввремя генерации кодограммы                 "
+                                            + inter_state.interfase1.coordinate1);
             if(workField == 1)
             {
                 ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + ui->label_35->text().right(4));
@@ -719,12 +715,12 @@ MainWindow::MainWindow(QWidget *parent) :
                                             {
                                                 ++number_c;
                                                 ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "   1          " + c.creationTime.toString() +
-                                                                                "                    ");
+                                                                                "                       ");
                                                 if (workField == 1)
                                                 {
                                                     ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
                                                             QString::number(round(c.coordinate[0] / pow(1000, posButton_index) * 100) / 100) + "                    " +
-                                                            QString::number(round(c.coordinate[1] / pow(1000, posButton_index) * 100) / 100) + "              " +
+                                                            QString::number(round(c.coordinate[1] / pow(1000, posButton_index) * 100) / 100) + "                   " +
                                                             QString::number(round(c.coordinate[2] / pow(1000, posButton_index) * 100) / 100));
                                                 }
                                                 else if (workField == 0)
@@ -732,10 +728,11 @@ MainWindow::MainWindow(QWidget *parent) :
                                                     ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() +
                                                             QString::number(round(atan(c.coordinate[1]/c.coordinate[0]) * 100) / 100) + "                    " +
                                                             QString::number(round(sqrt(pow(c.coordinate[0], 2) + pow(c.coordinate[1], 2)) / pow(1000, posButton_index) * 100) / 100)
-                                                             + "              " + QString::number(round(c.coordinate[2] / pow(1000, posButton_index) * 100) / 100));
+                                                             + "                  " + QString::number(round(c.coordinate[2] / pow(1000, posButton_index) * 100) / 100));
                                                 }
-                                                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "         " +
-                                                     QString::number(round(c.speed * pow(3.6, speedButton_index) * 100) / 100) + "                 " + QString::number(c.object_type) + "\n");
+                                                ui->plainTextEdit->setPlainText(ui->plainTextEdit->toPlainText() + "                    " +
+                                                     QString::number(round(c.speed * pow(3.6, speedButton_index) * 100) / 100) + "                      "
+                                                                                + QString::number(c.object_type) + "\n");
 
                                                 //                                                         //------------------------------      }отбор кодограмм       -----------------------------------------------------------------
 
