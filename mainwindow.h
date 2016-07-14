@@ -120,7 +120,9 @@ public:
 
     void Read_interface();
     void Analisis_codogram();
-    void Report_points_1_2(int index);
+    void TopReport_1();
+    void TopReport_2();
+
     void Table_codogram_1 ();
     void Table_codogram_2 ();
     void Table_codogram_3 ();
