@@ -127,18 +127,21 @@ public:
 
     void write_report();
 
-    void write_top_report_1();
-    void write_top_report_2();
+    void write_top_report_WorkField();
+    void write_top_report_ActionOperators();
 
-    void table_generation_1();
-    void write_top_table1();
-    void entry_codogram_to_table1(Target codograma_targer);
+    void tableTarget_generation();
+    void write_top_tableTarget();
+    void entry_codogram_to_tableTarget(Target codograma_targer);
 
-    void table_generation_2();
+    void tableAntennaAngle_generation();
+    void write_top_tableAntennaAngle();
 
-    void table_generation_3();
+    void tablePower_generation();
+    void write_top_tablePower();
 
-    void table_generation_4();
+    void tableMode_generation();
+    void write_top_tableMode();
 
 public slots:
 

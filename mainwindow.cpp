@@ -19,12 +19,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->workField_xyButton, &QPushButton::toggled, this, [=](bool) {
+    connect(ui->workField_xyButton, &QPushButton::toggled, this, [this](bool) {
         ui->workField_stackedWidget->setCurrentIndex(1);
         inter_state.workField = 1;
     });
 
-    connect(ui->workField_daButton, &QPushButton::toggled, this, [=](bool) {
+    connect(ui->workField_daButton, &QPushButton::toggled, this, [this](bool) {
         ui->workField_stackedWidget->setCurrentIndex(0);
         inter_state.workField = 0;
     });
@@ -158,48 +158,48 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     for (int i = 0 ; i < listOfPushButton.size(); i++){
-        connect(listOfPushButton.at(i), &QPushButton::toggled, this, [=] (bool){
+        connect(listOfPushButton.at(i), &QPushButton::toggled, this, [this] (bool){
             read_interface();
             write_report();
         });
     }
 
     for(int i = 0; i < listOfCheckBox.size(); i++){
-        connect(listOfCheckBox.at(i), &QCheckBox::clicked, this, [=] (bool){
+        connect(listOfCheckBox.at(i), &QCheckBox::clicked, this, [this] (bool){
             read_interface();
             write_report();
         });
     }
 
     for(int i = 0; i < listOfComboBox.size(); i++){
-        connect(listOfComboBox.at(i), static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (bool){
+        connect(listOfComboBox.at(i), static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this] (bool){
             read_interface();
             write_report();
         });
     }
 
     for(int i = 0; i < listOfSpinBoxes.size(); i++){
-        connect(listOfSpinBoxes.at(i), static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (bool){
+        connect(listOfSpinBoxes.at(i), static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [this] (bool){
             read_interface();
             write_report();
         });
     }
 
     for(int i = 0; i < listOfDoubleSpinBox.size(); i++){
-        connect(listOfDoubleSpinBox.at(i), static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (bool){
+        connect(listOfDoubleSpinBox.at(i), static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [this] (bool){
             read_interface();
             write_report();
         });
     }
 
     for(int i = 0; i < listOfDateTimeEdit.size(); i++){
-        connect(listOfDateTimeEdit.at(i), &QDateTimeEdit::dateTimeChanged, this, [=] (){
+        connect(listOfDateTimeEdit.at(i), &QDateTimeEdit::dateTimeChanged, this, [this] (){
             read_interface();
             write_report();
         });
     }
 
-    connect (ui->listWidget, &QListWidget::itemClicked, this, [=] (QListWidgetItem *){
+    connect (ui->listWidget, &QListWidget::itemClicked, this, [this] (QListWidgetItem *){
         read_interface();
         write_report();
     });
@@ -360,37 +360,39 @@ void MainWindow::appendLineToReport(QString text)
 
 void MainWindow::write_report()
 {
-
     ui->plainTextEdit->setPlainText("                                                                                     ОТЧЕТ\n\n");
     if (ui->listWidget->currentRow() == 0)
     {
-        write_top_report_1();
-        write_top_table1();
-        table_generation_1();
+        write_top_report_WorkField();
+        write_top_tableTarget();
+        tableTarget_generation();
         appendLineToReport("\nИспользуемые сокращения: \nТК - тип кодограммы;\nА - Азимут;\nД - Дальность\nТип ВО: ");
         appendLineToReport("0 - Самолет\n              1 - Вертолет\n              2 - БПЛА\n              3 - Снаряд\n");
     }
     else if (ui->listWidget->currentRow() == 1)
     {
-        write_top_report_2();
+        write_top_report_ActionOperators();
         appendLineToReport("3. Таблица кодограмм:\n");
         if (m_l.codogram_2.size() != 0)
         {
-            table_generation_2();
+            write_top_tableAntennaAngle();
+            tableAntennaAngle_generation();
         }
         if (m_l.codogram_3.size() != 0)
         {
-            table_generation_3();
+            write_top_tablePower();
+            tablePower_generation();
         }
         if (m_l.codogram_4.size() != 0)
         {
-            table_generation_4();
+            write_top_tableMode();
+            tableMode_generation();
         }
         appendLineToReport("\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
     }
 }
 
-void MainWindow::write_top_report_1()
+void MainWindow::write_top_report_WorkField()
 {
     appendLineToReport("                                                                               Рабочее поле\n\n\n");
     appendLineToReport(" Время создания отчета: " + QDateTime::currentDateTime().toString()
@@ -434,7 +436,7 @@ void MainWindow::write_top_report_1()
     }
 }
 
-void MainWindow::write_top_report_2()
+void MainWindow::write_top_report_ActionOperators()
 {
     appendLineToReport("\n                                                                                 Действия оператора\n\n\n");
     appendLineToReport("1. Время создания отчета: " + QDateTime::currentDateTime().toString() + "\n");
@@ -488,7 +490,7 @@ void MainWindow::write_top_report_2()
     }
 }
 
-void MainWindow::table_generation_1()
+void MainWindow::tableTarget_generation()
 {
     QDateTime dt_max = ui->dateTimeEdit_work_field_min->minimumDateTime();
     QDateTime dt_min = ui->dateTimeEdit_work_field_min->maximumDateTime();
@@ -525,7 +527,7 @@ void MainWindow::table_generation_1()
                                     if (cdgr_target.object_type == inter_state.interfase1.object or ui->checkBox_select_Type->checkState() == 0)//Цель
                                     {
                                         ++number_c;
-                                        entry_codogram_to_table1(cdgr_target);
+                                        entry_codogram_to_tableTarget(cdgr_target);
 
                                         dt_max = qMax(dt_max, cdgr_target.creationTime);
                                         dt_min = qMin(dt_min, cdgr_target.creationTime);
@@ -567,7 +569,7 @@ void MainWindow::table_generation_1()
     }
 }
 
-void MainWindow::write_top_table1()
+void MainWindow::write_top_tableTarget()
 {
     appendLineToReport("\n3. Таблица кодограмм:\n");
     appendLineToReport("  ТК    Ввремя генерации кодограммы                 " + inter_state.interfase1.coordinate1);
@@ -585,7 +587,7 @@ void MainWindow::write_top_table1()
     appendLineToReport("_____________________________________________________________________________________________________\n");
 }
 
-void MainWindow::entry_codogram_to_table1(Target cdgr_target)
+void MainWindow::entry_codogram_to_tableTarget(Target cdgr_target)
 {
     appendLineToReport("   1          " + cdgr_target.creationTime.toString() + "                       ");
     if (inter_state.workField == 1)
@@ -606,10 +608,8 @@ void MainWindow::entry_codogram_to_table1(Target cdgr_target)
 
 }
 
-void MainWindow::table_generation_2()
+void MainWindow::tableAntennaAngle_generation()
 {
-    appendLineToReport("  ТК    Время генерации кодограммы    Угол Z-X     Угол Z-Y\n");
-    appendLineToReport("_____________________________________________________________________________________________________\n");
     QDateTime dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
     QDateTime dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
     int angleZX_max = 0, angleZX_min = 360;
@@ -656,10 +656,14 @@ void MainWindow::table_generation_2()
     }
 }
 
-void MainWindow::table_generation_3()
+void MainWindow::write_top_tableAntennaAngle()
 {
-    appendLineToReport("  ТК    Ввремя генерации кодограммы    Мощность\n");
+    appendLineToReport("  ТК    Время генерации кодограммы    Угол Z-X     Угол Z-Y\n");
     appendLineToReport("_____________________________________________________________________________________________________\n");
+}
+
+void MainWindow::tablePower_generation()
+{
     QDateTime dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
     QDateTime dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
     uint power_max = 1, power_min = 999;
@@ -696,10 +700,14 @@ void MainWindow::table_generation_3()
     }
 }
 
-void MainWindow::table_generation_4()
+void MainWindow::write_top_tablePower()
 {
-    appendLineToReport("  ТК    Ввремя генерации кодограммы    Режим\n");
+    appendLineToReport("  ТК    Ввремя генерации кодограммы    Мощность\n");
     appendLineToReport("_____________________________________________________________________________________________________\n");
+}
+
+void MainWindow::tableMode_generation()
+{
     QDateTime dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
     QDateTime dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
     uint number_c = 0, mode_0 = 0, mode_1 = 0;
@@ -737,6 +745,12 @@ void MainWindow::table_generation_4()
         appendLineToReport("Дежурный режим включен " + QString::number(mode_0) + " раз.\n Боевой режим включен "
                        + QString::number(mode_1) + " раз.\n");
     }
+}
+
+void MainWindow::write_top_tableMode()
+{
+    appendLineToReport("  ТК    Ввремя генерации кодограммы    Режим\n");
+    appendLineToReport("_____________________________________________________________________________________________________\n");
 }
 
 void Log::read_codogram(QString codogram)
