@@ -47,9 +47,6 @@
        </item>
       </widget>
      </item>
-     <item row="1" column="1" colspan="2">
-      <widget class="QPlainTextEdit" name="plainTextEdit"/>
-     </item>
      <item row="0" column="1" colspan="2">
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="sizePolicy">
@@ -187,7 +184,7 @@
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QCheckBox" name="checkBox_4">
+             <widget class="QCheckBox" name="checkBox_select_Type">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -200,7 +197,7 @@
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QComboBox" name="comboBox">
+             <widget class="QComboBox" name="comboBox_object">
               <item>
                <property name="text">
                 <string>Самолет</string>
@@ -276,7 +273,7 @@
                  <number>0</number>
                 </property>
                 <item row="2" column="5">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_H_max">
                   <property name="maximum">
                    <double>9999.000000000000000</double>
                   </property>
@@ -286,7 +283,7 @@
                  </widget>
                 </item>
                 <item row="2" column="3">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_H_min">
                   <property name="maximum">
                    <double>9999.000000000000000</double>
                   </property>
@@ -306,7 +303,7 @@
                  </widget>
                 </item>
                 <item row="0" column="0">
-                 <widget class="QCheckBox" name="checkBox_5">
+                 <widget class="QCheckBox" name="checkBox_select_Azimut">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -371,7 +368,7 @@
                  </widget>
                 </item>
                 <item row="0" column="5">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_azimut_max">
                   <property name="maximum">
                    <double>360.000000000000000</double>
                   </property>
@@ -381,7 +378,7 @@
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QCheckBox" name="checkBox_6">
+                 <widget class="QCheckBox" name="checkBox_select_Range">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -407,7 +404,7 @@
                  </widget>
                 </item>
                 <item row="1" column="5">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_range_max">
                   <property name="maximum">
                    <double>9999.000000000000000</double>
                   </property>
@@ -417,7 +414,7 @@
                  </widget>
                 </item>
                 <item row="2" column="0">
-                 <widget class="QCheckBox" name="checkBox_7">
+                 <widget class="QCheckBox" name="checkBox_select_Height_2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -469,7 +466,7 @@
                  </widget>
                 </item>
                 <item row="0" column="3">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_azimut_min">
                   <property name="maximum">
                    <double>360.000000000000000</double>
                   </property>
@@ -479,28 +476,28 @@
                  </widget>
                 </item>
                 <item row="1" column="3">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_range_min">
                   <property name="maximum">
                    <double>9999.000000000000000</double>
                   </property>
                  </widget>
                 </item>
                </layout>
-               <zorder>doubleSpinBox_6</zorder>
+               <zorder>doubleSpinBox_H_max</zorder>
                <zorder>label</zorder>
                <zorder>label_20</zorder>
-               <zorder>checkBox_5</zorder>
-               <zorder>doubleSpinBox_3</zorder>
-               <zorder>doubleSpinBox</zorder>
-               <zorder>doubleSpinBox_4</zorder>
-               <zorder>doubleSpinBox_5</zorder>
-               <zorder>checkBox_6</zorder>
+               <zorder>checkBox_select_Azimut</zorder>
+               <zorder>doubleSpinBox_range_min</zorder>
+               <zorder>doubleSpinBox_azimut_min</zorder>
+               <zorder>doubleSpinBox_range_max</zorder>
+               <zorder>doubleSpinBox_H_min</zorder>
+               <zorder>checkBox_select_Range</zorder>
                <zorder>label_21</zorder>
                <zorder>label_2</zorder>
-               <zorder>doubleSpinBox_2</zorder>
+               <zorder>doubleSpinBox_azimut_max</zorder>
                <zorder>label_25</zorder>
                <zorder>label_23</zorder>
-               <zorder>checkBox_7</zorder>
+               <zorder>checkBox_select_Height_2</zorder>
                <zorder>label_3</zorder>
                <zorder>label_24</zorder>
                <zorder>label_22</zorder>
@@ -546,7 +543,7 @@
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QCheckBox" name="checkBox_21">
+                 <widget class="QCheckBox" name="checkBox_select_Y">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -624,7 +621,7 @@
                  </widget>
                 </item>
                 <item row="2" column="0">
-                 <widget class="QCheckBox" name="checkBox_22">
+                 <widget class="QCheckBox" name="checkBox_select_Height">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -663,7 +660,7 @@
                  </widget>
                 </item>
                 <item row="0" column="0">
-                 <widget class="QCheckBox" name="checkBox_20">
+                 <widget class="QCheckBox" name="checkBox_select_X">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -676,14 +673,14 @@
                  </widget>
                 </item>
                 <item row="0" column="3">
-                 <widget class="QSpinBox" name="spinBox">
+                 <widget class="QSpinBox" name="spinBox_Xmin">
                   <property name="maximum">
                    <number>9999</number>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="5">
-                 <widget class="QSpinBox" name="spinBox_2">
+                 <widget class="QSpinBox" name="spinBox_Xmax">
                   <property name="maximum">
                    <number>9999</number>
                   </property>
@@ -693,14 +690,14 @@
                  </widget>
                 </item>
                 <item row="1" column="3">
-                 <widget class="QSpinBox" name="spinBox_3">
+                 <widget class="QSpinBox" name="spinBox_Ymin">
                   <property name="maximum">
                    <number>9999</number>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="5">
-                 <widget class="QSpinBox" name="spinBox_4">
+                 <widget class="QSpinBox" name="spinBox_Ymax">
                   <property name="maximum">
                    <number>9999</number>
                   </property>
@@ -710,14 +707,14 @@
                  </widget>
                 </item>
                 <item row="2" column="3">
-                 <widget class="QSpinBox" name="spinBox_5">
+                 <widget class="QSpinBox" name="spinBox_Hmin">
                   <property name="maximum">
                    <number>9999</number>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="5">
-                 <widget class="QSpinBox" name="spinBox_6">
+                 <widget class="QSpinBox" name="spinBox_Hmax">
                   <property name="maximum">
                    <number>9999</number>
                   </property>
@@ -764,7 +761,7 @@
              <number>10</number>
             </property>
             <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_4">
+             <widget class="QComboBox" name="comboBox_speed">
               <property name="currentIndex">
                <number>0</number>
               </property>
@@ -781,7 +778,7 @@
              </widget>
             </item>
             <item row="0" column="5">
-             <widget class="QDoubleSpinBox" name="doubleSpinBox_8">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_speed_max">
               <property name="minimum">
                <double>1.000000000000000</double>
               </property>
@@ -794,7 +791,7 @@
              </widget>
             </item>
             <item row="0" column="3">
-             <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_speed_min">
               <property name="minimum">
                <double>1.000000000000000</double>
               </property>
@@ -830,7 +827,7 @@
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QCheckBox" name="checkBox_3">
+             <widget class="QCheckBox" name="checkBox_select_Speed">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -876,7 +873,7 @@
              <number>10</number>
             </property>
             <item row="0" column="2">
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="pushButton_meter_per_second">
               <property name="text">
                <string>м/c</string>
               </property>
@@ -892,7 +889,7 @@
              </widget>
             </item>
             <item row="0" column="4">
-             <widget class="QPushButton" name="pushButton_6">
+             <widget class="QPushButton" name="pushButton_kilometer_per_hour">
               <property name="text">
                <string>км/ч</string>
               </property>
@@ -905,7 +902,7 @@
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="pushButton_meters">
               <property name="text">
                <string>м</string>
               </property>
@@ -921,7 +918,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="pushButton_kilometers">
               <property name="text">
                <string>км</string>
               </property>
@@ -967,10 +964,10 @@
              <number>10</number>
             </property>
             <item row="0" column="2">
-             <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+             <widget class="QDateTimeEdit" name="dateTimeEdit_work_field_min"/>
             </item>
             <item row="0" column="0">
-             <widget class="QCheckBox" name="checkBox">
+             <widget class="QCheckBox" name="checkBox_select_Time_work_field">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -983,20 +980,7 @@
              </widget>
             </item>
             <item row="0" column="5">
-             <widget class="QDateTimeEdit" name="dateTimeEdit_2"/>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="label_5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>До</string>
-              </property>
-             </widget>
+             <widget class="QDateTimeEdit" name="dateTimeEdit_work_field_max"/>
             </item>
             <item row="0" column="1">
              <widget class="QLabel" name="label_4">
@@ -1008,6 +992,19 @@
               </property>
               <property name="text">
                <string>От</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="label_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>До</string>
               </property>
              </widget>
             </item>
@@ -1046,7 +1043,7 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <widget class="QCheckBox" name="checkBox_8">
+            <widget class="QCheckBox" name="checkBox_select_AngleZX">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1085,7 +1082,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_35">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_ZX_min">
              <property name="maximum">
               <double>360.000000000000000</double>
              </property>
@@ -1105,7 +1102,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_36">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_ZX_max">
              <property name="maximum">
               <double>360.000000000000000</double>
              </property>
@@ -1127,7 +1124,7 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QCheckBox" name="checkBox_12">
+            <widget class="QCheckBox" name="checkBox_select_AngleZY">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1166,7 +1163,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_37">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_ZY_min">
              <property name="maximum">
               <double>90.000000000000000</double>
              </property>
@@ -1186,7 +1183,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_38">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_ZY_max">
              <property name="maximum">
               <double>90.000000000000000</double>
              </property>
@@ -1229,10 +1226,10 @@
             <number>0</number>
            </property>
            <item row="0" column="2">
-            <widget class="QDateTimeEdit" name="dateTimeEdit_3"/>
+            <widget class="QDateTimeEdit" name="dateTimeEdit_angle_min"/>
            </item>
            <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="checkBox_select_Time_angle">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1245,7 +1242,7 @@
             </widget>
            </item>
            <item row="0" column="5">
-            <widget class="QDateTimeEdit" name="dateTimeEdit_4"/>
+            <widget class="QDateTimeEdit" name="dateTimeEdit_angle_max"/>
            </item>
            <item row="0" column="4">
             <widget class="QLabel" name="label_7">
@@ -1280,7 +1277,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>150</y>
+           <y>160</y>
            <width>641</width>
            <height>101</height>
           </rect>
@@ -1299,7 +1296,7 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QCheckBox" name="checkBox_13">
+            <widget class="QCheckBox" name="checkBox_select_Power">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1338,7 +1335,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_39">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_power_min">
              <property name="maximum">
               <double>999.000000000000000</double>
              </property>
@@ -1358,7 +1355,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_40">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_power_max">
              <property name="maximum">
               <double>999.000000000000000</double>
              </property>
@@ -1401,10 +1398,10 @@
             <number>0</number>
            </property>
            <item row="0" column="2">
-            <widget class="QDateTimeEdit" name="dateTimeEdit_5"/>
+            <widget class="QDateTimeEdit" name="dateTimeEdit_power_min"/>
            </item>
            <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_15">
+            <widget class="QCheckBox" name="checkBox_select_Time_power">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1417,7 +1414,7 @@
             </widget>
            </item>
            <item row="0" column="5">
-            <widget class="QDateTimeEdit" name="dateTimeEdit_6"/>
+            <widget class="QDateTimeEdit" name="dateTimeEdit_power_max"/>
            </item>
            <item row="0" column="4">
             <widget class="QLabel" name="label_15">
@@ -1471,7 +1468,7 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QCheckBox" name="checkBox_14">
+            <widget class="QCheckBox" name="checkBox_select_Mode">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1497,7 +1494,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="comboBox_5">
+            <widget class="QComboBox" name="comboBox_mode">
              <item>
               <property name="text">
                <string>Дежурный</string>
@@ -1544,10 +1541,10 @@
             <number>0</number>
            </property>
            <item row="0" column="2">
-            <widget class="QDateTimeEdit" name="dateTimeEdit_7"/>
+            <widget class="QDateTimeEdit" name="dateTimeEdit_mode_min"/>
            </item>
            <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_16">
+            <widget class="QCheckBox" name="checkBox_select_Time_mode">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1560,7 +1557,7 @@
             </widget>
            </item>
            <item row="0" column="5">
-            <widget class="QDateTimeEdit" name="dateTimeEdit_8"/>
+            <widget class="QDateTimeEdit" name="dateTimeEdit_mode_max"/>
            </item>
            <item row="0" column="4">
             <widget class="QLabel" name="label_17">
@@ -1593,6 +1590,9 @@
         </widget>
        </widget>
       </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QPlainTextEdit" name="plainTextEdit"/>
      </item>
     </layout>
     <zorder>stackedWidget</zorder>

@@ -88,7 +88,7 @@ bool posButton_index = 0;
 class Log
 {
 public:
-    void Read_codogram (QString codogram);
+    void read_codogram (QString codogram);
 
     QVector<Target> codogram_1;
     QVector<Antenna_Angle> codogram_2;
@@ -121,7 +121,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void appendToReport(QString);
+    void appendLineToReport(QString);
 
     void read_interface();
 
@@ -132,13 +132,15 @@ public:
 
     void table_generation_1();
     void write_top_table1();
-    void entry_codogram_to_table1(Target c);
+    void entry_codogram_to_table1(Target codograma_targer);
 
     void table_generation_2();
 
     void table_generation_3();
 
     void table_generation_4();
+
+public slots:
 
 private:
     Ui::MainWindow *ui;
