@@ -200,6 +200,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     connect (ui->listWidget, &QListWidget::itemClicked, this, [this] (QListWidgetItem *){
+        inter_state.listWidget_index = ui->listWidget->currentRow();
         read_interface();
         write_report();
     });
@@ -291,6 +292,17 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug()<<"Exit";
         QMainWindow::close();
     });
+
+    min_max_value.dt_max = ui->dateTimeEdit_work_field_min->minimumDateTime();
+    min_max_value.dt_min = ui->dateTimeEdit_work_field_min->maximumDateTime();
+    for (int i = 0; i < 3; i++)
+    {
+        min_max_value.coord_max[i] = 0;//[X,Y,Z]
+        min_max_value.coord_min[i] = 9999;//[X,Y,Z]
+    }
+    min_max_value.speed_max = 1;
+    min_max_value.speed_min = 1000;
+
 }
 
 MainWindow::~MainWindow()
@@ -347,6 +359,7 @@ void MainWindow::read_interface()
     inter4.time_gen_Min = ui->dateTimeEdit_mode_min->dateTime();
     inter4.time_gen_Max = ui->dateTimeEdit_mode_max->dateTime();
     inter4.mode = ui->comboBox_mode->currentIndex();
+
     inter_state.interfase1=inter1;
     inter_state.interfase2=inter2;
     inter_state.interfase3=inter3;
@@ -360,19 +373,20 @@ void MainWindow::appendLineToReport(QString text)
 
 void MainWindow::write_report()
 {
-    ui->plainTextEdit->setPlainText("                                                                                     ОТЧЕТ\n\n");
-    if (ui->listWidget->currentRow() == 0)
+    if (inter_state.listWidget_index == 0)
     {
+        QVector<Target> sorted_codogram1 = select_codogram_Target();
+        search_min_max_value_Target(sorted_codogram1);
+
         write_top_report_WorkField();
         write_top_tableTarget();
-        tableTarget_generation();
-        appendLineToReport("\nИспользуемые сокращения: \nТК - тип кодограммы;\nА - Азимут;\nД - Дальность\nТип ВО: ");
-        appendLineToReport("0 - Самолет\n              1 - Вертолет\n              2 - БПЛА\n              3 - Снаряд\n");
+        append_codogram_to_tableTarget(sorted_codogram1);
+        append_statistics_Target(sorted_codogram1.size());
+        write_bottom_report_WorkField();
     }
-    else if (ui->listWidget->currentRow() == 1)
+    else if (inter_state.listWidget_index == 1)
     {
-        write_top_report_ActionOperators();
-        appendLineToReport("3. Таблица кодограмм:\n");
+        write_top_report_ActionOperator();
         if (m_l.codogram_2.size() != 0)
         {
             write_top_tableAntennaAngle();
@@ -388,12 +402,13 @@ void MainWindow::write_report()
             write_top_tableMode();
             tableMode_generation();
         }
-        appendLineToReport("\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
     }
+    write_bottom_report_ActionOperator();
 }
 
 void MainWindow::write_top_report_WorkField()
 {
+    ui->plainTextEdit->setPlainText("                                                                                     ОТЧЕТ\n\n");
     appendLineToReport("                                                                               Рабочее поле\n\n\n");
     appendLineToReport(" Время создания отчета: " + QDateTime::currentDateTime().toString()
                    + "\n\n2. Условия выбора данных для отчета:\n");
@@ -436,8 +451,9 @@ void MainWindow::write_top_report_WorkField()
     }
 }
 
-void MainWindow::write_top_report_ActionOperators()
+void MainWindow::write_top_report_ActionOperator()
 {
+    ui->plainTextEdit->setPlainText("                                                                                     ОТЧЕТ\n\n");
     appendLineToReport("\n                                                                                 Действия оператора\n\n\n");
     appendLineToReport("1. Время создания отчета: " + QDateTime::currentDateTime().toString() + "\n");
     appendLineToReport("\n2. Условия выбора данных для отчета:\n");
@@ -488,17 +504,12 @@ void MainWindow::write_top_report_ActionOperators()
             appendLineToReport("            Режим " + QString::number(inter_state.interfase4.mode) + "\n");
         }
     }
+    appendLineToReport("3. Таблица кодограмм:\n");
 }
 
-void MainWindow::tableTarget_generation()
+QVector<Target> MainWindow::select_codogram_Target()
 {
-    QDateTime dt_max = ui->dateTimeEdit_work_field_min->minimumDateTime();
-    QDateTime dt_min = ui->dateTimeEdit_work_field_min->maximumDateTime();
-    int coord_max[3] = {0,0,0};//[X,Y,Z]
-    int coord_min[3] = {9999,9999,9999};//[X,Y,Z]
-    uint speed_max = 1;  //
-    uint speed_min = 1000;
-    uint number_c = 0;
+    QVector<Target> sorted_codogram_1;
     for (Target & cdgr_target: m_l.codogram_1)
     {
         if ((cdgr_target.coordinate[0] >= inter_state.interfase1.scope[0][0] and cdgr_target.coordinate[0] <= inter_state.interfase1.scope[0][1])
@@ -526,19 +537,7 @@ void MainWindow::tableTarget_generation()
                                 {
                                     if (cdgr_target.object_type == inter_state.interfase1.object or ui->checkBox_select_Type->checkState() == 0)//Цель
                                     {
-                                        ++number_c;
-                                        entry_codogram_to_tableTarget(cdgr_target);
-
-                                        dt_max = qMax(dt_max, cdgr_target.creationTime);
-                                        dt_min = qMin(dt_min, cdgr_target.creationTime);
-                                        coord_max[0] = qMax(coord_max[0], cdgr_target.coordinate[0]);
-                                        coord_min[0] = qMin(coord_min[0], cdgr_target.coordinate[0]);
-                                        coord_max[1] = qMax(coord_max[1], cdgr_target.coordinate[0]);
-                                        coord_min[1] = qMin(coord_min[1], cdgr_target.coordinate[0]);
-                                        coord_max[2] = qMax(coord_max[2], cdgr_target.coordinate[0]);
-                                        coord_min[2] = qMin(coord_min[2], cdgr_target.coordinate[0]);
-                                        speed_max = qMax(speed_max, cdgr_target.speed);
-                                        speed_min = qMin(speed_min, cdgr_target.speed);
+                                        sorted_codogram_1.append(cdgr_target);
                                     }
                                 }
                             }
@@ -548,25 +547,7 @@ void MainWindow::tableTarget_generation()
             }
         }
     }
-
-    appendLineToReport("\nКолличество кодограмм в логе: " + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
-                                                                        + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-    appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
-    if (number_c != 0)
-    {
-        appendLineToReport("\nМаксимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_max.toString() + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(coord_max[0]) + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(coord_max[1]) + "\n");
-        appendLineToReport("    Высота: " + QString::number(coord_max[2]) + "\n");
-        appendLineToReport("    Скорость: " + QString::number(speed_max) + "\n");
-        appendLineToReport("\nМинимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_min.toString() + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(coord_min[0]) + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(coord_min[1]) + "\n");
-        appendLineToReport("    Высота: " + QString::number(coord_min[2]) + "\n");
-        appendLineToReport("    Скорость: " + QString::number(speed_min) + "\n");
-    }
+    return sorted_codogram_1;
 }
 
 void MainWindow::write_top_tableTarget()
@@ -587,25 +568,66 @@ void MainWindow::write_top_tableTarget()
     appendLineToReport("_____________________________________________________________________________________________________\n");
 }
 
-void MainWindow::entry_codogram_to_tableTarget(Target cdgr_target)
+void MainWindow::search_min_max_value_Target(QVector<Target> sorted_codogram1)
 {
-    appendLineToReport("   1          " + cdgr_target.creationTime.toString() + "                       ");
-    if (inter_state.workField == 1)
+    for (Target & sorted_cdgr_target: sorted_codogram1)
     {
-        appendLineToReport(QString::number(round(cdgr_target.coordinate[0] / pow(1000, inter_state.posButton_index) * 100) / 100) + "                    " +
-                QString::number(round(cdgr_target.coordinate[1] / pow(1000, inter_state.posButton_index) * 100) / 100) + "                   " +
-                QString::number(round(cdgr_target.coordinate[2] / pow(1000, inter_state.posButton_index) * 100) / 100));
+        min_max_value.dt_max = qMax(min_max_value.dt_max, sorted_cdgr_target.creationTime);
+        min_max_value.dt_min = qMin(min_max_value.dt_min, sorted_cdgr_target.creationTime);
+        min_max_value.coord_max[0] = qMax(min_max_value.coord_max[0], sorted_cdgr_target.coordinate[0]);
+        min_max_value.coord_min[0] = qMin(min_max_value.coord_min[0], sorted_cdgr_target.coordinate[0]);
+        min_max_value.coord_max[1] = qMax(min_max_value.coord_max[1], sorted_cdgr_target.coordinate[0]);
+        min_max_value.coord_min[1] = qMin(min_max_value.coord_min[1], sorted_cdgr_target.coordinate[0]);
+        min_max_value.coord_max[2] = qMax(min_max_value.coord_max[2], sorted_cdgr_target.coordinate[0]);
+        min_max_value.coord_min[2] = qMin(min_max_value.coord_min[2], sorted_cdgr_target.coordinate[0]);
+        min_max_value.speed_max = qMax(min_max_value.speed_max, sorted_cdgr_target.speed);
+        min_max_value.speed_min = qMin(min_max_value.speed_min, sorted_cdgr_target.speed);
     }
-    else if (inter_state.workField == 0)
-    {
-        appendLineToReport(QString::number(round(atan(cdgr_target.coordinate[1]/cdgr_target.coordinate[0]) * 100) / 100) + "                    " +
-                QString::number(round(sqrt(pow(cdgr_target.coordinate[0], 2) + pow(cdgr_target.coordinate[1], 2)) / pow(1000, inter_state.posButton_index) * 100) / 100)
-                + "                  " + QString::number(round(cdgr_target.coordinate[2] / pow(1000, inter_state.posButton_index) * 100) / 100));
-    }
-    appendLineToReport("                    " +
-                   QString::number(round(cdgr_target.speed * pow(3.6, inter_state.speedButton_index) * 100) / 100) + "                      "
-                   + QString::number(cdgr_target.object_type) + "\n");
+}
 
+void MainWindow::append_codogram_to_tableTarget(QVector<Target> sorted_codogram1)//дописать ARG
+{
+    for (Target & sorted_cdgr_target: sorted_codogram1)
+    {
+        appendLineToReport("   1          " + sorted_cdgr_target.creationTime.toString() + "                       ");
+        if (inter_state.workField == 1)
+        {
+            appendLineToReport(QString::number(round(sorted_cdgr_target.coordinate[0] / pow(1000, inter_state.posButton_index) * 100) / 100) + "                    " +
+                    QString::number(round(sorted_cdgr_target.coordinate[1] / pow(1000, inter_state.posButton_index) * 100) / 100) + "                   " +
+                    QString::number(round(sorted_cdgr_target.coordinate[2] / pow(1000, inter_state.posButton_index) * 100) / 100));
+        }
+        else if (inter_state.workField == 0)
+        {
+            appendLineToReport(QString::number(round(atan(sorted_cdgr_target.coordinate[1]/sorted_cdgr_target.coordinate[0]) * 100) / 100) + "                    " +
+                    QString::number(round(sqrt(pow(sorted_cdgr_target.coordinate[0], 2) + pow(sorted_cdgr_target.coordinate[1], 2)) / pow(1000, inter_state.posButton_index) * 100) / 100)
+                    + "                  " + QString::number(round(sorted_cdgr_target.coordinate[2] / pow(1000, inter_state.posButton_index) * 100) / 100));
+        }
+        appendLineToReport("                    " +
+                           QString::number(round(sorted_cdgr_target.speed * pow(3.6, inter_state.speedButton_index) * 100) / 100) + "                      "
+                           + QString::number(sorted_cdgr_target.object_type) + "\n");
+    }
+}
+
+void MainWindow::append_statistics_Target(int number_sorted_cdgr1)
+{
+    if (number_sorted_cdgr1 != 0)
+    {
+        appendLineToReport(tr("\nКолличество кодограмм в логе: ") + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
+                                                                            + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
+        appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_sorted_cdgr1) + "\n");
+        appendLineToReport("\nМаксимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value.dt_max.toString() + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(min_max_value.coord_max[0]) + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(min_max_value.coord_max[1]) + "\n");
+        appendLineToReport("    Высота: " + QString::number(min_max_value.coord_max[2]) + "\n");
+        appendLineToReport("    Скорость: " + QString::number(min_max_value.speed_max) + "\n");
+        appendLineToReport("\nМинимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value.dt_min.toString() + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(min_max_value.coord_min[0]) + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(min_max_value.coord_min[1]) + "\n");
+        appendLineToReport("    Высота: " + QString::number(min_max_value.coord_min[2]) + "\n");
+        appendLineToReport("    Скорость: " + QString::number(min_max_value.speed_min) + "\n");
+    }
 }
 
 void MainWindow::tableAntennaAngle_generation()
@@ -751,6 +773,17 @@ void MainWindow::write_top_tableMode()
 {
     appendLineToReport("  ТК    Ввремя генерации кодограммы    Режим\n");
     appendLineToReport("_____________________________________________________________________________________________________\n");
+}
+
+void MainWindow::write_bottom_report_WorkField()
+{
+    appendLineToReport("\nИспользуемые сокращения: \nТК - тип кодограммы;\nА - Азимут;\nД - Дальность\nТип ВО: ");
+    appendLineToReport("0 - Самолет\n              1 - Вертолет\n              2 - БПЛА\n              3 - Снаряд\n");
+}
+
+void MainWindow::write_bottom_report_ActionOperator()
+{
+    appendLineToReport("\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
 }
 
 void Log::read_codogram(QString codogram)

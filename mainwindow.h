@@ -83,6 +83,7 @@ Interface_4 interfase4;
 bool workField = 1;
 bool speedButton_index = 0;
 bool posButton_index = 0;
+bool listWidget_index = 0;
 };
 
 class Log
@@ -121,6 +122,24 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private:
+
+    Ui::MainWindow *ui;
+    Log m_l;
+    InterfaceState inter_state;
+
+    struct Min_Max_Value
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        int coord_max[3];
+        int coord_min[3];
+        uint speed_max;
+        uint speed_min;
+    };
+
+    Min_Max_Value min_max_value;
+
     void appendLineToReport(QString);
 
     void read_interface();
@@ -128,11 +147,13 @@ public:
     void write_report();
 
     void write_top_report_WorkField();
-    void write_top_report_ActionOperators();
+    void write_top_report_ActionOperator();
 
-    void tableTarget_generation();
+    QVector<Target> select_codogram_Target();
     void write_top_tableTarget();
-    void entry_codogram_to_tableTarget(Target codograma_targer);
+    void search_min_max_value_Target(QVector<Target> sorted_codogram1);
+    void append_codogram_to_tableTarget(QVector<Target> sorted_codogram1);
+    void append_statistics_Target(int number_sorted_cdgr1);
 
     void tableAntennaAngle_generation();
     void write_top_tableAntennaAngle();
@@ -143,12 +164,9 @@ public:
     void tableMode_generation();
     void write_top_tableMode();
 
-public slots:
+    void write_bottom_report_WorkField();
+    void write_bottom_report_ActionOperator();
 
-private:
-    Ui::MainWindow *ui;
-    Log m_l;
-    InterfaceState inter_state;
 
 };
 

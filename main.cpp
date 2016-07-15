@@ -11,15 +11,15 @@ int main(int argc, char *argv[])
 
     QTranslator translator;
     if (translator.load(
-                QLocale(QLocale::Russian, QLocale::Russia),
+                QLocale(QLocale::English, QLocale::UnitedKingdom),
                 QLatin1String("translation"),
                 QLatin1String("."),
                 QLatin1String(":translations/translations")))
     {
         a.installTranslator(&translator);
-        qDebug() << "Translation file for russian lang loaded.";
+        qDebug() << "Translation file for english lang loaded.";
     } else {
-        qWarning() << "Translation file for russian lang not loaded!";
+        qWarning() << "Translation file for english lang not loaded!";
     }
 
     MainWindow w;

@@ -28,4 +28,6 @@ FORMS    += \
 RESOURCES = \
     resources/resources.qrc
 
-TRANSLATIONS = translation.ru.ts
+TRANSLATIONS = \
+	translation.en.ts \
+	translation.de.ts
