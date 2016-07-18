@@ -128,7 +128,7 @@ private:
     Log m_l;
     InterfaceState inter_state;
 
-    struct Min_Max_Value
+    struct Min_Max_value_target
     {
         QDateTime dt_max;
         QDateTime dt_min;
@@ -138,7 +138,35 @@ private:
         uint speed_min;
     };
 
-    Min_Max_Value min_max_value;
+    struct Min_Max_value_angle
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        int angleZX_max;
+        int angleZY_max;
+        int angleZX_min;
+        int angleZY_min;
+
+    };
+
+    struct Min_Max_value_power
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        uint power_max, power_min;
+    };
+
+    struct Min_Max_value_mode
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        uint mode_0, mode_1;
+    };
+
+    Min_Max_value_target min_max_value1;
+    Min_Max_value_angle min_max_value2;
+    Min_Max_value_power min_max_value3;
+    Min_Max_value_mode min_max_value4;
 
     void appendLineToReport(QString);
 
@@ -155,14 +183,23 @@ private:
     void append_codogram_to_tableTarget(QVector<Target> sorted_codogram1);
     void append_statistics_Target(int number_sorted_cdgr1);
 
-    void tableAntennaAngle_generation();
+    QVector<Antenna_Angle> select_codogram_AntennaAngle();
     void write_top_tableAntennaAngle();
+    void search_min_max_value_AntennaAngle(QVector<Antenna_Angle> sorted_codogram2);
+    void append_codogram_to_tableAntennaAngle(QVector<Antenna_Angle> sorted_codogram2);
+    void append_statistics_AntennaAngle(int number_sorted_cdgr2);
 
-    void tablePower_generation();
+    QVector<Power_Coodogram> select_codogram_Power();
     void write_top_tablePower();
+    void search_min_max_value_Power(QVector<Power_Coodogram> sorted_codogram3);
+    void append_codogram_to_tablePower(QVector<Power_Coodogram> sorted_codogram3);
+    void append_statistics_Power(int number_sorted_cdgr3);
 
-    void tableMode_generation();
+    QVector<Mode> select_codogram_Mode();
     void write_top_tableMode();
+    void search_min_max_value_Mode(QVector<Mode> sorted_codogram4);
+    void append_codogram_to_tableMode(QVector<Mode> sorted_codogram4);
+    void append_statistics_Mode(int number_sorted_cdgr4);
 
     void write_bottom_report_WorkField();
     void write_bottom_report_ActionOperator();

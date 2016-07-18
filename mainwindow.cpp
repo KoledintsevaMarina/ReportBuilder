@@ -293,15 +293,32 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow::close();
     });
 
-    min_max_value.dt_max = ui->dateTimeEdit_work_field_min->minimumDateTime();
-    min_max_value.dt_min = ui->dateTimeEdit_work_field_min->maximumDateTime();
+    min_max_value1.dt_max = ui->dateTimeEdit_work_field_min->minimumDateTime();
+    min_max_value1.dt_min = ui->dateTimeEdit_work_field_min->maximumDateTime();
     for (int i = 0; i < 3; i++)
     {
-        min_max_value.coord_max[i] = 0;//[X,Y,Z]
-        min_max_value.coord_min[i] = 9999;//[X,Y,Z]
+        min_max_value1.coord_max[i] = 0;//[X,Y,Z]
+        min_max_value1.coord_min[i] = 9999;//[X,Y,Z]
     }
-    min_max_value.speed_max = 1;
-    min_max_value.speed_min = 1000;
+    min_max_value1.speed_max = 1;
+    min_max_value1.speed_min = 1000;
+
+    min_max_value2.dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
+    min_max_value2.dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
+    min_max_value2.angleZX_max = 0;
+    min_max_value2.angleZX_min = 360;
+    min_max_value2.angleZY_max = 0;
+    min_max_value2.angleZY_min = 90;
+
+    min_max_value3.dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
+    min_max_value3.dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
+    min_max_value3.power_max = 1;
+    min_max_value3.power_min = 999;
+
+    min_max_value4.dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
+    min_max_value4.dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
+    min_max_value4.mode_0 = 0;
+    min_max_value4.mode_1 = 0;
 
 }
 
@@ -389,18 +406,30 @@ void MainWindow::write_report()
         write_top_report_ActionOperator();
         if (m_l.codogram_2.size() != 0)
         {
+            QVector<Antenna_Angle> sorted_codogram2 = select_codogram_AntennaAngle();
+            search_min_max_value_AntennaAngle(sorted_codogram2);
+
             write_top_tableAntennaAngle();
-            tableAntennaAngle_generation();
+            append_codogram_to_tableAntennaAngle(sorted_codogram2);
+            append_statistics_AntennaAngle(sorted_codogram2.size());
         }
         if (m_l.codogram_3.size() != 0)
         {
+            QVector<Power_Coodogram> sorted_codogram3 = select_codogram_Power();
+            search_min_max_value_Power(sorted_codogram3);
+
             write_top_tablePower();
-            tablePower_generation();
+            append_codogram_to_tablePower(sorted_codogram3);
+            append_statistics_Power(sorted_codogram3.size());
         }
         if (m_l.codogram_4.size() != 0)
         {
+            QVector<Mode> sorted_codogram4 = select_codogram_Mode();
+            search_min_max_value_Mode(sorted_codogram4);
+
             write_top_tableMode();
-            tableMode_generation();
+            append_codogram_to_tableMode(sorted_codogram4);
+            append_statistics_Mode(sorted_codogram4.size());
         }
     }
     write_bottom_report_ActionOperator();
@@ -572,16 +601,16 @@ void MainWindow::search_min_max_value_Target(QVector<Target> sorted_codogram1)
 {
     for (Target & sorted_cdgr_target: sorted_codogram1)
     {
-        min_max_value.dt_max = qMax(min_max_value.dt_max, sorted_cdgr_target.creationTime);
-        min_max_value.dt_min = qMin(min_max_value.dt_min, sorted_cdgr_target.creationTime);
-        min_max_value.coord_max[0] = qMax(min_max_value.coord_max[0], sorted_cdgr_target.coordinate[0]);
-        min_max_value.coord_min[0] = qMin(min_max_value.coord_min[0], sorted_cdgr_target.coordinate[0]);
-        min_max_value.coord_max[1] = qMax(min_max_value.coord_max[1], sorted_cdgr_target.coordinate[0]);
-        min_max_value.coord_min[1] = qMin(min_max_value.coord_min[1], sorted_cdgr_target.coordinate[0]);
-        min_max_value.coord_max[2] = qMax(min_max_value.coord_max[2], sorted_cdgr_target.coordinate[0]);
-        min_max_value.coord_min[2] = qMin(min_max_value.coord_min[2], sorted_cdgr_target.coordinate[0]);
-        min_max_value.speed_max = qMax(min_max_value.speed_max, sorted_cdgr_target.speed);
-        min_max_value.speed_min = qMin(min_max_value.speed_min, sorted_cdgr_target.speed);
+        min_max_value1.dt_max = qMax(min_max_value1.dt_max, sorted_cdgr_target.creationTime);
+        min_max_value1.dt_min = qMin(min_max_value1.dt_min, sorted_cdgr_target.creationTime);
+        min_max_value1.coord_max[0] = qMax(min_max_value1.coord_max[0], sorted_cdgr_target.coordinate[0]);
+        min_max_value1.coord_min[0] = qMin(min_max_value1.coord_min[0], sorted_cdgr_target.coordinate[0]);
+        min_max_value1.coord_max[1] = qMax(min_max_value1.coord_max[1], sorted_cdgr_target.coordinate[0]);
+        min_max_value1.coord_min[1] = qMin(min_max_value1.coord_min[1], sorted_cdgr_target.coordinate[0]);
+        min_max_value1.coord_max[2] = qMax(min_max_value1.coord_max[2], sorted_cdgr_target.coordinate[0]);
+        min_max_value1.coord_min[2] = qMin(min_max_value1.coord_min[2], sorted_cdgr_target.coordinate[0]);
+        min_max_value1.speed_max = qMax(min_max_value1.speed_max, sorted_cdgr_target.speed);
+        min_max_value1.speed_min = qMin(min_max_value1.speed_min, sorted_cdgr_target.speed);
     }
 }
 
@@ -616,27 +645,23 @@ void MainWindow::append_statistics_Target(int number_sorted_cdgr1)
                                                                             + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
         appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_sorted_cdgr1) + "\n");
         appendLineToReport("\nМаксимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + min_max_value.dt_max.toString() + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(min_max_value.coord_max[0]) + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(min_max_value.coord_max[1]) + "\n");
-        appendLineToReport("    Высота: " + QString::number(min_max_value.coord_max[2]) + "\n");
-        appendLineToReport("    Скорость: " + QString::number(min_max_value.speed_max) + "\n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value1.dt_max.toString() + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(min_max_value1.coord_max[0]) + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(min_max_value1.coord_max[1]) + "\n");
+        appendLineToReport("    Высота: " + QString::number(min_max_value1.coord_max[2]) + "\n");
+        appendLineToReport("    Скорость: " + QString::number(min_max_value1.speed_max) + "\n");
         appendLineToReport("\nМинимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + min_max_value.dt_min.toString() + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(min_max_value.coord_min[0]) + "\n");
-        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(min_max_value.coord_min[1]) + "\n");
-        appendLineToReport("    Высота: " + QString::number(min_max_value.coord_min[2]) + "\n");
-        appendLineToReport("    Скорость: " + QString::number(min_max_value.speed_min) + "\n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value1.dt_min.toString() + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate1 + ": " + QString::number(min_max_value1.coord_min[0]) + "\n");
+        appendLineToReport("    " + inter_state.interfase1.coordinate2 + ": " + QString::number(min_max_value1.coord_min[1]) + "\n");
+        appendLineToReport("    Высота: " + QString::number(min_max_value1.coord_min[2]) + "\n");
+        appendLineToReport("    Скорость: " + QString::number(min_max_value1.speed_min) + "\n");
     }
 }
 
-void MainWindow::tableAntennaAngle_generation()
+QVector<Antenna_Angle> MainWindow::select_codogram_AntennaAngle()
 {
-    QDateTime dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
-    QDateTime dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
-    int angleZX_max = 0, angleZX_min = 360;
-    int angleZY_max = 0, angleZY_min = 90;
-    uint number_c = 0;
+    QVector<Antenna_Angle> sorted_codogram_2;
     for (Antenna_Angle & cdgr_angle: m_l.codogram_2)
     {
         if ((cdgr_angle.creationTime <= inter_state.interfase2.time_gen_Max and cdgr_angle.creationTime >= inter_state.interfase2.time_gen_Min)
@@ -648,34 +673,12 @@ void MainWindow::tableAntennaAngle_generation()
                 if ((cdgr_angle.angle_ZY >= inter_state.interfase2.angleZY[0] and cdgr_angle.angle_ZY <= inter_state.interfase2.angleZY[1])
                         or ui->checkBox_select_AngleZY->checkState() == 0)
                 {
-                    ++number_c;
-                    appendLineToReport("   2          " + cdgr_angle.creationTime.toString() + "              " + QString::number(cdgr_angle.angle_ZX)
-                                   + "                " + QString::number(cdgr_angle.angle_ZY) + "\n");
-                    dt_max = qMax(dt_max, cdgr_angle.creationTime);
-                    dt_min = qMin(dt_min, cdgr_angle.creationTime);
-                    angleZX_max = qMax(angleZX_max, cdgr_angle.angle_ZX);
-                    angleZX_min = qMin(angleZX_min, cdgr_angle.angle_ZX);
-                    angleZY_max = qMax(angleZY_max, cdgr_angle.angle_ZY);
-                    angleZY_min = qMin(angleZY_min, cdgr_angle.angle_ZY);
+                    sorted_codogram_2.append(cdgr_angle);
                 }
             }
         }
     }
-    appendLineToReport("\nКолличество кодограмм в логе: " + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
-                                                                        + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-    appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
-    if (number_c != 0)
-    {
-        appendLineToReport("\nМаксимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_max.toString() + "\n");
-        appendLineToReport("    Угол в плоскости Z-X: " + QString::number(angleZX_max) + "\n");
-        appendLineToReport("    Угол в плоскости Z-Y: " + QString::number(angleZY_max) + "\n");
-
-        appendLineToReport("\nМинимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_min.toString() + "\n");
-        appendLineToReport("    Угол в плоскости Z-X: " + QString::number(angleZX_min) + "\n");
-        appendLineToReport("    Угол в плоскости Z-Y: " + QString::number(angleZY_min) + "\n");
-    }
+    return sorted_codogram_2;
 }
 
 void MainWindow::write_top_tableAntennaAngle()
@@ -684,12 +687,50 @@ void MainWindow::write_top_tableAntennaAngle()
     appendLineToReport("_____________________________________________________________________________________________________\n");
 }
 
-void MainWindow::tablePower_generation()
+void MainWindow::search_min_max_value_AntennaAngle(QVector<Antenna_Angle> sorted_codogram2)
 {
-    QDateTime dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
-    QDateTime dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
-    uint power_max = 1, power_min = 999;
-    uint number_c = 0;
+    for (Antenna_Angle & cdgr_angle: sorted_codogram2)
+    {
+        min_max_value2.dt_max = qMax(min_max_value2.dt_max, cdgr_angle.creationTime);
+        min_max_value2.dt_min = qMin(min_max_value2.dt_min, cdgr_angle.creationTime);
+        min_max_value2.angleZX_max = qMax(min_max_value2.angleZX_max, cdgr_angle.angle_ZX);
+        min_max_value2.angleZX_min = qMin(min_max_value2.angleZX_min, cdgr_angle.angle_ZX);
+        min_max_value2.angleZY_max = qMax(min_max_value2.angleZY_max, cdgr_angle.angle_ZY);
+        min_max_value2.angleZY_min = qMin(min_max_value2.angleZY_min, cdgr_angle.angle_ZY);
+    }
+}
+
+void MainWindow::append_codogram_to_tableAntennaAngle(QVector<Antenna_Angle> sorted_codogram2)
+{
+    for (Antenna_Angle & sorted_cdgr_angle: sorted_codogram2)
+    {
+        appendLineToReport("   2          " + sorted_cdgr_angle.creationTime.toString() + "              " + QString::number(sorted_cdgr_angle.angle_ZX)
+                   + "                " + QString::number(sorted_cdgr_angle.angle_ZY) + "\n");
+    }
+}
+
+void MainWindow::append_statistics_AntennaAngle(int number_sorted_cdgr2)
+{
+    appendLineToReport("\nКолличество кодограмм в логе: " + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
+                                                                        + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
+    appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_sorted_cdgr2) + "\n");
+    if (number_sorted_cdgr2 != 0)
+    {
+        appendLineToReport("\nМаксимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value2.dt_max.toString() + "\n");
+        appendLineToReport("    Угол в плоскости Z-X: " + QString::number(min_max_value2.angleZX_max) + "\n");
+        appendLineToReport("    Угол в плоскости Z-Y: " + QString::number(min_max_value2.angleZY_max) + "\n");
+
+        appendLineToReport("\nМинимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value2.dt_min.toString() + "\n");
+        appendLineToReport("    Угол в плоскости Z-X: " + QString::number(min_max_value2.angleZX_min) + "\n");
+        appendLineToReport("    Угол в плоскости Z-Y: " + QString::number(min_max_value2.angleZY_min) + "\n");
+    }
+}
+
+QVector<Power_Coodogram> MainWindow::select_codogram_Power()
+{
+    QVector<Power_Coodogram> sorted_codogram_3;
     for (Power_Coodogram & cdgr_power: m_l.codogram_3)
     {
         if ((cdgr_power.creationTime <= inter_state.interfase3.time_gen_Max and cdgr_power.creationTime >= inter_state.interfase3.time_gen_Min)
@@ -698,28 +739,11 @@ void MainWindow::tablePower_generation()
             if ((cdgr_power.powerValue >= inter_state.interfase3.energy[0] and cdgr_power.powerValue <= inter_state.interfase3.energy[1])
                     or ui->checkBox_select_Power->checkState() == 0)
             {
-                ++number_c;
-                appendLineToReport("   3          " + cdgr_power.creationTime.toString() + "              " + QString::number(cdgr_power.powerValue) + "\n");
-                dt_max = qMax(dt_max, cdgr_power.creationTime);
-                dt_min = qMin(dt_min, cdgr_power.creationTime);
-                power_max = qMax(power_max, cdgr_power.powerValue);
-                power_min = qMin(power_min, cdgr_power.powerValue);
+                sorted_codogram_3.append(cdgr_power);
             }
         }
     }
-    appendLineToReport("\nКолличество кодограмм в логе: " + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
-                                                                        + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-    appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
-    if (number_c != 0)
-    {
-        appendLineToReport("\nМаксимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_max.toString() + "\n");
-        appendLineToReport("    Мощность: " + QString::number(power_max) + "\n");
-
-        appendLineToReport("\nМинимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_min.toString() + "\n");
-        appendLineToReport("    Мощность: " + QString::number(power_min) + "\n");
-    }
+    return sorted_codogram_3;
 }
 
 void MainWindow::write_top_tablePower()
@@ -728,11 +752,45 @@ void MainWindow::write_top_tablePower()
     appendLineToReport("_____________________________________________________________________________________________________\n");
 }
 
-void MainWindow::tableMode_generation()
+void MainWindow::search_min_max_value_Power(QVector<Power_Coodogram> sorted_codogram3)
 {
-    QDateTime dt_max = ui->dateTimeEdit_angle_min->minimumDateTime();
-    QDateTime dt_min = ui->dateTimeEdit_angle_min->maximumDateTime();
-    uint number_c = 0, mode_0 = 0, mode_1 = 0;
+    for (Power_Coodogram & cdgr_power: sorted_codogram3)
+    {
+        min_max_value3.dt_max = qMax(min_max_value3.dt_max, cdgr_power.creationTime);
+        min_max_value3.dt_min = qMin(min_max_value3.dt_min, cdgr_power.creationTime);
+        min_max_value3.power_max = qMax(min_max_value3.power_max, cdgr_power.powerValue);
+        min_max_value3.power_min = qMin(min_max_value3.power_min, cdgr_power.powerValue);
+    }
+}
+
+void MainWindow::append_codogram_to_tablePower(QVector<Power_Coodogram> sorted_codogram3)
+{
+    for (Power_Coodogram & cdgr_power: sorted_codogram3)
+    {
+    appendLineToReport("   3          " + cdgr_power.creationTime.toString() + "              " + QString::number(cdgr_power.powerValue) + "\n");
+    }
+}
+
+void MainWindow::append_statistics_Power(int number_sorted_cdgr3)
+{
+    appendLineToReport("\nКолличество кодограмм в логе: " + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
+                                                                        + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
+    appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_sorted_cdgr3) + "\n");
+    if (number_sorted_cdgr3 != 0)
+    {
+        appendLineToReport("\nМаксимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value3.dt_max.toString() + "\n");
+        appendLineToReport("    Мощность: " + QString::number(min_max_value3.power_max) + "\n");
+
+        appendLineToReport("\nМинимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value3.dt_min.toString() + "\n");
+        appendLineToReport("    Мощность: " + QString::number(min_max_value3.power_min) + "\n");
+    }
+}
+
+QVector<Mode> MainWindow::select_codogram_Mode()
+{
+    QVector<Mode> sorted_codogram_4;
     for (Mode & cdgr_mode: m_l.codogram_4)
     {
         if ((cdgr_mode.creationTime <= inter_state.interfase4.time_gen_Max and cdgr_mode.creationTime >= inter_state.interfase4.time_gen_Min)
@@ -740,39 +798,58 @@ void MainWindow::tableMode_generation()
         {
             if (cdgr_mode.modeValue == inter_state.interfase4.mode or ui->checkBox_select_Mode->checkState() == 0)
             {
-                ++number_c;
-                appendLineToReport("   4          " + cdgr_mode.creationTime.toString() + "              " + QString::number(cdgr_mode.modeValue) + "\n");
-                dt_max = qMax(dt_max, cdgr_mode.creationTime);
-                dt_min = qMin(dt_min, cdgr_mode.creationTime);
-                if (cdgr_mode.modeValue == 0)
-                {
-                    ++mode_0;
-                }
-                if (cdgr_mode.modeValue == 1)
-                {
-                    ++mode_1;
-                }
+                sorted_codogram_4.append(cdgr_mode);
             }
         }
     }
-    appendLineToReport("\nКолличество кодограмм в логе: " + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
-                                                                        + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
-    appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_c) + "\n");
-    if (number_c != 0)
-    {
-        appendLineToReport("\nМаксимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_max.toString() + "\n");
-        appendLineToReport("\nМинимальные значения полей: \n");
-        appendLineToReport("    Время герерации кодограммы: " + dt_min.toString() + "\n\n");
-        appendLineToReport("Дежурный режим включен " + QString::number(mode_0) + " раз.\n Боевой режим включен "
-                       + QString::number(mode_1) + " раз.\n");
-    }
+    return sorted_codogram_4;
 }
 
 void MainWindow::write_top_tableMode()
 {
     appendLineToReport("  ТК    Ввремя генерации кодограммы    Режим\n");
     appendLineToReport("_____________________________________________________________________________________________________\n");
+}
+
+void MainWindow::search_min_max_value_Mode(QVector<Mode> sorted_codogram4)
+{
+    for (Mode & cdgr_mode: sorted_codogram4)
+    {
+    min_max_value4.dt_max = qMax(min_max_value4.dt_max, cdgr_mode.creationTime);
+    min_max_value4.dt_min = qMin(min_max_value4.dt_min, cdgr_mode.creationTime);
+    if (cdgr_mode.modeValue == 0)
+    {
+        ++min_max_value4.mode_0;
+    }
+    if (cdgr_mode.modeValue == 1)
+    {
+        ++min_max_value4.mode_1;
+    }
+    }
+}
+
+void MainWindow::append_codogram_to_tableMode(QVector<Mode> sorted_codogram4)
+{
+    for (Mode & cdgr_mode: sorted_codogram4)
+    {
+    appendLineToReport("   4          " + cdgr_mode.creationTime.toString() + "              " + QString::number(cdgr_mode.modeValue) + "\n");
+    }
+}
+
+void MainWindow::append_statistics_Mode(int number_sorted_cdgr4)
+{
+    appendLineToReport("\nКолличество кодограмм в логе: " + QString::number(m_l.codogram_1.size() + m_l.codogram_2.size()
+                                                                        + m_l.codogram_3.size() + m_l.codogram_4.size()) + "\n");
+    appendLineToReport("\nКолличество кодограмм прошедших выборку: " + QString::number(number_sorted_cdgr4) + "\n");
+    if (number_sorted_cdgr4 != 0)
+    {
+        appendLineToReport("\nМаксимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value4.dt_max.toString() + "\n");
+        appendLineToReport("\nМинимальные значения полей: \n");
+        appendLineToReport("    Время герерации кодограммы: " + min_max_value4.dt_min.toString() + "\n\n");
+        appendLineToReport("Дежурный режим включен " + QString::number(min_max_value4.mode_0) + " раз.\n Боевой режим включен "
+                       + QString::number(min_max_value4.mode_1) + " раз.\n");
+    }
 }
 
 void MainWindow::write_bottom_report_WorkField()
