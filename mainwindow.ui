@@ -56,7 +56,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page0">
         <layout class="QGridLayout" name="gridLayout_2">
@@ -1679,12 +1679,12 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup">
    <property name="exclusive">
     <bool>true</bool>
    </property>
   </buttongroup>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

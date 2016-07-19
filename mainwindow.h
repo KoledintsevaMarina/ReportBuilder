@@ -4,16 +4,33 @@
 #include <QMainWindow>
 #include <QVector>
 #include <QDateTime>
-#include <QDebug>//====================================      потом удалить    ===================================================================
 #include <QVariant>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
 }
 
+enum Coordinate_system
+{
+   CARTESIAN,
+   POLAR
+ };
+
+enum Speed_units
+{
+    METER_PER_SECOND,
+    KILOMETER_PER_HOUR
+};
+
+enum Pos_units
+{
+    METER,
+    KILOMETER
+};
+
 struct Target
 {
-    uint type = 1;
     QDateTime creationTime;
     int coordinate[3];
     uint speed;
@@ -22,22 +39,19 @@ struct Target
 
 struct Antenna_Angle
 {
-    uint type = 2;
     QDateTime creationTime;
     int angle_ZX;
     int angle_ZY;
 };
 
-struct Power_Coodogram
+struct Power
 {
-    uint type = 3;
     QDateTime creationTime;
     uint powerValue;
 };
 
 struct Mode
 {
-    uint type = 4;
     QDateTime creationTime;
     bool modeValue;
 };
@@ -52,6 +66,17 @@ struct Interface_1
     double scope[3][2];
     uint pace[2];
     uint object;
+    bool select_x, select_y, select_h, select_azimut, select_range, select_h2, select_speed, select_time, select_type;
+    QString units_pos, units_speed, units_h;
+
+    Speed_units speed_units = Speed_units::METER_PER_SECOND;
+    int speed_coeff;
+
+    Pos_units pos_units = Pos_units::METER;
+    int pos_coeff;
+
+    Coordinate_system coordinate_system = Coordinate_system::CARTESIAN;
+
 };
 
 struct Interface_2
@@ -60,18 +85,21 @@ struct Interface_2
     QDateTime time_gen_Max;
     int angleZX[2];
     int angleZY[2];
+    bool select_time, select_angleZX, select_angleZY;
 };
 struct Interface_3
 {
     QDateTime time_gen_Min;
     QDateTime time_gen_Max;
     uint energy[2];
+    bool select_time, select_power;
 };
 struct Interface_4
 {
     QDateTime time_gen_Min;
     QDateTime time_gen_Max;
     bool mode;
+    bool select_time, select_mode;
 };
 
 struct InterfaceState
@@ -80,23 +108,99 @@ Interface_1 interfase1;
 Interface_2 interfase2;
 Interface_3 interfase3;
 Interface_4 interfase4;
-bool workField = 1;
-bool speedButton_index = 0;
-bool posButton_index = 0;
-bool listWidget_index = 0;
+int report_type_index = 0;
+QDateTime dt_min_value, dt_max_value;
 };
 
 class Log
 {
+private:
+    struct Statistics_target
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        int coord_max[3];
+        int coord_min[3];
+        uint speed_max;
+        uint speed_min;
+        uint number_sorted_cdgr_target;
+    };
+
+    struct Statistics_angle
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        int angleZX_max;
+        int angleZY_max;
+        int angleZX_min;
+        int angleZY_min;
+        uint number_sorted_cdgr_angle;
+    };
+
+    struct Statistics_power
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        uint power_max, power_min;
+        uint number_sorted_cdgr_power;
+    };
+
+    struct Statistics_mode
+    {
+        QDateTime dt_max;
+        QDateTime dt_min;
+        uint mode_0, mode_1;
+        uint number_sorted_cdgr_mode;
+    };
+
+    Statistics_target statistics_target;
+    Statistics_angle statistics_angle;
+    Statistics_power statistics_power;
+    Statistics_mode statistics_mode;
+
 public:
-    void read_codogram (QString codogram);
+    bool add_log(QString pathToFile);
+    void add_codogram(QString codogram);
 
-    QVector<Target> codogram_1;
-    QVector<Antenna_Angle> codogram_2;
-    QVector<Power_Coodogram> codogram_3;
-    QVector<Mode> codogram_4;
+    QString create_report(InterfaceState inter_state);
 
-    static QDateTime string_to_DataTime(QString str_DatTim)
+    QString write_top_report_WorkField(InterfaceState inter_state);
+    QString write_top_report_ActionOperator(InterfaceState inter_state);
+
+    QVector<Target> select_codogram_Target(InterfaceState inter_state);
+    QString write_top_tableTarget(InterfaceState inter_state);
+    Statistics_target compilation_statistics_Target(QVector<Target> sorted_codogram1, InterfaceState inter_state);
+    QString append_codogram_to_tableTarget(QVector<Target> sorted_codogram1, InterfaceState inter_state);
+    QString append_statistics_Target(Statistics_target statistics_target, InterfaceState inter_state);
+
+    QVector<Antenna_Angle> select_codogram_AntennaAngle(InterfaceState inter_state);
+    QString write_top_tableAntennaAngle();
+    Statistics_angle compilation_statistics_AntennaAngle(QVector<Antenna_Angle> sorted_codogram2, InterfaceState inter_state);
+    QString append_codogram_to_tableAntennaAngle(QVector<Antenna_Angle> sorted_codogram2);
+    QString append_statistics_AntennaAngle(Statistics_angle statistics_angle);
+
+    QVector<Power> select_codogram_Power(InterfaceState inter_state);
+    QString write_top_tablePower();
+    Statistics_power compilation_statistics_Power(QVector<Power> sorted_codogram3, InterfaceState inter_state);
+    QString append_codogram_to_tablePower(QVector<Power> sorted_codogram3);
+    QString append_statistics_Power(Statistics_power statistics_power);
+
+    QVector<Mode> select_codogram_Mode(InterfaceState inter_state);
+    QString write_top_tableMode();
+    Statistics_mode compilation_statistics_Mode(QVector<Mode> sorted_codogram4, InterfaceState inter_state);
+    QString append_codogram_to_tableMode(QVector<Mode> sorted_codogram4);
+    QString append_statistics_Mode(Statistics_mode statistics_mode);
+
+    QString write_bottom_report_WorkField();
+    QString write_bottom_report_ActionOperator();
+
+private:
+    QVector<Target> m_codogram_target;
+    QVector<Antenna_Angle> m_codogram_angle;
+    QVector<Power> m_codogram_power;
+    QVector<Mode> m_codogram_mode;
+
+    static QDateTime _string_to_DataTime(QString str_DatTim)
     {
         int day = (str_DatTim.mid(0,2)).toInt();
         int mounth = (str_DatTim.mid(3,2)).toInt();
@@ -112,6 +216,7 @@ public:
         return dat_tim;
     }
 
+    InterfaceState inter_state;
 };
 
 class MainWindow : public QMainWindow
@@ -125,84 +230,13 @@ public:
 private:
 
     Ui::MainWindow *ui;
-    Log m_l;
-    InterfaceState inter_state;
+    Log m_log;
+    InterfaceState m_inter_state;
 
-    struct Min_Max_value_target
-    {
-        QDateTime dt_max;
-        QDateTime dt_min;
-        int coord_max[3];
-        int coord_min[3];
-        uint speed_max;
-        uint speed_min;
-    };
+    void _save_interface_state();
+    void _clear_interfase_widgets();
 
-    struct Min_Max_value_angle
-    {
-        QDateTime dt_max;
-        QDateTime dt_min;
-        int angleZX_max;
-        int angleZY_max;
-        int angleZX_min;
-        int angleZY_min;
-
-    };
-
-    struct Min_Max_value_power
-    {
-        QDateTime dt_max;
-        QDateTime dt_min;
-        uint power_max, power_min;
-    };
-
-    struct Min_Max_value_mode
-    {
-        QDateTime dt_max;
-        QDateTime dt_min;
-        uint mode_0, mode_1;
-    };
-
-    Min_Max_value_target min_max_value1;
-    Min_Max_value_angle min_max_value2;
-    Min_Max_value_power min_max_value3;
-    Min_Max_value_mode min_max_value4;
-
-    void appendLineToReport(QString);
-
-    void read_interface();
-
-    void write_report();
-
-    void write_top_report_WorkField();
-    void write_top_report_ActionOperator();
-
-    QVector<Target> select_codogram_Target();
-    void write_top_tableTarget();
-    void search_min_max_value_Target(QVector<Target> sorted_codogram1);
-    void append_codogram_to_tableTarget(QVector<Target> sorted_codogram1);
-    void append_statistics_Target(int number_sorted_cdgr1);
-
-    QVector<Antenna_Angle> select_codogram_AntennaAngle();
-    void write_top_tableAntennaAngle();
-    void search_min_max_value_AntennaAngle(QVector<Antenna_Angle> sorted_codogram2);
-    void append_codogram_to_tableAntennaAngle(QVector<Antenna_Angle> sorted_codogram2);
-    void append_statistics_AntennaAngle(int number_sorted_cdgr2);
-
-    QVector<Power_Coodogram> select_codogram_Power();
-    void write_top_tablePower();
-    void search_min_max_value_Power(QVector<Power_Coodogram> sorted_codogram3);
-    void append_codogram_to_tablePower(QVector<Power_Coodogram> sorted_codogram3);
-    void append_statistics_Power(int number_sorted_cdgr3);
-
-    QVector<Mode> select_codogram_Mode();
-    void write_top_tableMode();
-    void search_min_max_value_Mode(QVector<Mode> sorted_codogram4);
-    void append_codogram_to_tableMode(QVector<Mode> sorted_codogram4);
-    void append_statistics_Mode(int number_sorted_cdgr4);
-
-    void write_bottom_report_WorkField();
-    void write_bottom_report_ActionOperator();
+    void write_report(QString text_report);
 
 
 };
