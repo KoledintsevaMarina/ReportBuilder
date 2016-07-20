@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QApplication>//
+#include <QTranslator>
+#include <QLibraryInfo>//
 
 #include <QAction>
 #include <QMenu>
@@ -17,6 +20,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    connect (ui->action_Russian, &QAction::triggered, this, [this] () {
+        qtLanguageTranslator.load(":translations/translations/translation.ru.qm");
+        qApp->installTranslator(&qtLanguageTranslator);
+    });
+
+    connect (ui->action_Deutsch, &QAction::triggered, this, [this] () {
+        qtLanguageTranslator.load(":translations/translations/translation.de.qm");
+        qApp->installTranslator(&qtLanguageTranslator);
+    });
+
+    connect (ui->action_English, &QAction::triggered, this, [this] () {
+        qtLanguageTranslator.load(QString("QtLanguage_") + QString("en_UK"));
+        qApp->installTranslator(&qtLanguageTranslator);
+    });
 
     connect(ui->workField_xyButton, &QPushButton::toggled, this, [this](bool) {
         ui->workField_stackedWidget->setCurrentIndex(1);
@@ -100,11 +118,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->pushButton_meters, &QPushButton::toggled, this, [=] (bool){
         if (m_inter_state.interfase1.pos_units == Pos_units::KILOMETER)
         {
-            ui->label_32->setText("Х [м]");
-            ui->label_35->setText("Y [м]");
-            ui->label_38->setText("Высота [м]");
-            ui->label_3->setText("Высота [м]");
-            ui->label_2->setText("Дальность [м]");
+            ui->label_32->setText("Х [m]");
+            ui->label_35->setText("Y [m]");
+            ui->label_38->setText("Height [m]");
+            ui->label_3->setText("Height [m]");
+            ui->label_2->setText("Range [m]");
             foreach (QSpinBox * spinBox, listOfSpinBoxes)
             {
                 spinBox->setValue(spinBox->value() * 1000);
@@ -119,11 +137,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->pushButton_kilometers, &QPushButton::toggled, this, [=] (bool){
         if (m_inter_state.interfase1.pos_units == Pos_units::METER)
         {
-            ui->label_32->setText("Х [км]");
-            ui->label_35->setText("Y [км]");
-            ui->label_38->setText("Высота [км]");
-            ui->label_3->setText("Высота [км]");
-            ui->label_2->setText("Дальность [км]");
+            ui->label_32->setText("Х [km]");
+            ui->label_35->setText("Y [km]");
+            ui->label_38->setText("Height [km]");
+            ui->label_3->setText("Height [km]");
+            ui->label_2->setText("Range [km]");
             foreach (QSpinBox * spinBox, listOfSpinBoxes) {
                 spinBox->setValue(spinBox->value()/1000);
             }
@@ -212,7 +230,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     connect (ui->action_Open_log, &QAction::triggered, this, [this] () {
-        QString file_name = QFileDialog::getOpenFileName(this, tr("Открыть файл"), "", "*.txt");
+        QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), "", "*.txt");
         if (file_name !="")
         {
             m_log.add_log(file_name);
@@ -228,7 +246,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     connect (ui->action_Save, &QAction::triggered, this, [this](){
-        QString fileName = QFileDialog::getSaveFileName(this, tr("Сохранить файл"), "", "Text Files (*.txt)");
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save file"), "", "Text Files (*.txt)");
         QFile file(fileName);
         file.open(QIODevice::WriteOnly);
         QTextStream stream(&file);
@@ -259,6 +277,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange)
+    {
+            ui->retranslateUi(this);
+    }
+}
+
 void MainWindow::_save_interface_state()
 {
     Interface_1 inter1;
@@ -285,8 +311,8 @@ void MainWindow::_save_interface_state()
             inter1.scope[1][1] = ui->doubleSpinBox_range_max->value();
             inter1.scope[2][0] = ui->doubleSpinBox_H_min->value();
             inter1.scope[2][1] = ui->doubleSpinBox_H_max->value();
-            inter1.coordinate1 = tr("А");
-            inter1.coordinate2 = tr("Д");
+            inter1.coordinate1 = tr("A");
+            inter1.coordinate2 = tr("R");
         }
     if (ui->pushButton_meters->isChecked())
     {
@@ -488,45 +514,46 @@ QString Log::create_report(InterfaceState m_inter_state)
 QString Log::write_top_report_WorkField(InterfaceState inter_state)
 {
     QString part_report = "";
-    part_report += QObject::tr("                                                                                     ОТЧЕТ\n\n");
-    part_report += QObject::tr("                                                                               Рабочее поле\n\n\n");
-    part_report += QObject::tr(" Время создания отчета: ") + QDateTime::currentDateTime().toString() + QObject::tr("\n\n2. Условия выбора данных для отчета:\n");
+    part_report += QObject::tr("                                                                                     REPORT\n\n");
+    part_report += QObject::tr("                                                                               Work field\n\n\n");
+    part_report += QObject::tr(" Time of report creation: ") + QDateTime::currentDateTime().toString() +
+            QObject::tr("\n\n2. Choice terms of data for the report:\n");
     if (inter_state.interfase1.select_x != 0 or inter_state.interfase1.select_azimut != 0 or
             inter_state.interfase1.select_y != 0 or inter_state.interfase1.select_range != 0 or
             inter_state.interfase1.select_h != 0 or inter_state.interfase1.select_h2 != 0)
     {
-        part_report += QObject::tr("Отбор по области:\n");
+        part_report += QObject::tr("Selection on the field:\n");
         if (inter_state.interfase1.select_x != 0 or inter_state.interfase1.select_azimut != 0)
         {
-            part_report += "                 " + inter_state.interfase1.coordinate1 + QObject::tr(" от ") +
-                    QString::number(inter_state.interfase1.scope[0][0]) + QObject::tr(" до ") +
+            part_report += "                 " + inter_state.interfase1.coordinate1 + QObject::tr(" from ") +
+                    QString::number(inter_state.interfase1.scope[0][0]) + QObject::tr(" to ") +
                     QString::number(inter_state.interfase1.scope[0][1]) + "\n";
         }
         if (inter_state.interfase1.select_y != 0 or inter_state.interfase1.select_range != 0)
         {
-            part_report += "                   " + inter_state.interfase1.coordinate2 + QObject::tr(" от ") +
-                    QString::number(inter_state.interfase1.scope[1][0]) + QObject::tr(" до ") +
+            part_report += "                   " + inter_state.interfase1.coordinate2 + QObject::tr(" from ") +
+                    QString::number(inter_state.interfase1.scope[1][0]) + QObject::tr(" to ") +
                     QString::number(inter_state.interfase1.scope[1][1]) + "\n";
         }
         if (inter_state.interfase1.select_h != 0 or inter_state.interfase1.select_h2 != 0)
         {
-            part_report += QObject::tr("                   Высота от ") + QString::number(inter_state.interfase1.scope[2][0]) + QObject::tr(" до ")
-                    + QString::number(inter_state.interfase1.scope[2][1]) + "\n";
+            part_report += QObject::tr("                   Height from ") + QString::number(inter_state.interfase1.scope[2][0])
+                    + QObject::tr(" to ") + QString::number(inter_state.interfase1.scope[2][1]) + "\n";
         }
     }
     if (inter_state.interfase1.select_speed != 0)
     {
-        part_report += QObject::tr("  Отбор по скорости: от ") + QString::number(inter_state.interfase1.pace[0]) + QObject::tr(" до ")
+        part_report += QObject::tr("  Speed selection: from ") + QString::number(inter_state.interfase1.pace[0]) + QObject::tr(" to ")
                 + QString::number(inter_state.interfase1.pace[1]) + "\n";
     }
     if (inter_state.interfase1.select_time != 0)
     {
-        part_report += QObject::tr("  Отбор по времени: от ") + inter_state.interfase1.time_gen_Min.toString() + QObject::tr(" до ")
+        part_report += QObject::tr("  Time selection: from ") + inter_state.interfase1.time_gen_Min.toString() + QObject::tr(" to ")
                 + inter_state.interfase1.time_gen_Max.toString() + "\n";
     }
     if (inter_state.interfase1.select_type != 0)
     {
-        part_report += QObject::tr("  Отбор по параметрам цели: ") + QString::number(inter_state.interfase1.object) + "\n";
+        part_report += QObject::tr("  Selection of the target parameters: ") + QString::number(inter_state.interfase1.object) + "\n";
     }
     return part_report;
 }
@@ -534,57 +561,57 @@ QString Log::write_top_report_WorkField(InterfaceState inter_state)
 QString Log::write_top_report_ActionOperator(InterfaceState inter_state)
 {
     QString part_report = "";
-    part_report += QObject::tr("                                                                                     ОТЧЕТ\n\n");
-    part_report += QObject::tr("\n                                                                               Действия оператора\n\n\n");
-    part_report += QObject::tr("1. Время создания отчета: ") + QDateTime::currentDateTime().toString() + "\n";
-    part_report += QObject::tr("\n2. Условия выбора данных для отчета:\n");
+    part_report += QObject::tr("                                                                                     REPORT\n\n");
+    part_report += QObject::tr("\n                                                                               Operator actions\n\n\n");
+    part_report += QObject::tr("1. Time of report creation: ") + QDateTime::currentDateTime().toString() + "\n";
+    part_report += QObject::tr("\n2. Choice terms of data for the report:\n");
     if (inter_state.interfase2.select_time != 0 or inter_state.interfase2.select_angleZX != 0 or inter_state.interfase2.select_angleZY != 0)
     {
-        part_report += QObject::tr("  Отбор по углу поворота антенны:\n");
+        part_report += QObject::tr("  Angle of the antenna rotation:\n");
         if (inter_state.interfase2.select_time != 0)
         {
-            part_report += QObject::tr("            Отбор по времени от ") + inter_state.interfase2.time_gen_Min.toString() +
-                    QObject::tr(" до ") + inter_state.interfase2.time_gen_Max.toString() + "\n";
+            part_report += QObject::tr("            Time selection: from ") + inter_state.interfase2.time_gen_Min.toString() +
+                    QObject::tr(" to ") + inter_state.interfase2.time_gen_Max.toString() + "\n";
         }
         if (inter_state.interfase2.select_angleZX != 0)
         {
-            part_report += QObject::tr("            Угол в плоскости Z-X от ") + QString::number(inter_state.interfase2.angleZX[0]) +
-                    QObject::tr(" до ") + QString::number(inter_state.interfase2.angleZX[1]) + "\n";
+            part_report += QObject::tr("            Angle in the Z-X plane: from ") + QString::number(inter_state.interfase2.angleZX[0]) +
+                    QObject::tr(" to ") + QString::number(inter_state.interfase2.angleZX[1]) + "\n";
         }
         if (inter_state.interfase2.select_angleZY != 0)
         {
-            part_report += QObject::tr("            Угол в плоскости Z-Y от ") + QString::number(inter_state.interfase2.angleZY[0]) +
-                    QObject::tr(" до ") + QString::number(inter_state.interfase2.angleZY[1]) + "\n";
+            part_report += QObject::tr("            Angle in the Z-X plane: from ") + QString::number(inter_state.interfase2.angleZY[0]) +
+                    QObject::tr(" to ") + QString::number(inter_state.interfase2.angleZY[1]) + "\n";
         }
     }
     if (inter_state.interfase3.select_time != 0 or inter_state.interfase3.select_power != 0)
     {
-        part_report += QObject::tr("  Отбор по мощности излучения:\n");
+        part_report += QObject::tr("  Radiation power selection:\n");
         if (inter_state.interfase3.select_time != 0)
         {
-            part_report += QObject::tr("            Отбор по времени от ") + inter_state.interfase3.time_gen_Min.toString() + QObject::tr(" до ")
+            part_report += QObject::tr("            Time selection: from ") + inter_state.interfase3.time_gen_Min.toString() + QObject::tr(" to ")
                     + inter_state.interfase3.time_gen_Max.toString() + "\n";
         }
         if (inter_state.interfase3.select_power != 0)
         {
-            part_report += QObject::tr("            Мощность излучения от ") + QString::number(inter_state.interfase3.energy[0]) +
-                    QObject::tr(" до ") + QString::number(inter_state.interfase3.energy[1]) + "\n";
+            part_report += QObject::tr("            The emission power: from ") + QString::number(inter_state.interfase3.energy[0]) +
+                    QObject::tr(" to ") + QString::number(inter_state.interfase3.energy[1]) + "\n";
         }
     }
     if (inter_state.interfase4.select_time != 0 or inter_state.interfase4.select_mode != 0)
     {
-        part_report += QObject::tr("  Отбор по режиму:\n");
+        part_report += QObject::tr("  Mode selection:\n");
         if (inter_state.interfase4.select_time != 0)
         {
-            part_report += QObject::tr("            Отбор по времени от ") + inter_state.interfase4.time_gen_Min.toString() +
-                    QObject::tr(" до ") + inter_state.interfase4.time_gen_Max.toString() + "\n";
+            part_report += QObject::tr("            Time selection: from ") + inter_state.interfase4.time_gen_Min.toString() +
+                    QObject::tr(" to ") + inter_state.interfase4.time_gen_Max.toString() + "\n";
         }
         if (inter_state.interfase4.select_mode != 0)
         {
-            part_report += QObject::tr("            Режим ") + QString::number(inter_state.interfase4.mode) + "\n";
+            part_report += QObject::tr("            Mode ") + QString::number(inter_state.interfase4.mode) + "\n";
         }
     }
-    part_report += QObject::tr("3. Таблица кодограмм:\n\n");
+    part_report += QObject::tr("3. Codograms table:\n\n");
     return part_report;
 }
 
@@ -600,21 +627,21 @@ QVector<Target> Log::select_codogram_Target(InterfaceState inter_state)
                     or inter_state.interfase1.select_y == 0)//Y
             {
                 if ((cdgr_target.coordinate[2] >= inter_state.interfase1.scope[2][0] and cdgr_target.coordinate[2] <= inter_state.interfase1.scope[2][1])
-                        or inter_state.interfase1.select_h == 0 or inter_state.interfase1.select_h2 == 0)//Высота
+                        or inter_state.interfase1.select_h == 0 or inter_state.interfase1.select_h2 == 0)//height
                 {
                     if ((cdgr_target.creationTime <= inter_state.interfase1.time_gen_Max and cdgr_target.creationTime >= inter_state.interfase1.time_gen_Min)
-                            or inter_state.interfase1.select_time == 0)//Время
+                            or inter_state.interfase1.select_time == 0)//time
                     {
                         if ((cdgr_target.speed >= inter_state.interfase1.pace[0] and cdgr_target.speed <= inter_state.interfase1.pace[1])
-                                or inter_state.interfase1.select_speed == 0)//Скорость
+                                or inter_state.interfase1.select_speed == 0)//speed
                         {
                             if ((sqrt(pow(cdgr_target.coordinate[0], 2) + pow(cdgr_target.coordinate[1], 2)) >= inter_state.interfase1.scope[0][0]
                                  and sqrt(pow(cdgr_target.coordinate[0], 2) + pow(cdgr_target.coordinate[1], 2)) <= inter_state.interfase1.scope[0][1])
-                                    or inter_state.interfase1.select_range == 0)//Дальность
+                                    or inter_state.interfase1.select_range == 0)//range
                             {
                                 if ((atan(cdgr_target.coordinate[1]/cdgr_target.coordinate[0]) >= inter_state.interfase1.scope[1][0]
                                      and atan(cdgr_target.coordinate[1]/cdgr_target.coordinate[0]) <= inter_state.interfase1.scope[1][1])
-                                        or inter_state.interfase1.select_azimut == 0)//Азимут
+                                        or inter_state.interfase1.select_azimut == 0)//azimut
                                 {
                                     if (cdgr_target.object_type == inter_state.interfase1.object or inter_state.interfase1.select_type == 0)//Цель
                                     {
@@ -634,18 +661,19 @@ QVector<Target> Log::select_codogram_Target(InterfaceState inter_state)
 QString Log::write_top_tableTarget(InterfaceState inter_state)
 {
     QString part_report = "";
-    part_report += QObject::tr("\n3. Таблица кодограмм:\n\n");
-    part_report += QObject::tr("  ТК    Ввремя генерации кодограммы                 ") + inter_state.interfase1.coordinate1;
+    part_report += QObject::tr("\n3. Codogramms table:\n\n");
+    part_report += QObject::tr("  TC        Execution time of codogram                    ") + inter_state.interfase1.coordinate1;
     if(inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
     {
         part_report += inter_state.interfase1.units_pos;
     }
     else if (inter_state.interfase1.coordinate_system == Coordinate_system::POLAR)
     {
-        part_report += QObject::tr("[град]");
+        part_report += QObject::tr("[degrees]");
     }
     part_report += "                  " + inter_state.interfase1.coordinate2 + inter_state.interfase1.units_pos + "              "
-            + inter_state.interfase1.units_h + QObject::tr("    Скорость [") + inter_state.interfase1.units_speed + QObject::tr("]        Тип ВО\n");
+            + inter_state.interfase1.units_h + QObject::tr("           Speed [") + inter_state.interfase1.units_speed
+            + QObject::tr("]              Type AF\n");
     part_report += "_____________________________________________________________________________________________________\n";
     return part_report;
 }
@@ -718,11 +746,11 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
     QString part_report = "";
     if (statistics_target.number_sorted_cdgr_target != 0)
     {
-        part_report += QObject::tr("\nКолличество кодограмм в логе: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
+        part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
                                                                                 + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
-        part_report += QObject::tr("\nКолличество кодограмм прошедших выборку: ") + QString::number(statistics_target.number_sorted_cdgr_target) + "\n";
-        part_report += QObject::tr("\nМаксимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_target.dt_max.toString() + "\n";
+        part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_target.number_sorted_cdgr_target) + "\n";
+        part_report += QObject::tr("\nThe maximum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_target.dt_max.toString() + "\n";
         if (inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
         {
             part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_max[0]
@@ -738,13 +766,13 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
                                QString("%1").arg(sqrt(pow(statistics_target.coord_max[0], 2) + pow(statistics_target.coord_max[1], 2))
                                                                                 / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
-        part_report += QObject::tr("\n    Высота: ") + QString("%1").arg(statistics_target.coord_max[2]
+        part_report += QObject::tr("\n    Height: ") + QString("%1").arg(statistics_target.coord_max[2]
                                                                            / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
-        part_report += QObject::tr("\n    Скорость: ") + QString("%1").arg(statistics_target.speed_max
+        part_report += QObject::tr("\n    Speed: ") + QString("%1").arg(statistics_target.speed_max
                                                                            * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2);
 
-        part_report += QObject::tr("\n\nМинимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_target.dt_min.toString() + "\n";
+        part_report += QObject::tr("\n\nThe minimum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_target.dt_min.toString() + "\n";
         if (inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
         {
             part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_min[0]
@@ -760,9 +788,9 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
                                      QString("%1").arg(sqrt(pow(statistics_target.coord_min[0], 2) + pow(statistics_target.coord_min[1], 2))
                                                                                       / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
-        part_report += QObject::tr("\n    Высота: ") + QString("%1").arg(statistics_target.coord_min[2]
+        part_report += QObject::tr("\n    Height: ") + QString("%1").arg(statistics_target.coord_min[2]
                                                                                       / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
-        part_report += QObject::tr("\n    Скорость: ") + QString("%1").arg(statistics_target.speed_min
+        part_report += QObject::tr("\n    Speed: ") + QString("%1").arg(statistics_target.speed_min
                                                                            * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2);
     }
     return part_report;
@@ -793,7 +821,7 @@ QVector<Antenna_Angle> Log::select_codogram_AntennaAngle(InterfaceState inter_st
 QString Log::write_top_tableAntennaAngle()
 {
     QString part_report = "";
-    part_report += QObject::tr("  ТК    Время генерации кодограммы  Угол Z-X[град]   Угол Z-Y[град]\n");
+    part_report += QObject::tr("  TC        Execution time of codogram  Angle Z-X[degrees]   Angle Z-Y[degrees]\n");
     part_report += "_____________________________________________________________________________________________________\n";
     return part_report;
 }
@@ -837,20 +865,20 @@ QString Log::append_codogram_to_tableAntennaAngle(QVector<Antenna_Angle> sorted_
 QString Log::append_statistics_AntennaAngle(Statistics_angle statistics_angle)
 {
     QString part_report = "";
-    part_report += QObject::tr("\nКолличество кодограмм в логе: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
+    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
                                                                         + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
-    part_report += QObject::tr("\nКолличество кодограмм прошедших выборку: ") + QString::number(statistics_angle.number_sorted_cdgr_angle) + "\n";
+    part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_angle.number_sorted_cdgr_angle) + "\n";
     if (statistics_angle.number_sorted_cdgr_angle != 0)
     {
-        part_report += QObject::tr("\nМаксимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_angle.dt_max.toString() + "\n";
-        part_report += QObject::tr("    Угол в плоскости Z-X: ") + QString::number(statistics_angle.angleZX_max) + "\n";
-        part_report += QObject::tr("    Угол в плоскости Z-Y: ") + QString::number(statistics_angle.angleZY_max) + "\n";
+        part_report += QObject::tr("\nThe maximum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_angle.dt_max.toString() + "\n";
+        part_report += QObject::tr("    Angle in the Z-X plane: ") + QString::number(statistics_angle.angleZX_max) + "\n";
+        part_report += QObject::tr("    Angle in the Z-Y plane: ") + QString::number(statistics_angle.angleZY_max) + "\n";
 
-        part_report += QObject::tr("\nМинимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_angle.dt_min.toString() + "\n";
-        part_report += QObject::tr("    Угол в плоскости Z-X: ") + QString::number(statistics_angle.angleZX_min) + "\n";
-        part_report += QObject::tr("    Угол в плоскости Z-Y: ") + QString::number(statistics_angle.angleZY_min) + "\n";
+        part_report += QObject::tr("\nThe minimum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_angle.dt_min.toString() + "\n";
+        part_report += QObject::tr("    Angle in the Z-X plane: ") + QString::number(statistics_angle.angleZX_min) + "\n";
+        part_report += QObject::tr("    Angle in the Z-Y plane: ") + QString::number(statistics_angle.angleZY_min) + "\n";
     }
     return part_report;
 }
@@ -876,7 +904,7 @@ QVector<Power> Log::select_codogram_Power(InterfaceState inter_state)
 QString Log::write_top_tablePower()
 {
     QString part_report = "";
-    part_report += QObject::tr("  ТК    Ввремя генерации кодограммы    Мощность[Вт]\n");
+    part_report += QObject::tr("  TC        Execution time of codogram            Power[W]\n");
     part_report += "_____________________________________________________________________________________________________\n";
     return part_report;
 }
@@ -916,18 +944,18 @@ QString Log::append_codogram_to_tablePower(QVector<Power> sorted_codogram3)
 QString Log::append_statistics_Power(Statistics_power statistics_power)
 {
     QString part_report = "";
-    part_report += QObject::tr("\nКолличество кодограмм в логе: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
+    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
                                                                         + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
-    part_report += QObject::tr("\nКолличество кодограмм прошедших выборку: ") + QString::number(statistics_power.number_sorted_cdgr_power) + "\n";
+    part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_power.number_sorted_cdgr_power) + "\n";
     if (statistics_power.number_sorted_cdgr_power != 0)
     {
-        part_report += QObject::tr("\nМаксимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_power.dt_max.toString() + "\n";
-        part_report += QObject::tr("    Мощность: ") + QString::number(statistics_power.power_max) + "\n";
+        part_report += QObject::tr("\nThe maximum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_power.dt_max.toString() + "\n";
+        part_report += QObject::tr("    Power: ") + QString::number(statistics_power.power_max) + "\n";
 
-        part_report += QObject::tr("\nМинимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_power.dt_min.toString() + "\n";
-        part_report += QObject::tr("    Мощность: ") + QString::number(statistics_power.power_min) + "\n";
+        part_report += QObject::tr("\nThe minimum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_power.dt_min.toString() + "\n";
+        part_report += QObject::tr("    Power: ") + QString::number(statistics_power.power_min) + "\n";
     }
     return part_report;
 }
@@ -952,7 +980,7 @@ QVector<Mode> Log::select_codogram_Mode(InterfaceState inter_state)
 QString Log::write_top_tableMode()
 {
     QString part_report = "";
-    part_report += QObject::tr("  ТК    Ввремя генерации кодограммы    Режим\n");
+    part_report += QObject::tr("  TC        Execution time of codogram           Mode\n");
     part_report += "_____________________________________________________________________________________________________\n";
     return part_report;
 }
@@ -997,17 +1025,17 @@ QString Log::append_codogram_to_tableMode(QVector<Mode> sorted_codogram_mode)
 QString Log::append_statistics_Mode(Statistics_mode statistics_mode)
 {
     QString part_report = "";
-    part_report += QObject::tr("\nКолличество кодограмм в логе: ") + QString::number(m_codogram_target.size()
+    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size()
                                                     + m_codogram_angle.size() + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
-    part_report += QObject::tr("\nКолличество кодограмм прошедших выборку: ") + QString::number(statistics_mode.number_sorted_cdgr_mode) + "\n";
+    part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_mode.number_sorted_cdgr_mode) + "\n";
     if (statistics_mode.number_sorted_cdgr_mode != 0)
     {
-        part_report += QObject::tr("\nМаксимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_mode.dt_max.toString() + "\n";
-        part_report += QObject::tr("\nМинимальные значения полей: \n");
-        part_report += QObject::tr("    Время герерации кодограммы: ") + statistics_mode.dt_min.toString() + "\n\n";
-        part_report += QObject::tr("Дежурный режим включен ") + QString::number(statistics_mode.mode_0) +
-                               QObject::tr(" раз.\n Боевой режим включен ") + QString::number(statistics_mode.mode_1) + QObject::tr(" раз.\n");
+        part_report += QObject::tr("\nThe maximum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_mode.dt_max.toString() + "\n";
+        part_report += QObject::tr("\nThe minimum values of fields: \n");
+        part_report += QObject::tr("    Execution time of codogram: ") + statistics_mode.dt_min.toString() + "\n\n";
+        part_report += QObject::tr("Standby mode is enabled ") + QString::number(statistics_mode.mode_0) +
+                               QObject::tr(" times.\n Battle mode is enabled ") + QString::number(statistics_mode.mode_1) + QObject::tr(" times.\n");
     }
     return part_report;
 }
@@ -1015,22 +1043,22 @@ QString Log::append_statistics_Mode(Statistics_mode statistics_mode)
 QString Log::write_bottom_report_WorkField()
 {
     QString part_report = "";
-    part_report += QObject::tr("\nИспользуемые сокращения: \nТК - тип кодограммы;\nА - Азимут;\nД - Дальность\nТип ВО: ");
-    part_report += QObject::tr("0 - Самолет\n              1 - Вертолет\n              2 - БПЛА\n              3 - Снаряд\n");
+    part_report += QObject::tr("\nAbbreviations: \nTC - codogram type;\nA - Azimuth;\nR - Range\nType AF: ");
+    part_report += QObject::tr("0 - Aircraft\n              1 - Helicopter \n              2 - UAV\n              3 - Shell\n");
     return part_report;
 }
 
 QString Log::write_bottom_report_ActionOperator()
 {
     QString part_report = "";
-    part_report += QObject::tr("\nИспользуемые сокращения: \nТК - тип кодограммы\n\n");
+    part_report += QObject::tr("\nAbbreviations used: \nTC - codogram type;\n");
     return part_report;
 }
 
 void Log::add_codogram(QString codogram)
 {
     QStringList codogram_list = codogram.split(",");
-    switch (codogram_list.at(0).toInt()) //определение типа кодограммы
+    switch (codogram_list.at(0).toInt()) //determining the type of overheads
     {
     case 1://Target
     {
@@ -1071,7 +1099,7 @@ void Log::add_codogram(QString codogram)
     }
     default:
     {
-        qWarning() << QObject::tr("Не известная кодограмма");
+        qWarning() << QObject::tr("Unknown codogram");
         break;
     }
     }
@@ -1082,8 +1110,7 @@ bool Log::add_log(QString path_to_file)
     QFile file(path_to_file);
     if (!file.open(QIODevice::ReadOnly))
     {
-        //        QMessageBox::critical(this, "Error", "Could not open file");
-        qWarning() << Q_FUNC_INFO << QObject::tr("Невозможно открыть файл");
+        qWarning() << Q_FUNC_INFO << QObject::tr("Could not open file");
         return false;
     }
     while(!file.atEnd())

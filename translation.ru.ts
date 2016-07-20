@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.0" language="ru_RU">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="14"/>
         <source>Report creation</source>
-        <translation type="unfinished"></translation>
+        <translation>Создание отчета</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="34"/>
         <source>Work field</source>
-        <translation type="unfinished"></translation>
+        <translation>Рабочая область</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="39"/>
         <source>Operator actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Действия оператора</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="84"/>
         <source>The type of coordinate system</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип координатной системы</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="111"/>
         <source>X,Y</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="127"/>
         <source>R, A</source>
-        <translation type="unfinished"></translation>
+        <translation>Д, А</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="149"/>
         <source>Selection of the target parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Отбор по параметрам цели</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="179"/>
         <source>Type AF</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип ВО</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="200"/>
         <source>Aircraft</source>
-        <translation type="unfinished"></translation>
+        <translation>Самолет</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="205"/>
         <source>Helicopter</source>
-        <translation type="unfinished"></translation>
+        <translation>Вертолет</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="210"/>
         <source>UAV</source>
-        <translation type="unfinished"></translation>
+        <translation>БПЛА</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="215"/>
         <source>Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Снаряд</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="232"/>
         <source>Selection on the field</source>
-        <translation type="unfinished"></translation>
+        <translation>Отбор по области</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="294"/>
@@ -84,7 +84,7 @@
         <location filename="mainwindow.ui" line="1490"/>
         <location filename="mainwindow.ui" line="1633"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>До</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="307"/>
@@ -101,65 +101,65 @@
         <location filename="mainwindow.ui" line="1395"/>
         <location filename="mainwindow.ui" line="1503"/>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>От</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="360"/>
         <source>Azimuth [degrees]</source>
-        <translation type="unfinished"></translation>
+        <translation>Азимут [град]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="386"/>
         <source>Range [m]</source>
-        <translation type="unfinished"></translation>
+        <translation>Дальность</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="445"/>
         <location filename="mainwindow.ui" line="616"/>
         <source>Height [m]</source>
-        <translation type="unfinished"></translation>
+        <translation>Высота [м]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="525"/>
         <source>Y [m]</source>
-        <translation type="unfinished"></translation>
+        <translation>Y [м]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="642"/>
         <source>X [m]</source>
-        <translation type="unfinished"></translation>
+        <translation>X [м]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="778"/>
         <source>Speed selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Отбор по скорости</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="806"/>
         <location filename="mainwindow.ui" line="927"/>
         <source>m/c</source>
-        <translation type="unfinished"></translation>
+        <translation>м/с</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="811"/>
         <location filename="mainwindow.ui" line="943"/>
         <source>km/h</source>
-        <translation type="unfinished"></translation>
+        <translation>км/ч</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="903"/>
         <source>Units</source>
-        <translation type="unfinished"></translation>
+        <translation>Единицы измерения</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="956"/>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>м</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="972"/>
         <source>km</source>
-        <translation type="unfinished"></translation>
+        <translation>км</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="994"/>
@@ -167,142 +167,146 @@
         <location filename="mainwindow.ui" line="1447"/>
         <location filename="mainwindow.ui" line="1590"/>
         <source>Time selection</source>
-        <translation type="unfinished"></translation>
+        <translation>ОТбор по времени</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1095"/>
         <source>Angle of the antenna rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Угол поворота антенны</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1129"/>
         <source>Angle in the Z-X plane [degrees]</source>
-        <translation type="unfinished"></translation>
+        <translation>Угол в плоскости Z-X [град]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1210"/>
         <source>Angle in the Z-Y plane [degrees]</source>
-        <translation type="unfinished"></translation>
+        <translation>Угол в плоскости Z-Y [град]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1348"/>
         <source>Radiation power selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Отбор по мощьности излучения</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1382"/>
         <source>The emission power [W]</source>
-        <translation type="unfinished"></translation>
+        <translation>Мощьность излучения [Вт]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1520"/>
         <source>Mode selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Отбор по режиму</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1554"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1562"/>
         <source>Standby</source>
-        <translation type="unfinished"></translation>
+        <translation>Дежурный</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1567"/>
         <source>Battle</source>
-        <translation type="unfinished"></translation>
+        <translation>Боевой</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1646"/>
         <source> From</source>
-        <translation type="unfinished"></translation>
+        <translation>От</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1675"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1687"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1691"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Язык</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1713"/>
         <source>Open log</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть лог</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1718"/>
         <source>Close log</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть лог</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1723"/>
         <source>Save report</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить отчет</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1728"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Распечатать</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1733"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1738"/>
         <source>Deutsch</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1743"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1748"/>
         <source>Русский</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>цлуралцоутадлйцоутадлцоутаджцолуьадцуа</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="233"/>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть файл</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="249"/>
         <source>Save file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить файл</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="302"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="303"/>
         <source>Y </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="314"/>
         <source>A</source>
-        <translation type="unfinished"></translation>
+        <translation>А</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="315"/>
         <source>R</source>
-        <translation type="unfinished"></translation>
+        <translation>Д</translation>
     </message>
 </context>
 <context>
@@ -313,7 +317,9 @@
         <source>                                                                                     REPORT
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>                                                                                      ОТЧЕТ
+
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="518"/>
@@ -321,12 +327,15 @@
 
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>                                                                            Рабочее поле
+
+
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="519"/>
         <source> Time of report creation: </source>
-        <translation type="unfinished"></translation>
+        <translation> Время создания отчета: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="520"/>
@@ -338,19 +347,22 @@
 
 2. Сhoice terms of data for the report:
 </oldsource>
-        <translation type="unfinished"></translation>
+        <translation>
+
+2. Условия выбора данных для отчета:</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="525"/>
         <source>Selection on the field:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Отбор по области:
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="528"/>
         <location filename="mainwindow.cpp" line="534"/>
         <source> from </source>
-        <translation type="unfinished"></translation>
+        <translation>от</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="529"/>
@@ -365,27 +377,27 @@
         <location filename="mainwindow.cpp" line="598"/>
         <location filename="mainwindow.cpp" line="607"/>
         <source> to </source>
-        <translation type="unfinished"></translation>
+        <translation>до</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="540"/>
         <source>                   Height from </source>
-        <translation type="unfinished"></translation>
+        <translation>                  Высота от </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="546"/>
         <source>  Speed selection: from </source>
-        <translation type="unfinished"></translation>
+        <translation>  Отбор по скорости: от </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="551"/>
         <source>  Time selection: from </source>
-        <translation type="unfinished"></translation>
+        <translation>  Отбор по времени: от </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="556"/>
         <source>  Selection of the target parameters: </source>
-        <translation type="unfinished"></translation>
+        <translation>  Отбор по параметрам цели: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="565"/>
@@ -394,12 +406,16 @@
 
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+                                                                               Действия оператора
+
+
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="566"/>
         <source>1. Time of report creation: </source>
-        <translation type="unfinished"></translation>
+        <translation>1. Время создания отчета: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="567"/>
@@ -409,55 +425,62 @@
         <oldsource>
 2. Сhoice terms of data for the report:
 </oldsource>
-        <translation type="unfinished"></translation>
+        <translation>
+2. Условия выбора данных для отчета:
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="570"/>
         <source>  Angle of the antenna rotation:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>  Угол поворота антенны:
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="573"/>
         <location filename="mainwindow.cpp" line="592"/>
         <location filename="mainwindow.cpp" line="606"/>
         <source>            Time selection: from </source>
-        <translation type="unfinished"></translation>
+        <translation>           Отбор по времени: от </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="578"/>
         <location filename="mainwindow.cpp" line="583"/>
         <source>            Angle in the Z-X plane: from </source>
-        <translation type="unfinished"></translation>
+        <translation>           Угол в плоскости Z-X: от </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="589"/>
         <source>  Radiation power selection:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>  Отбор по мощьности излучения:
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="597"/>
         <source>            The emission power: from </source>
-        <translation type="unfinished"></translation>
+        <translation>           Излучаемая мощьность: от </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="603"/>
         <source>  Mode selection:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>  Отбор по режиму:
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="611"/>
         <source>            Mode </source>
-        <translation type="unfinished"></translation>
+        <translation>           Режим </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="614"/>
         <source>3. Codograms table:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>3. Таблица кодограмм:
+
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="664"/>
@@ -465,28 +488,32 @@
 3. Codogramms table:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+3. Таблица кодограмм:
+
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="665"/>
         <source>  TC        Execution time of codogram                    </source>
-        <translation type="unfinished"></translation>
+        <translation>  ТК       Время создания кодограммы                       </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="672"/>
         <source>[degrees]</source>
-        <translation type="unfinished"></translation>
+        <translation>[град]</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="675"/>
         <source>           Speed [</source>
-        <translation type="unfinished"></translation>
+        <translation>          Скорость [</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="676"/>
         <source>]              Type AF
 </source>
-        <translation type="unfinished"></translation>
+        <translation>]             Тип ЛА
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="749"/>
@@ -495,7 +522,8 @@
         <location filename="mainwindow.cpp" line="1028"/>
         <source>
 Number of codograms in the log: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Колличество кодограмм в логе: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="751"/>
@@ -504,7 +532,8 @@ Number of codograms in the log: </source>
         <location filename="mainwindow.cpp" line="1030"/>
         <source>
 Number of authenticated codograms: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Колличество кодограмм, прошедших выборку: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="752"/>
@@ -514,7 +543,9 @@ Number of authenticated codograms: </source>
         <source>
 The maximum values of fields: 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Максимальные значения полей: 
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="753"/>
@@ -526,21 +557,23 @@ The maximum values of fields:
         <location filename="mainwindow.cpp" line="1034"/>
         <location filename="mainwindow.cpp" line="1036"/>
         <source>    Execution time of codogram: </source>
-        <translation type="unfinished"></translation>
+        <translation>    Время генерации кодограммы: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="769"/>
         <location filename="mainwindow.cpp" line="791"/>
         <source>
     Height: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+    Высота: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="771"/>
         <location filename="mainwindow.cpp" line="793"/>
         <source>
     Speed: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+    Скорость: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="774"/>
@@ -548,25 +581,29 @@ The maximum values of fields:
 
 The minimum values of fields: 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Минимальные значения полей: 
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="824"/>
         <source>  TC        Execution time of codogram  Angle Z-X[degrees]   Angle Z-Y[degrees]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>  ТК         Время генерации кодограммы  Угол Z-X[град]   Угол Z-Y [град]
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="875"/>
         <location filename="mainwindow.cpp" line="880"/>
         <source>    Angle in the Z-X plane: </source>
-        <translation type="unfinished"></translation>
+        <translation>    Угол в плоскости Z-X: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="876"/>
         <location filename="mainwindow.cpp" line="881"/>
         <source>    Angle in the Z-Y plane: </source>
-        <translation type="unfinished"></translation>
+        <translation>    Угол в плоскости Z-Y: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="878"/>
@@ -575,42 +612,48 @@ The minimum values of fields:
         <source>
 The minimum values of fields: 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Минимальные значения полей:
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="907"/>
         <source>  TC        Execution time of codogram            Power[W]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>  ТК         Время генерации кодограммы          Мощьность[Вт]
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="954"/>
         <location filename="mainwindow.cpp" line="958"/>
         <source>    Power: </source>
-        <translation type="unfinished"></translation>
+        <translation>    Мощьность: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="983"/>
         <source>  TC        Execution time of codogram           Mode
 </source>
-        <translation type="unfinished"></translation>
+        <translation>  ТК         Время генерации кодограммы           Режим
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1037"/>
         <source>Standby mode is enabled </source>
-        <translation type="unfinished"></translation>
+        <translation>Дежурный режим включен </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1038"/>
         <source> times.
  Battle mode is enabled </source>
-        <translation type="unfinished"></translation>
+        <translation> раз.
+ Боевой режим включен </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1038"/>
         <source> times.
 </source>
-        <translation type="unfinished"></translation>
+        <translation> раз.
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1046"/>
@@ -620,7 +663,12 @@ TC - codogram type;
 A - Azimuth;
 R - Range
 Type AF: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Аббревиатура: 
+ТК - тип кодограммы;
+А - Азимут;
+Д - Дальность
+Тип ЛА: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1047"/>
@@ -629,7 +677,11 @@ Type AF: </source>
               2 - UAV
               3 - Shell
 </source>
-        <translation type="unfinished"></translation>
+        <translation>0 - Самолет
+                1 - Вертолет 
+                2 - БПЛА
+                3 - Снаряд
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1054"/>
@@ -637,17 +689,19 @@ Type AF: </source>
 Abbreviations used: 
 TC - codogram type;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Аббревиатура: 
+ТК - тип кодограммы;
+</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1102"/>
         <source>Unknown codogram</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная кодограмма</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1113"/>
         <source>Could not open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно открыть файл</translation>
     </message>
 </context>
 </TS>

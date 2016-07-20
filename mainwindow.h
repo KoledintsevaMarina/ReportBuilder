@@ -6,6 +6,8 @@
 #include <QDateTime>
 #include <QVariant>
 #include <QMessageBox>
+#include <QTranslator>
+#include <QEvent>
 
 namespace Ui {
 class MainWindow;
@@ -227,6 +229,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void changeEvent(QEvent * event) override;
+
 private:
 
     Ui::MainWindow *ui;
@@ -237,6 +242,8 @@ private:
     void _clear_interfase_widgets();
 
     void write_report(QString text_report);
+
+    QTranslator qtLanguageTranslator;
 
 
 };

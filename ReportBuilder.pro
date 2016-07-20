@@ -29,5 +29,5 @@ RESOURCES = \
     resources/resources.qrc
 
 TRANSLATIONS = \
-	translation.en.ts \
-	translation.de.ts
+        translation.ru.ts \
+        translation.de.ts
