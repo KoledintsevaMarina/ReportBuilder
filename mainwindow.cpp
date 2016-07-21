@@ -254,6 +254,11 @@ MainWindow::MainWindow(QWidget *parent) :
         write_report(text_report);
     });
 
+    connect(ui->actionAbout_the_Report_creation, &QAction::triggered, this, [this] () {
+        QMessageBox::about(0, tr("About the Report creation"),
+          tr("<b>Program Ver. 1.0 </b><i>The application for an interactive report generation log analysis codogram sharing radar subsystems.</i>"));
+    });
+
     connect (ui->action_Open_log, &QAction::triggered, this, [this] () {
         QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), "", "*.txt");
         if (file_name !="")
