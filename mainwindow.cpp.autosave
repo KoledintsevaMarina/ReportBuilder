@@ -246,12 +246,16 @@ MainWindow::MainWindow(QWidget *parent) :
             write_report(text_report);
         });
     }
-
+    
     connect (ui->listWidget, &QListWidget::itemClicked, this, [this] (QListWidgetItem *){
         m_inter_state.report_type_index = ui->listWidget->currentRow();
         _save_interface_state();
         QString text_report = m_log.create_report(m_inter_state);
         write_report(text_report);
+    });
+    
+    connect(ui->actionAbout_the_Report_creation, &QAction::triggered, this, [this] () {
+        
     });
 
     connect (ui->action_Open_log, &QAction::triggered, this, [this] () {

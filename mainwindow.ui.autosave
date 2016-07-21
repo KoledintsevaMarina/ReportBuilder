@@ -60,7 +60,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page0">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -1819,8 +1819,15 @@
     </widget>
     <addaction name="menu_2"/>
    </widget>
+   <widget class="QMenu" name="menuReference">
+    <property name="title">
+     <string>Reference</string>
+    </property>
+    <addaction name="actionAbout_the_Report_creation"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menu"/>
+   <addaction name="menuReference"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -1869,6 +1876,11 @@
   <action name="action_Russian">
    <property name="text">
     <string>Русский</string>
+   </property>
+  </action>
+  <action name="actionAbout_the_Report_creation">
+   <property name="text">
+    <string>About the программ Report creation...</string>
    </property>
   </action>
  </widget>
