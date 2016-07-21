@@ -72,10 +72,10 @@ struct Interface_1
     QString units_pos, units_speed, units_h;
 
     Speed_units speed_units = Speed_units::METER_PER_SECOND;
-    int speed_coeff;
+    int speed_coeff = 0;
 
     Pos_units pos_units = Pos_units::METER;
-    int pos_coeff;
+    int pos_coeff = 0;
 
     Coordinate_system coordinate_system = Coordinate_system::CARTESIAN;
 
@@ -195,6 +195,8 @@ public:
 
     QString write_bottom_report_WorkField();
     QString write_bottom_report_ActionOperator();
+
+    void clear_log();
 
 private:
     QVector<Target> m_codogram_target;

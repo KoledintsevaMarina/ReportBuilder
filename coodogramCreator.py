@@ -5,7 +5,7 @@ def target():
     time = "%02d:%02d:%04d %02d.%02d.%02d" % (random.randint(1, 31),random.randint(1, 12),2016,random.randint(0, 23),random.randint(0, 59),random.randint(0, 59))
     pos  = "%04d,%04d,%04d" % (random.randint(0, 9999), random.randint(0, 9999), random.randint(0, 9999))
     speed= "%02d" % ( random.randint(1, 1000) )
-    type = str( random.randint(0, 2) )
+    type = str( random.randint(0, 3) )
     fields = []    
     fields.append(coodogramType)
     fields.append(time)

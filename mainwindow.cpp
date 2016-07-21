@@ -51,6 +51,18 @@ MainWindow::MainWindow(QWidget *parent) :
     listOfSpinBoxes.append(ui->spinBox_Ymax);
     listOfSpinBoxes.append(ui->spinBox_Hmin);
     listOfSpinBoxes.append(ui->spinBox_Hmax);
+    for(int i = 0; i < listOfSpinBoxes.size(); i++){
+        connect(listOfSpinBoxes.at(i), static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=] (bool){
+            _save_interface_state();
+            if ((( i == 0 or i == 1) and m_inter_state.interfase1.select_x == true)
+                    or (( i == 2 or i == 3) and m_inter_state.interfase1.select_y == true)
+                    or (( i == 4 or i == 5) and m_inter_state.interfase1.select_h == true))
+            {
+                QString text_report = m_log.create_report(m_inter_state);
+                write_report(text_report);
+            }
+        });
+    }
 
     QList<QDoubleSpinBox *> listOfDoubleSpinBoxesForPace;
     listOfDoubleSpinBoxesForPace.append(ui->doubleSpinBox_azimut_min);
@@ -84,18 +96,32 @@ MainWindow::MainWindow(QWidget *parent) :
     listOfCheckBox.append(ui->checkBox_select_Power);
     listOfCheckBox.append(ui->checkBox_select_Time_mode);
     listOfCheckBox.append(ui->checkBox_select_Mode);
+    listOfCheckBox.append(ui->checkBox_select_Speed);
 
     QList <QComboBox*> listOfComboBox;
     listOfComboBox.append(ui->comboBox_speed);
     listOfComboBox.append(ui->comboBox_object);
     listOfComboBox.append(ui->comboBox_mode);
 
+    for(int i = 0; i < listOfComboBox.size(); i++){
+        connect(listOfComboBox.at(i), static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (bool){
+            _save_interface_state();
+            if (( i == 0 and m_inter_state.interfase1.select_speed == true) or (i == 1 and m_inter_state.interfase1.select_type == true)
+                    or (i == 2 and m_inter_state.interfase4.select_mode == true))
+            {
+                QString text_report = m_log.create_report(m_inter_state);
+                write_report(text_report);
+            }
+        });
+    }
+
     QList<QDoubleSpinBox *> listOfDoubleSpinBox;
     listOfDoubleSpinBox.append(ui->doubleSpinBox_azimut_min);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_azimut_max);
-    listOfDoubleSpinBox.append(ui->doubleSpinBox_range_max);
+    listOfDoubleSpinBox.append(ui->doubleSpinBox_range_min);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_range_max);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_H_min);
+    listOfDoubleSpinBox.append(ui->doubleSpinBox_H_max);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_speed_min);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_speed_max);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_ZX_max);
@@ -104,6 +130,23 @@ MainWindow::MainWindow(QWidget *parent) :
     listOfDoubleSpinBox.append(ui->doubleSpinBox_ZY_min);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_power_max);
     listOfDoubleSpinBox.append(ui->doubleSpinBox_power_min);
+
+    for(int i = 0; i < listOfDoubleSpinBox.size(); i++){
+        connect(listOfDoubleSpinBox.at(i), static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [=] (bool){
+            if ((( i == 0 or i == 1) and m_inter_state.interfase1.select_azimut == true)
+                    or (( i == 2 or i == 3) and m_inter_state.interfase1.select_range == true)
+                    or (( i == 4 or i == 5) and m_inter_state.interfase1.select_h2 == true)
+                    or (( i == 6 or i == 7) and m_inter_state.interfase1.select_speed == true)
+                    or (( i == 8 or i == 9) and m_inter_state.interfase2.select_angleZX == true)
+                    or (( i == 10 or i == 11) and m_inter_state.interfase2.select_angleZY == true)
+                    or (( i == 12 or i == 13) and m_inter_state.interfase3.select_power == true))
+            {
+                _save_interface_state();
+                QString text_report = m_log.create_report(m_inter_state);
+                write_report(text_report);
+            }
+        });
+    }
 
     QList<QDateTimeEdit *> listOfDateTimeEdit;
     listOfDateTimeEdit.append(ui->dateTimeEdit_work_field_min);
@@ -115,8 +158,22 @@ MainWindow::MainWindow(QWidget *parent) :
     listOfDateTimeEdit.append(ui->dateTimeEdit_mode_min);
     listOfDateTimeEdit.append(ui->dateTimeEdit_mode_max);
 
-    connect (ui->pushButton_meters, &QPushButton::toggled, this, [=] (bool){
-        if (m_inter_state.interfase1.pos_units == Pos_units::KILOMETER)
+    for(int i = 0; i < listOfDateTimeEdit.size(); i++){
+        connect(listOfDateTimeEdit.at(i), &QDateTimeEdit::dateTimeChanged, this, [=] (){
+            _save_interface_state();
+            if ((( i == 0 or i == 1) and m_inter_state.interfase1.select_time == true)
+                    or (( i == 2 or i == 3) and m_inter_state.interfase2.select_time == true)
+                    or (( i == 4 or i == 5) and m_inter_state.interfase3.select_time == true)
+                    or (( i == 6 or i == 7) and m_inter_state.interfase4.select_time == true))
+            {
+                QString text_report = m_log.create_report(m_inter_state);
+                write_report(text_report);
+            }
+        });
+    }
+
+    connect (ui->pushButton_meters, &QPushButton::toggled, this, [=] (bool status){
+        if (status)
         {
             ui->label_32->setText("Х [m]");
             ui->label_35->setText("Y [m]");
@@ -134,8 +191,8 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
-    connect (ui->pushButton_kilometers, &QPushButton::toggled, this, [=] (bool){
-        if (m_inter_state.interfase1.pos_units == Pos_units::METER)
+    connect (ui->pushButton_kilometers, &QPushButton::toggled, this, [=] (bool status){
+        if (status)
         {
             ui->label_32->setText("Х [km]");
             ui->label_35->setText("Y [km]");
@@ -151,8 +208,8 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
-    connect (ui->pushButton_meter_per_second, &QPushButton::toggled, this, [=] (bool){
-        if (m_inter_state.interfase1.speed_units == Speed_units::KILOMETER_PER_HOUR)
+    connect (ui->pushButton_meter_per_second, &QPushButton::toggled, this, [=] (bool status){
+        if (status)
         {
             ui->comboBox_speed->setCurrentIndex(0);
             ui->doubleSpinBox_speed_min->setValue(ui->doubleSpinBox_speed_min->value() * 0.278);
@@ -162,8 +219,8 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
-    connect (ui->pushButton_kilometer_per_hour, &QPushButton::toggled, this, [=] (bool){
-        if (m_inter_state.interfase1.speed_units == Speed_units::METER_PER_SECOND)
+    connect (ui->pushButton_kilometer_per_hour, &QPushButton::toggled, this, [=] (bool status){
+        if (status)
         {
             ui->comboBox_speed->setCurrentIndex(1);
             ui->doubleSpinBox_speed_min->setValue(ui->doubleSpinBox_speed_min->value() * 3.6);
@@ -184,38 +241,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     for(int i = 0; i < listOfCheckBox.size(); i++){
         connect(listOfCheckBox.at(i), &QCheckBox::clicked, this, [this] (bool){
-            _save_interface_state();
-            QString text_report = m_log.create_report(m_inter_state);
-            write_report(text_report);
-        });
-    }
-
-    for(int i = 0; i < listOfComboBox.size(); i++){
-        connect(listOfComboBox.at(i), static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this] (bool){
-            _save_interface_state();
-            QString text_report = m_log.create_report(m_inter_state);
-            write_report(text_report);
-        });
-    }
-
-    for(int i = 0; i < listOfSpinBoxes.size(); i++){
-        connect(listOfSpinBoxes.at(i), static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [this] (bool){
-            _save_interface_state();
-            QString text_report = m_log.create_report(m_inter_state);
-            write_report(text_report);
-        });
-    }
-
-    for(int i = 0; i < listOfDoubleSpinBox.size(); i++){
-        connect(listOfDoubleSpinBox.at(i), static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, [this] (bool){
-            _save_interface_state();
-            QString text_report = m_log.create_report(m_inter_state);
-            write_report(text_report);
-        });
-    }
-
-    for(int i = 0; i < listOfDateTimeEdit.size(); i++){
-        connect(listOfDateTimeEdit.at(i), &QDateTimeEdit::dateTimeChanged, this, [this] (){
             _save_interface_state();
             QString text_report = m_log.create_report(m_inter_state);
             write_report(text_report);
@@ -243,6 +268,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect (ui->action_Close_log, &QAction::triggered, this, [=] () {
         _clear_interfase_widgets();
+        m_log.clear_log();
+
     });
 
     connect (ui->action_Save, &QAction::triggered, this, [this](){
@@ -281,7 +308,7 @@ void MainWindow::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange)
     {
-            ui->retranslateUi(this);
+        ui->retranslateUi(this);
     }
 }
 
@@ -620,23 +647,31 @@ QVector<Target> Log::select_codogram_Target(InterfaceState inter_state)
     QVector<Target> sorted_m_codogram_target;
     for (Target & cdgr_target: m_codogram_target)
     {
-        if ((cdgr_target.coordinate[0] >= inter_state.interfase1.scope[0][0] and cdgr_target.coordinate[0] <= inter_state.interfase1.scope[0][1])
+        if ((cdgr_target.coordinate[0] >= inter_state.interfase1.scope[0][0] * pow(1000,inter_state.interfase1.pos_coeff)
+             and cdgr_target.coordinate[0] <= inter_state.interfase1.scope[0][1] * pow(1000,inter_state.interfase1.pos_coeff))
                 or inter_state.interfase1.select_x == 0)//X
         {
-            if ((cdgr_target.coordinate[1] >= inter_state.interfase1.scope[1][0] and cdgr_target.coordinate[1] <= inter_state.interfase1.scope[1][1])
+            if ((cdgr_target.coordinate[1] >= inter_state.interfase1.scope[1][0] * pow(1000,inter_state.interfase1.pos_coeff)
+                 and cdgr_target.coordinate[1] <= inter_state.interfase1.scope[1][1] * pow(1000,inter_state.interfase1.pos_coeff))
                     or inter_state.interfase1.select_y == 0)//Y
             {
-                if ((cdgr_target.coordinate[2] >= inter_state.interfase1.scope[2][0] and cdgr_target.coordinate[2] <= inter_state.interfase1.scope[2][1])
+                if ((cdgr_target.coordinate[2] >= inter_state.interfase1.scope[2][0] * pow(1000,inter_state.interfase1.pos_coeff)
+                     and cdgr_target.coordinate[2] <= inter_state.interfase1.scope[2][1] * pow(1000,inter_state.interfase1.pos_coeff))
                         or inter_state.interfase1.select_h == 0 or inter_state.interfase1.select_h2 == 0)//height
                 {
                     if ((cdgr_target.creationTime <= inter_state.interfase1.time_gen_Max and cdgr_target.creationTime >= inter_state.interfase1.time_gen_Min)
                             or inter_state.interfase1.select_time == 0)//time
                     {
-                        if ((cdgr_target.speed >= inter_state.interfase1.pace[0] and cdgr_target.speed <= inter_state.interfase1.pace[1])
+                        if ((cdgr_target.speed >= inter_state.interfase1.pace[0] / pow(3.6,inter_state.interfase1.speed_coeff)
+                             and cdgr_target.speed <= inter_state.interfase1.pace[1] / pow(3.6,inter_state.interfase1.speed_coeff))
                                 or inter_state.interfase1.select_speed == 0)//speed
                         {
-                            if ((sqrt(pow(cdgr_target.coordinate[0], 2) + pow(cdgr_target.coordinate[1], 2)) >= inter_state.interfase1.scope[0][0]
-                                 and sqrt(pow(cdgr_target.coordinate[0], 2) + pow(cdgr_target.coordinate[1], 2)) <= inter_state.interfase1.scope[0][1])
+                            if ((sqrt(pow(cdgr_target.coordinate[0], 2) + pow(cdgr_target.coordinate[1], 2)) >=
+                                 inter_state.interfase1.scope[0][0] * pow(1000,inter_state.interfase1.pos_coeff)
+
+                                 and sqrt(pow(cdgr_target.coordinate[0], 2) + pow(cdgr_target.coordinate[1], 2)) <=
+                                 inter_state.interfase1.scope[0][1] * pow(1000,inter_state.interfase1.pos_coeff))
+
                                     or inter_state.interfase1.select_range == 0)//range
                             {
                                 if ((atan(cdgr_target.coordinate[1]/cdgr_target.coordinate[0]) >= inter_state.interfase1.scope[1][0]
@@ -747,51 +782,51 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
     if (statistics_target.number_sorted_cdgr_target != 0)
     {
         part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
-                                                                                + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+                                                                                           + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
         part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_target.number_sorted_cdgr_target) + "\n";
         part_report += QObject::tr("\nThe maximum values of fields: \n");
         part_report += QObject::tr("    Execution time of codogram: ") + statistics_target.dt_max.toString() + "\n";
         if (inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
         {
             part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_max[0]
-                                                                                / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                    / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
             part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " + QString("%1").arg(statistics_target.coord_max[1]
-                                                                                / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                    / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
         else if (inter_state.interfase1.coordinate_system == Coordinate_system::POLAR)
         {
             part_report += "\n    " + inter_state.interfase1.coordinate1 + ": " +
-                                       QString("%1").arg(atan(statistics_target.coord_max[1]/statistics_target.coord_max[0]),0,',',2);
+                    QString("%1").arg(atan(statistics_target.coord_max[1]/statistics_target.coord_max[0]),0,',',2);
             part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " +
-                               QString("%1").arg(sqrt(pow(statistics_target.coord_max[0], 2) + pow(statistics_target.coord_max[1], 2))
-                                                                                / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                    QString("%1").arg(sqrt(pow(statistics_target.coord_max[0], 2) + pow(statistics_target.coord_max[1], 2))
+                    / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
         part_report += QObject::tr("\n    Height: ") + QString("%1").arg(statistics_target.coord_max[2]
-                                                                           / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         part_report += QObject::tr("\n    Speed: ") + QString("%1").arg(statistics_target.speed_max
-                                                                           * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2);
+                                                                        * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2);
 
         part_report += QObject::tr("\n\nThe minimum values of fields: \n");
         part_report += QObject::tr("    Execution time of codogram: ") + statistics_target.dt_min.toString() + "\n";
         if (inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
         {
             part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_min[0]
-                                                                                     / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                    / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
             part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " + QString("%1").arg(statistics_target.coord_min[1]
-                                                                                     / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                    / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
         else if (inter_state.interfase1.coordinate_system == Coordinate_system::POLAR)
         {
             part_report += "\n    " + inter_state.interfase1.coordinate1 + ": " +
-                                             QString("%1").arg(atan(statistics_target.coord_min[1]/statistics_target.coord_min[0]),0,',',2);
+                    QString("%1").arg(atan(statistics_target.coord_min[1]/statistics_target.coord_min[0]),0,',',2);
             part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " +
-                                     QString("%1").arg(sqrt(pow(statistics_target.coord_min[0], 2) + pow(statistics_target.coord_min[1], 2))
-                                                                                      / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                    QString("%1").arg(sqrt(pow(statistics_target.coord_min[0], 2) + pow(statistics_target.coord_min[1], 2))
+                    / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
         part_report += QObject::tr("\n    Height: ") + QString("%1").arg(statistics_target.coord_min[2]
-                                                                                      / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
+                / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         part_report += QObject::tr("\n    Speed: ") + QString("%1").arg(statistics_target.speed_min
-                                                                           * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2);
+                                                                        * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2);
     }
     return part_report;
 }
@@ -866,7 +901,7 @@ QString Log::append_statistics_AntennaAngle(Statistics_angle statistics_angle)
 {
     QString part_report = "";
     part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
-                                                                        + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+                                                                                       + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
     part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_angle.number_sorted_cdgr_angle) + "\n";
     if (statistics_angle.number_sorted_cdgr_angle != 0)
     {
@@ -945,7 +980,7 @@ QString Log::append_statistics_Power(Statistics_power statistics_power)
 {
     QString part_report = "";
     part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
-                                                                        + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+                                                                                       + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
     part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_power.number_sorted_cdgr_power) + "\n";
     if (statistics_power.number_sorted_cdgr_power != 0)
     {
@@ -1026,7 +1061,7 @@ QString Log::append_statistics_Mode(Statistics_mode statistics_mode)
 {
     QString part_report = "";
     part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size()
-                                                    + m_codogram_angle.size() + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+                                                                                       + m_codogram_angle.size() + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
     part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_mode.number_sorted_cdgr_mode) + "\n";
     if (statistics_mode.number_sorted_cdgr_mode != 0)
     {
@@ -1035,7 +1070,7 @@ QString Log::append_statistics_Mode(Statistics_mode statistics_mode)
         part_report += QObject::tr("\nThe minimum values of fields: \n");
         part_report += QObject::tr("    Execution time of codogram: ") + statistics_mode.dt_min.toString() + "\n\n";
         part_report += QObject::tr("Standby mode is enabled ") + QString::number(statistics_mode.mode_0) +
-                               QObject::tr(" times.\n Battle mode is enabled ") + QString::number(statistics_mode.mode_1) + QObject::tr(" times.\n");
+                QObject::tr(" times.\n Battle mode is enabled ") + QString::number(statistics_mode.mode_1) + QObject::tr(" times.\n");
     }
     return part_report;
 }
@@ -1053,6 +1088,46 @@ QString Log::write_bottom_report_ActionOperator()
     QString part_report = "";
     part_report += QObject::tr("\nAbbreviations used: \nTC - codogram type;\n");
     return part_report;
+}
+
+void Log::clear_log()
+{
+    m_codogram_target.clear();
+    m_codogram_angle.clear();
+    m_codogram_power.clear();
+    m_codogram_mode.clear();
+
+    statistics_target.dt_max = inter_state.dt_max_value;
+    statistics_target.dt_min = inter_state.dt_min_value;
+    for (int i = 0; i < 3; i++)
+    {
+        statistics_target.coord_max[i] = 0;//[X,Y,Z]
+        statistics_target.coord_min[i] = 9999;//[X,Y,Z]
+    }
+    statistics_target.speed_max = 1;
+    statistics_target.speed_min = 1000;
+    statistics_target.number_sorted_cdgr_target = 0;
+
+    statistics_angle.dt_max = inter_state.dt_max_value;
+    statistics_angle.dt_min = inter_state.dt_min_value;
+    statistics_angle.angleZX_max = 0;
+    statistics_angle.angleZX_min = 360;
+    statistics_angle.angleZY_max = 0;
+    statistics_angle.angleZY_min = 90;
+    statistics_angle.number_sorted_cdgr_angle = 0;
+
+    statistics_power.dt_max = inter_state.dt_max_value;
+    statistics_power.dt_min = inter_state.dt_min_value;
+    statistics_power.power_max = 1;
+    statistics_power.power_min = 999;
+    statistics_power.number_sorted_cdgr_power = 0;
+
+    statistics_mode.dt_max = inter_state.dt_max_value;
+    statistics_mode.dt_min = inter_state.dt_min_value;
+    statistics_mode.mode_0 = 0;
+    statistics_mode.mode_1 = 0;
+    statistics_mode.number_sorted_cdgr_mode = 0;
+
 }
 
 void Log::add_codogram(QString codogram)
