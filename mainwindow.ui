@@ -50,7 +50,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page0">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -1871,7 +1871,7 @@
   </action>
   <action name="actionAbout_the_Report_creation">
    <property name="text">
-    <string>About the программ Report creation...</string>
+    <string>About the programm Report creation...</string>
    </property>
   </action>
  </widget>

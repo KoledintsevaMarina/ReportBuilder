@@ -231,6 +231,16 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->spinBox_Xmin->setValue(ui->doubleSpinBox_speed_min->value() / 1000);
     });
 
+    connect(ui->comboBox_speed, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (bool){
+        if (m_inter_state.interfase1.select_speed == 1)
+        {
+            if (ui->comboBox_speed->currentIndex() == 0)
+                ui->pushButton_meter_per_second->setChecked(true);
+            else
+                ui->pushButton_kilometer_per_hour->setChecked(true);
+        }
+    });
+
     for (int i = 0 ; i < listOfPushButton.size(); i++){
         connect(listOfPushButton.at(i), &QPushButton::toggled, this, [this] (bool){
             _save_interface_state();
@@ -256,7 +266,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionAbout_the_Report_creation, &QAction::triggered, this, [this] () {
         QMessageBox::about(0, tr("About the Report creation"),
-          tr("<b>Program Ver. 1.0 </b><i>The application for an interactive report generation log analysis codogram sharing radar subsystems.</i>"));
+                           tr("<b>Report creation Ver. 1.0 </b><i>The application for an interactive report generation log analysis codogram sharing radar subsystems.</i>"));
     });
 
     connect (ui->action_Open_log, &QAction::triggered, this, [this] () {
