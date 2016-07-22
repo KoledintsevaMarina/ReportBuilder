@@ -115,15 +115,13 @@ MainWindow::MainWindow(QWidget *parent) :
     listOfCheckBox.append(ui->checkBox_select_Speed);
 
     QList <QComboBox*> listOfComboBox;
-    listOfComboBox.append(ui->comboBox_speed);
     listOfComboBox.append(ui->comboBox_object);
     listOfComboBox.append(ui->comboBox_mode);
 
     for(int i = 0; i < listOfComboBox.size(); i++){
         connect(listOfComboBox.at(i), static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (bool){
             _save_interface_state();
-            if (( i == 0 and m_inter_state.interfase1.select_speed == true) or (i == 1 and m_inter_state.interfase1.select_type == true)
-                    or (i == 2 and m_inter_state.interfase4.select_mode == true))
+            if ((i == 0 and m_inter_state.interfase1.select_type == true) or (i == 1 and m_inter_state.interfase4.select_mode == true))
             {
                 QString text_report = m_log.create_report(m_inter_state);
                 write_report(text_report);
@@ -227,7 +225,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->pushButton_meter_per_second, &QPushButton::toggled, this, [=] (bool status){
         if (status)
         {
-            ui->comboBox_speed->setCurrentIndex(0);
             ui->doubleSpinBox_speed_min->setValue(ui->doubleSpinBox_speed_min->value() * 0.278);
             ui->doubleSpinBox_speed_max->setValue(ui->doubleSpinBox_speed_max->value() * 0.278);
             m_inter_state.interfase1.speed_units = Speed_units::METER_PER_SECOND;
@@ -238,23 +235,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->pushButton_kilometer_per_hour, &QPushButton::toggled, this, [=] (bool status){
         if (status)
         {
-            ui->comboBox_speed->setCurrentIndex(1);
             ui->doubleSpinBox_speed_min->setValue(ui->doubleSpinBox_speed_min->value() * 3.6);
             ui->doubleSpinBox_speed_max->setValue(ui->doubleSpinBox_speed_max->value() * 3.6);
             m_inter_state.interfase1.speed_units = Speed_units::KILOMETER_PER_HOUR;
             m_inter_state.interfase1.speed_coeff = 1;
         }
         ui->spinBox_Xmin->setValue(ui->doubleSpinBox_speed_min->value() / 1000);
-    });
-
-    connect(ui->comboBox_speed, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [=] (bool){
-        if (m_inter_state.interfase1.select_speed == 1)
-        {
-            if (ui->comboBox_speed->currentIndex() == 0)
-                ui->pushButton_meter_per_second->setChecked(true);
-            else
-                ui->pushButton_kilometer_per_hour->setChecked(true);
-        }
     });
 
     for (int i = 0 ; i < listOfPushButton.size(); i++){
@@ -405,7 +391,10 @@ void MainWindow::_save_interface_state()
     inter1.select_time = ui->checkBox_select_Time_work_field->checkState();
     inter1.select_type = ui->checkBox_select_Type->checkState();
     inter1.units_pos = ui->label_35->text().right(4);
-    inter1.units_speed = ui->comboBox_speed->currentText();
+    if (ui->pushButton_meter_per_second->isChecked()==true)
+        inter1.units_speed = ui->pushButton_meter_per_second->text();
+    else
+        inter1.units_speed = ui->pushButton_kilometer_per_hour->text();
     inter1.units_h = ui->label_3->text();
 
     Interface_2 inter2;
@@ -465,7 +454,6 @@ void MainWindow::_clear_interfase_widgets()
     listOfCheckBox.append(ui->checkBox_select_Mode);
 
     QList <QComboBox*> listOfComboBox;
-    listOfComboBox.append(ui->comboBox_speed);
     listOfComboBox.append(ui->comboBox_object);
     listOfComboBox.append(ui->comboBox_mode);
 
@@ -837,7 +825,22 @@ QString Log::append_codogram_to_tableTarget(QVector<Target> sorted_codogram_targ
                                               / pow(1000,inter_state.interfase1.pos_coeff),0,',',2), -20,' ');
         }
         part_report += QString("%1").arg( QString("%1").arg(sorted_cdgr_target.speed * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2), -20,' ');
-        part_report += QString::number(sorted_cdgr_target.object_type) + "\n";
+        switch (sorted_cdgr_target.object_type) {
+        case 0:
+            part_report += QObject::tr("Aircraft\n");
+            break;
+        case 1:
+            part_report += QObject::tr("Helicopter\n");
+            break;
+        case 2:
+            part_report += QObject::tr("UAV\n");
+            break;
+        case 3:
+            part_report += QObject::tr("Shell\n");
+            break;
+        default:
+            break;
+        }
     }
     return part_report;
 }
@@ -923,8 +926,8 @@ QString Log::write_top_tableAntennaAngle()
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
-    part_report += QString("%1").arg( "Angle Z-X[degrees]", -30,' ');
-    part_report += QString("%1").arg( "Angle Z-Y[degrees]\n", -30,' ');
+    part_report += QString("%1").arg( QObject::tr("Angle Z-X[degrees]"), -30,' ');
+    part_report += QString("%1").arg( QObject::tr("Angle Z-Y[degrees]\n"));
     part_report += QString("%1").arg(QObject::tr(""),-100,'_');
     part_report += "\n";
     return part_report;
@@ -1019,7 +1022,7 @@ QString Log::write_top_tablePower()
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
-    part_report += QString("%1").arg( "Power[W]", -30,' ');
+    part_report += QString("%1").arg( QObject::tr("Power[W]"), -30,' ');
     part_report += QString("%1").arg(QObject::tr(""),-100,'_');
     part_report += "\n";
     return part_report;
@@ -1106,7 +1109,7 @@ QString Log::write_top_tableMode()
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
-    part_report += QString("%1").arg( "Mode", -30,' ');
+    part_report += QString("%1").arg( QObject::tr("Mode"), -30,' ');
     part_report += QString("%1").arg(QObject::tr(""),-100,'_');
     part_report += "\n";
     return part_report;
@@ -1149,7 +1152,10 @@ QString Log::append_codogram_to_tableMode(QVector<Mode> sorted_codogram_mode)
         part_report += QString("%1").arg(QString::number(number),-5,' ');
         part_report += QString("%1").arg(QObject::tr("4"),-5,' ');
         part_report += QString("%1").arg(inter_state.locale.toString(cdgr_mode.creationTime, QLocale::FormatType::ShortFormat),-40,' ');
-        part_report += QString("%1").arg( QString::number(cdgr_mode.modeValue), -30,' ');
+        if (cdgr_mode.modeValue == 0)
+            part_report += QObject::tr("Standby");
+        else if (cdgr_mode.modeValue == 1)
+            part_report += QObject::tr("Battle");
         part_report += "\n";
     }
     return part_report;

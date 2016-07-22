@@ -50,7 +50,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page0">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -250,29 +250,6 @@
               <property name="verticalSpacing">
                <number>10</number>
               </property>
-              <item row="0" column="1">
-               <widget class="QComboBox" name="comboBox_speed">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="editable">
-                 <bool>false</bool>
-                </property>
-                <property name="currentIndex">
-                 <number>0</number>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>m/s</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>km/h</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
               <item row="0" column="0">
                <widget class="QCheckBox" name="checkBox_select_Speed">
                 <property name="sizePolicy">
@@ -286,7 +263,20 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="5">
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_21">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>From</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
                <widget class="QLabel" name="label_10">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -299,7 +289,20 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="6">
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_9">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
                <widget class="QDoubleSpinBox" name="doubleSpinBox_speed_max">
                 <property name="readOnly">
                  <bool>false</bool>
@@ -315,7 +318,7 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="4">
+              <item row="0" column="3">
                <widget class="QDoubleSpinBox" name="doubleSpinBox_speed_min">
                 <property name="readOnly">
                  <bool>false</bool>
@@ -325,32 +328,6 @@
                 </property>
                 <property name="maximum">
                  <double>1000.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_9">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_21">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>From</string>
                 </property>
                </widget>
               </item>
