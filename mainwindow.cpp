@@ -390,12 +390,6 @@ void MainWindow::_save_interface_state()
     inter1.select_speed = ui->checkBox_select_Speed->checkState();
     inter1.select_time = ui->checkBox_select_Time_work_field->checkState();
     inter1.select_type = ui->checkBox_select_Type->checkState();
-    inter1.units_pos = ui->label_35->text().right(4);
-    if (ui->pushButton_meter_per_second->isChecked()==true)
-        inter1.units_speed = ui->pushButton_meter_per_second->text();
-    else
-        inter1.units_speed = ui->pushButton_kilometer_per_hour->text();
-    inter1.units_h = ui->label_3->text();
 
     Interface_2 inter2;
     inter2.time_gen_Min = ui->dateTimeEdit_angle_min->dateTime();
@@ -729,23 +723,49 @@ QVector<Target> Log::select_codogram_Target(InterfaceState inter_state)
 
 QString Log::write_top_tableTarget(InterfaceState inter_state)
 {
-    QString part_report = "", unit = "";
+    QString part_report = "", unit_pos1 = "", unit_pos2 = "", unit_speed = "";
     part_report += QObject::tr("\n3. Codograms Target table:\n\n");
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
     if(inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
     {
-        unit = inter_state.interfase1.units_pos;
+        if (inter_state.interfase1.pos_units == Pos_units::METER)
+        {
+            unit_pos1 = QObject::tr("[m]");
+            unit_pos2 = QObject::tr("[m]");
+        }
+        else
+        {
+            unit_pos1 = QObject::tr("[km]");
+            unit_pos2 = QObject::tr("[km]");
+        }
     }
     else if (inter_state.interfase1.coordinate_system == Coordinate_system::POLAR)
     {
-        unit = QObject::tr("[degrees]");
+        unit_pos1 = QObject::tr("[degrees]");
+
+        if (inter_state.interfase1.pos_units == Pos_units::METER)
+        {
+            unit_pos2 = QObject::tr("[m]");
+        }
+        else
+        {
+            unit_pos2 = QObject::tr("[km]");
+        }
     }
-    part_report += QString("%1").arg( inter_state.interfase1.coordinate1 + unit, -20,' ');
-    part_report += QString("%1").arg( inter_state.interfase1.coordinate2 + inter_state.interfase1.units_pos, -20,' ');
-    part_report += QString("%1").arg( inter_state.interfase1.units_h, -20,' ');
-    part_report += QString("%1").arg( QObject::tr("Speed [") + inter_state.interfase1.units_speed + "]", -20,' ');
+    if (inter_state.interfase1.speed_units == Speed_units::METER_PER_SECOND)
+    {
+        unit_speed = QObject::tr("[m/s]");
+    }
+    else
+    {
+        unit_speed = QObject::tr("[km/h]");
+    }
+    part_report += QString("%1").arg( inter_state.interfase1.coordinate1 + unit_pos1, -20,' ');
+    part_report += QString("%1").arg( inter_state.interfase1.coordinate2 + unit_pos2, -20,' ');
+    part_report += QString("%1").arg( QObject::tr("Height ") + unit_pos2, -20,' ');
+    part_report += QString("%1").arg( QObject::tr("Speed ") + unit_speed, -20,' ');
     part_report += QObject::tr("Type AF\n");
     part_report += QString("%1").arg("",-140,'_') + "\n";
     return part_report;

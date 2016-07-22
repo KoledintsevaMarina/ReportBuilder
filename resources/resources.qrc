@@ -52,7 +52,7 @@
         <file>qssStyles/main.qss</file>
     </qresource>
     <qresource prefix="/translations">
-        <file>translations/translation.ru.qm</file>
         <file>translations/translation.de.qm</file>
+        <file>translations/translation.ru.qm</file>
     </qresource>
 </RCC>

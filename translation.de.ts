@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.0" language="de_DE">
 <context>
     <name>MainWindow</name>
     <message>
@@ -331,8 +331,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="mainwindow.cpp" line="575"/>
-        <location filename="mainwindow.cpp" line="624"/>
+        <location filename="mainwindow.cpp" line="569"/>
+        <location filename="mainwindow.cpp" line="618"/>
         <source>                                                                                     REPORT
 
 </source>
@@ -341,7 +341,7 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="576"/>
+        <location filename="mainwindow.cpp" line="570"/>
         <source>                                                                               Work field
 
 
@@ -352,12 +352,12 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="577"/>
+        <location filename="mainwindow.cpp" line="571"/>
         <source> Time of report creation: </source>
         <translation> Zeit der Berichtserstellung: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="578"/>
+        <location filename="mainwindow.cpp" line="572"/>
         <source>
 
 2. Choice terms of data for the report:
@@ -368,55 +368,55 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="583"/>
+        <location filename="mainwindow.cpp" line="577"/>
         <source>Selection on the field:
 </source>
         <translation>Die Auswahl auf dem Feld:
 </translation>
     </message>
     <message>
+        <location filename="mainwindow.cpp" line="580"/>
         <location filename="mainwindow.cpp" line="586"/>
-        <location filename="mainwindow.cpp" line="592"/>
         <source> from </source>
         <translation> Von </translation>
     </message>
     <message>
+        <location filename="mainwindow.cpp" line="581"/>
         <location filename="mainwindow.cpp" line="587"/>
         <location filename="mainwindow.cpp" line="593"/>
-        <location filename="mainwindow.cpp" line="599"/>
-        <location filename="mainwindow.cpp" line="604"/>
-        <location filename="mainwindow.cpp" line="609"/>
-        <location filename="mainwindow.cpp" line="634"/>
-        <location filename="mainwindow.cpp" line="639"/>
-        <location filename="mainwindow.cpp" line="644"/>
+        <location filename="mainwindow.cpp" line="598"/>
+        <location filename="mainwindow.cpp" line="603"/>
+        <location filename="mainwindow.cpp" line="628"/>
+        <location filename="mainwindow.cpp" line="633"/>
+        <location filename="mainwindow.cpp" line="638"/>
+        <location filename="mainwindow.cpp" line="646"/>
         <location filename="mainwindow.cpp" line="652"/>
-        <location filename="mainwindow.cpp" line="658"/>
-        <location filename="mainwindow.cpp" line="667"/>
+        <location filename="mainwindow.cpp" line="661"/>
         <source> to </source>
         <translation> Nach </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="598"/>
+        <location filename="mainwindow.cpp" line="592"/>
         <source>                   Height from </source>
         <translation>                   Höhe Von </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="604"/>
+        <location filename="mainwindow.cpp" line="598"/>
         <source>  Speed selection: from </source>
         <translation>  Geschwindigkeitswahl: Von </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="609"/>
+        <location filename="mainwindow.cpp" line="603"/>
         <source>  Time selection: from </source>
         <translation>  Zeitauswahl: Von </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="614"/>
+        <location filename="mainwindow.cpp" line="608"/>
         <source>  Selection of the target parameters: </source>
         <translation>  Auswahl der Zielparameter: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="625"/>
+        <location filename="mainwindow.cpp" line="619"/>
         <source>
                                                                                Operator actions
 
@@ -429,12 +429,12 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="626"/>
+        <location filename="mainwindow.cpp" line="620"/>
         <source>1. Time of report creation: </source>
         <translation>1. Zeit der Berichtserstellung: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="627"/>
+        <location filename="mainwindow.cpp" line="621"/>
         <source>
 2. Choice terms of data for the report:
 </source>
@@ -443,46 +443,46 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="630"/>
+        <location filename="mainwindow.cpp" line="624"/>
         <source>  Angle of the antenna rotation:
 </source>
         <translation>  Winkel der Antennendrehungs:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="633"/>
-        <location filename="mainwindow.cpp" line="652"/>
-        <location filename="mainwindow.cpp" line="666"/>
+        <location filename="mainwindow.cpp" line="627"/>
+        <location filename="mainwindow.cpp" line="646"/>
+        <location filename="mainwindow.cpp" line="660"/>
         <source>            Time selection: from </source>
         <translation>           Zeitauswahl: Von </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="638"/>
-        <location filename="mainwindow.cpp" line="643"/>
+        <location filename="mainwindow.cpp" line="632"/>
+        <location filename="mainwindow.cpp" line="637"/>
         <source>            Angle in the Z-X plane: from </source>
         <translation>           Winkel in der X-Z-Ebene: Von </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="649"/>
+        <location filename="mainwindow.cpp" line="643"/>
         <source>  Radiation power selection:
 </source>
         <translation>  Strahlungsleistung Auswahl:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="657"/>
+        <location filename="mainwindow.cpp" line="651"/>
         <source>            The emission power: from </source>
         <translation>           Die Emissionsleistung: Von </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="663"/>
+        <location filename="mainwindow.cpp" line="657"/>
         <source>  Mode selection:
 </source>
         <translation>  Modusauswahl:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="671"/>
+        <location filename="mainwindow.cpp" line="665"/>
         <source>            Mode </source>
         <translation>           Modus </translation>
     </message>
@@ -490,7 +490,7 @@
         <source>3. Codograms table:
 
 </source>
-        <translation type="vanished">3. Tabelle codogram:
+        <translation>3. Tabelle codogram:
 
 </translation>
     </message>
@@ -499,68 +499,67 @@
 3. Codogramms table:
 
 </source>
-        <translation type="vanished">
+        <translation>
 3. Tabelle codogram:
 
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="734"/>
-        <location filename="mainwindow.cpp" line="926"/>
-        <location filename="mainwindow.cpp" line="1022"/>
-        <location filename="mainwindow.cpp" line="1109"/>
+        <location filename="mainwindow.cpp" line="728"/>
+        <location filename="mainwindow.cpp" line="946"/>
+        <location filename="mainwindow.cpp" line="1042"/>
+        <location filename="mainwindow.cpp" line="1129"/>
         <source>№</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="735"/>
-        <location filename="mainwindow.cpp" line="927"/>
-        <location filename="mainwindow.cpp" line="1023"/>
-        <location filename="mainwindow.cpp" line="1110"/>
+        <location filename="mainwindow.cpp" line="729"/>
+        <location filename="mainwindow.cpp" line="947"/>
+        <location filename="mainwindow.cpp" line="1043"/>
+        <location filename="mainwindow.cpp" line="1130"/>
         <source>TC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="736"/>
-        <location filename="mainwindow.cpp" line="928"/>
-        <location filename="mainwindow.cpp" line="1024"/>
-        <location filename="mainwindow.cpp" line="1111"/>
+        <location filename="mainwindow.cpp" line="730"/>
+        <location filename="mainwindow.cpp" line="948"/>
+        <location filename="mainwindow.cpp" line="1044"/>
+        <location filename="mainwindow.cpp" line="1131"/>
         <source>Execution time of codogram</source>
         <translation>Ausführungszeit codogram</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="743"/>
+        <location filename="mainwindow.cpp" line="746"/>
         <source>[degrees]</source>
         <translation>[Grad]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="748"/>
         <source>Speed [</source>
         <translation>Geschwindigkeit [</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="749"/>
+        <location filename="mainwindow.cpp" line="769"/>
         <source>Type AF
 </source>
         <translation>Art der
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="805"/>
+        <location filename="mainwindow.cpp" line="825"/>
         <source>1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="616"/>
-        <location filename="mainwindow.cpp" line="674"/>
-        <location filename="mainwindow.cpp" line="1071"/>
+        <location filename="mainwindow.cpp" line="610"/>
+        <location filename="mainwindow.cpp" line="668"/>
+        <location filename="mainwindow.cpp" line="1091"/>
         <source>
 Number of codograms in the log: </source>
         <translation>
 Anzahl der codograms im Protokoll: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="529"/>
+        <location filename="mainwindow.cpp" line="523"/>
         <source>
 No target type codogram
 </source>
@@ -569,7 +568,7 @@ Kein codogram Art von Ziel
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="544"/>
+        <location filename="mainwindow.cpp" line="538"/>
         <source>
 No antenna angle type codogram
 </source>
@@ -578,7 +577,7 @@ Codogram keine Art von Antenne Winkel
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="555"/>
+        <location filename="mainwindow.cpp" line="549"/>
         <source>
 No power type codogram
 </source>
@@ -587,7 +586,7 @@ Kein codogram Typ Leistung
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="566"/>
+        <location filename="mainwindow.cpp" line="560"/>
         <source>
 No mode type codogram
 </source>
@@ -596,7 +595,7 @@ Kein codogram Typ Modus
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="733"/>
+        <location filename="mainwindow.cpp" line="727"/>
         <source>
 3. Codograms Target table:
 
@@ -607,55 +606,89 @@ Kein codogram Typ Modus
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="830"/>
+        <location filename="mainwindow.cpp" line="735"/>
+        <location filename="mainwindow.cpp" line="736"/>
+        <location filename="mainwindow.cpp" line="750"/>
+        <source>[m]</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="740"/>
+        <location filename="mainwindow.cpp" line="741"/>
+        <location filename="mainwindow.cpp" line="754"/>
+        <source>[km]</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="759"/>
+        <source>[m/s]</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="763"/>
+        <source>[km/h]</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="767"/>
+        <source>Height </source>
+        <translation>Höhe </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="768"/>
+        <source>Speed </source>
+        <translation>Geschwindigkeit </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="850"/>
         <source>Aircraft
 </source>
         <translation>Flugzeug
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="833"/>
+        <location filename="mainwindow.cpp" line="853"/>
         <source>Helicopter
 </source>
         <translation>Hubschrauber
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="836"/>
+        <location filename="mainwindow.cpp" line="856"/>
         <source>UAV
 </source>
-        <translation>Unbemanntes Luftfahrzeug
+        <translation>UL
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="839"/>
+        <location filename="mainwindow.cpp" line="859"/>
         <source>Shell
 </source>
         <translation>Schale
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="853"/>
+        <location filename="mainwindow.cpp" line="873"/>
         <source>
 Number of codograms target in the log: </source>
         <translation>
 Nummer codogram Ziel im Protokoll: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="854"/>
-        <location filename="mainwindow.cpp" line="982"/>
-        <location filename="mainwindow.cpp" line="1072"/>
-        <location filename="mainwindow.cpp" line="1168"/>
+        <location filename="mainwindow.cpp" line="874"/>
+        <location filename="mainwindow.cpp" line="1002"/>
+        <location filename="mainwindow.cpp" line="1092"/>
+        <location filename="mainwindow.cpp" line="1188"/>
         <source>
 Number of authenticated codograms: </source>
         <translation>
 Anzahl codograms vorherige Probe: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="855"/>
-        <location filename="mainwindow.cpp" line="985"/>
-        <location filename="mainwindow.cpp" line="1075"/>
-        <location filename="mainwindow.cpp" line="1171"/>
+        <location filename="mainwindow.cpp" line="875"/>
+        <location filename="mainwindow.cpp" line="1005"/>
+        <location filename="mainwindow.cpp" line="1095"/>
+        <location filename="mainwindow.cpp" line="1191"/>
         <source>
 The maximum values of fields: 
 </source>
@@ -664,35 +697,35 @@ Die Maximalwerte von Feldern:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="856"/>
-        <location filename="mainwindow.cpp" line="877"/>
-        <location filename="mainwindow.cpp" line="986"/>
-        <location filename="mainwindow.cpp" line="992"/>
-        <location filename="mainwindow.cpp" line="1076"/>
-        <location filename="mainwindow.cpp" line="1081"/>
-        <location filename="mainwindow.cpp" line="1172"/>
-        <location filename="mainwindow.cpp" line="1175"/>
+        <location filename="mainwindow.cpp" line="876"/>
+        <location filename="mainwindow.cpp" line="897"/>
+        <location filename="mainwindow.cpp" line="1006"/>
+        <location filename="mainwindow.cpp" line="1012"/>
+        <location filename="mainwindow.cpp" line="1096"/>
+        <location filename="mainwindow.cpp" line="1101"/>
+        <location filename="mainwindow.cpp" line="1192"/>
+        <location filename="mainwindow.cpp" line="1195"/>
         <source>    Execution time of codogram: </source>
         <translation>    Ausführungszeit codogram: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="871"/>
-        <location filename="mainwindow.cpp" line="892"/>
+        <location filename="mainwindow.cpp" line="891"/>
+        <location filename="mainwindow.cpp" line="912"/>
         <source>
     Height: </source>
         <translation>
     Höhe: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="873"/>
-        <location filename="mainwindow.cpp" line="894"/>
+        <location filename="mainwindow.cpp" line="893"/>
+        <location filename="mainwindow.cpp" line="914"/>
         <source>
     Speed: </source>
         <translation>
     Geschwindigkeit: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="876"/>
+        <location filename="mainwindow.cpp" line="896"/>
         <source>
 
 The minimum values of fields: 
@@ -703,7 +736,7 @@ Die Mindestwerte von Feldern:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="925"/>
+        <location filename="mainwindow.cpp" line="945"/>
         <source>3. Codograms Antenna Angle table:
 
 </source>
@@ -712,44 +745,45 @@ Die Mindestwerte von Feldern:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="929"/>
+        <location filename="mainwindow.cpp" line="949"/>
         <source>Angle Z-X[degrees]</source>
-        <translation type="unfinished"></translation>
+        <translation>Winkel in der X-Z [Grad]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="930"/>
+        <location filename="mainwindow.cpp" line="950"/>
         <source>Angle Z-Y[degrees]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Winkel in der Y-Z- [Grad]
+</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="969"/>
+        <location filename="mainwindow.cpp" line="989"/>
         <source>2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="981"/>
+        <location filename="mainwindow.cpp" line="1001"/>
         <source>
 Number of codograms antenna angle in the log: </source>
         <translation>
 Die Anzahl der Antennenwinkel in der log kodifiziert: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="988"/>
-        <location filename="mainwindow.cpp" line="994"/>
+        <location filename="mainwindow.cpp" line="1008"/>
+        <location filename="mainwindow.cpp" line="1014"/>
         <source>    Angle in the Z-X plane: </source>
         <translation>    Winkel in der Z-X-Ebene: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="989"/>
-        <location filename="mainwindow.cpp" line="995"/>
+        <location filename="mainwindow.cpp" line="1009"/>
+        <location filename="mainwindow.cpp" line="1015"/>
         <source>    Angle in the Z-Y plane: </source>
         <translation>    Winkel in der Z-Y-Ebene: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="991"/>
-        <location filename="mainwindow.cpp" line="1080"/>
-        <location filename="mainwindow.cpp" line="1174"/>
+        <location filename="mainwindow.cpp" line="1011"/>
+        <location filename="mainwindow.cpp" line="1100"/>
+        <location filename="mainwindow.cpp" line="1194"/>
         <source>
 The minimum values of fields: 
 </source>
@@ -758,7 +792,7 @@ Die Mindestwerte von Feldern:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1021"/>
+        <location filename="mainwindow.cpp" line="1041"/>
         <source>
 3. Codograms Power table:
 
@@ -769,23 +803,23 @@ Die Mindestwerte von Feldern:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1025"/>
+        <location filename="mainwindow.cpp" line="1045"/>
         <source>Power[W]</source>
-        <translation type="unfinished"></translation>
+        <translation>Macht [W]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1060"/>
+        <location filename="mainwindow.cpp" line="1080"/>
         <source>3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1078"/>
-        <location filename="mainwindow.cpp" line="1083"/>
+        <location filename="mainwindow.cpp" line="1098"/>
+        <location filename="mainwindow.cpp" line="1103"/>
         <source>    Power: </source>
         <translation>    Power: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1108"/>
+        <location filename="mainwindow.cpp" line="1128"/>
         <source>
 3. Codograms Mode table:
 
@@ -796,53 +830,53 @@ Die Mindestwerte von Feldern:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1112"/>
+        <location filename="mainwindow.cpp" line="1132"/>
         <source>Mode</source>
-        <translation type="unfinished">Modus</translation>
+        <translation>Modus</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1153"/>
+        <location filename="mainwindow.cpp" line="1173"/>
         <source>4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1156"/>
+        <location filename="mainwindow.cpp" line="1176"/>
         <source>Standby</source>
-        <translation type="unfinished">Bereithalten</translation>
+        <translation>Bereithalten</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1158"/>
+        <location filename="mainwindow.cpp" line="1178"/>
         <source>Battle</source>
-        <translation type="unfinished">Schlacht</translation>
+        <translation>Schlacht</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1167"/>
+        <location filename="mainwindow.cpp" line="1187"/>
         <source>
 Number of codograms mode in the log: </source>
         <translation>
 Die Zahl in der Log-Modus codogram: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1177"/>
+        <location filename="mainwindow.cpp" line="1197"/>
         <source>Standby mode is enabled </source>
         <translation>Standby-Modus ist </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1178"/>
+        <location filename="mainwindow.cpp" line="1198"/>
         <source> times.
  Battle mode is enabled </source>
         <translation> mal aktiviert.
 Battle-Modus ist </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1178"/>
+        <location filename="mainwindow.cpp" line="1198"/>
         <source> times.
 </source>
         <translation> mal aktiviert.
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1186"/>
+        <location filename="mainwindow.cpp" line="1206"/>
         <source>
 Abbreviations: 
 TC - codogram type;
@@ -857,7 +891,7 @@ R - Reichweite
 Art der: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1187"/>
+        <location filename="mainwindow.cpp" line="1207"/>
         <source>0 - Aircraft
               1 - Helicopter 
               2 - UAV
@@ -870,7 +904,7 @@ Art der: </translation>
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1194"/>
+        <location filename="mainwindow.cpp" line="1214"/>
         <source>
 Abbreviations used: 
 TC - codogram type;
@@ -881,12 +915,12 @@ TC - Typ codogram;
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1282"/>
+        <location filename="mainwindow.cpp" line="1302"/>
         <source>Unknown codogram</source>
         <translation>Unbekannt codogram</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1293"/>
+        <location filename="mainwindow.cpp" line="1313"/>
         <source>Could not open file</source>
         <translation>Konnte die Datei nicht öffnen</translation>
     </message>

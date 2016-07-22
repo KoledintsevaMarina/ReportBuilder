@@ -70,7 +70,7 @@ struct Interface_1
     uint pace[2];
     uint object;
     bool select_x, select_y, select_h, select_azimut, select_range, select_h2, select_speed, select_time, select_type;
-    QString units_pos, units_speed, units_h;
+//    QString units_pos, units_speed, units_h;
 
     Speed_units speed_units = Speed_units::METER_PER_SECOND;
     int speed_coeff = 0;
