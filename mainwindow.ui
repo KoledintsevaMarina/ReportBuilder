@@ -50,7 +50,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="page0">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -481,6 +481,39 @@
               <property name="verticalSpacing">
                <number>10</number>
               </property>
+              <item row="0" column="6">
+               <widget class="QDateTimeEdit" name="dateTimeEdit_work_field_max">
+                <property name="readOnly">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_22">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>From</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
+               <widget class="QLabel" name="label_5">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>To</string>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="1">
                <widget class="QLabel" name="label_4">
                 <property name="sizePolicy">
@@ -507,43 +540,10 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="5">
-               <widget class="QLabel" name="label_5">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>To</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="6">
-               <widget class="QDateTimeEdit" name="dateTimeEdit_work_field_max">
-                <property name="readOnly">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="3">
                <widget class="QDateTimeEdit" name="dateTimeEdit_work_field_min">
                 <property name="readOnly">
                  <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_22">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>From</string>
                 </property>
                </widget>
               </item>

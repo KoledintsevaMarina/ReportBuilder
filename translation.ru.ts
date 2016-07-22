@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>MainWindow</name>
     <message>
@@ -82,7 +82,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="298"/>
-        <location filename="mainwindow.ui" line="519"/>
+        <location filename="mainwindow.ui" line="513"/>
         <location filename="mainwindow.ui" line="624"/>
         <location filename="mainwindow.ui" line="673"/>
         <location filename="mainwindow.ui" line="764"/>
@@ -100,7 +100,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="353"/>
-        <location filename="mainwindow.ui" line="546"/>
+        <location filename="mainwindow.ui" line="500"/>
         <location filename="mainwindow.ui" line="637"/>
         <location filename="mainwindow.ui" line="813"/>
         <location filename="mainwindow.ui" line="826"/>
@@ -290,42 +290,42 @@
         <translation>О программе Создание отчетов...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="258"/>
+        <location filename="mainwindow.cpp" line="284"/>
         <source>About the Report creation</source>
         <translation>О Создание отчетов</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="259"/>
+        <location filename="mainwindow.cpp" line="285"/>
         <source>&lt;b&gt;Report creation Ver. 1.0 &lt;/b&gt;&lt;i&gt;The application for an interactive report generation log analysis codogram sharing radar subsystems.&lt;/i&gt;</source>
         <translation>&lt;b&gt;Создание отчетов Версия 1.0 &lt;/b&gt;&lt;i&gt;Приложение для интерактивного формирования отчета анализа лога кодограммного обмена подсистем РЛС.&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="263"/>
+        <location filename="mainwindow.cpp" line="289"/>
         <source>Open file</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="281"/>
+        <location filename="mainwindow.cpp" line="307"/>
         <source>Save file</source>
         <translation>Сохранить файл</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="334"/>
+        <location filename="mainwindow.cpp" line="360"/>
         <source>X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="335"/>
+        <location filename="mainwindow.cpp" line="361"/>
         <source>Y </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="346"/>
+        <location filename="mainwindow.cpp" line="372"/>
         <source>A</source>
         <translation>А</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="347"/>
+        <location filename="mainwindow.cpp" line="373"/>
         <source>R</source>
         <translation>Д</translation>
     </message>
@@ -333,8 +333,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="mainwindow.cpp" line="549"/>
-        <location filename="mainwindow.cpp" line="596"/>
+        <location filename="mainwindow.cpp" line="587"/>
+        <location filename="mainwindow.cpp" line="636"/>
         <source>                                                                                     REPORT
 
 </source>
@@ -343,7 +343,7 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="550"/>
+        <location filename="mainwindow.cpp" line="588"/>
         <source>                                                                               Work field
 
 
@@ -354,12 +354,12 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="551"/>
+        <location filename="mainwindow.cpp" line="589"/>
         <source> Time of report creation: </source>
         <translation> Время создания отчета: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="552"/>
+        <location filename="mainwindow.cpp" line="590"/>
         <source>
 
 2. Choice terms of data for the report:
@@ -370,55 +370,55 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="557"/>
+        <location filename="mainwindow.cpp" line="595"/>
         <source>Selection on the field:
 </source>
         <translation>Отбор по области:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="560"/>
-        <location filename="mainwindow.cpp" line="566"/>
+        <location filename="mainwindow.cpp" line="598"/>
+        <location filename="mainwindow.cpp" line="604"/>
         <source> from </source>
         <translation> от </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="561"/>
-        <location filename="mainwindow.cpp" line="567"/>
-        <location filename="mainwindow.cpp" line="573"/>
-        <location filename="mainwindow.cpp" line="578"/>
-        <location filename="mainwindow.cpp" line="583"/>
-        <location filename="mainwindow.cpp" line="606"/>
+        <location filename="mainwindow.cpp" line="599"/>
+        <location filename="mainwindow.cpp" line="605"/>
         <location filename="mainwindow.cpp" line="611"/>
         <location filename="mainwindow.cpp" line="616"/>
-        <location filename="mainwindow.cpp" line="624"/>
-        <location filename="mainwindow.cpp" line="630"/>
-        <location filename="mainwindow.cpp" line="639"/>
+        <location filename="mainwindow.cpp" line="621"/>
+        <location filename="mainwindow.cpp" line="646"/>
+        <location filename="mainwindow.cpp" line="651"/>
+        <location filename="mainwindow.cpp" line="656"/>
+        <location filename="mainwindow.cpp" line="664"/>
+        <location filename="mainwindow.cpp" line="670"/>
+        <location filename="mainwindow.cpp" line="679"/>
         <source> to </source>
         <translation> до </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="572"/>
+        <location filename="mainwindow.cpp" line="610"/>
         <source>                   Height from </source>
         <translation>                  Высота от </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="578"/>
+        <location filename="mainwindow.cpp" line="616"/>
         <source>  Speed selection: from </source>
         <translation>  Отбор по области: от </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="583"/>
+        <location filename="mainwindow.cpp" line="621"/>
         <source>  Time selection: from </source>
         <translation>  Отбор по времени: от </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="588"/>
+        <location filename="mainwindow.cpp" line="626"/>
         <source>  Selection of the target parameters: </source>
         <translation>  Отбор по параметрам цели: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="597"/>
+        <location filename="mainwindow.cpp" line="637"/>
         <source>
                                                                                Operator actions
 
@@ -431,12 +431,12 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="598"/>
+        <location filename="mainwindow.cpp" line="638"/>
         <source>1. Time of report creation: </source>
         <translation>1. Время создания отчета: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="599"/>
+        <location filename="mainwindow.cpp" line="639"/>
         <source>
 2. Choice terms of data for the report:
 </source>
@@ -445,140 +445,183 @@
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="602"/>
+        <location filename="mainwindow.cpp" line="642"/>
         <source>  Angle of the antenna rotation:
 </source>
         <translation>  Угол поворота антенны:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="605"/>
-        <location filename="mainwindow.cpp" line="624"/>
-        <location filename="mainwindow.cpp" line="638"/>
+        <location filename="mainwindow.cpp" line="645"/>
+        <location filename="mainwindow.cpp" line="664"/>
+        <location filename="mainwindow.cpp" line="678"/>
         <source>            Time selection: from </source>
         <translation>           Отбор по времени: от </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="610"/>
-        <location filename="mainwindow.cpp" line="615"/>
+        <location filename="mainwindow.cpp" line="650"/>
+        <location filename="mainwindow.cpp" line="655"/>
         <source>            Angle in the Z-X plane: from </source>
         <translation>           Угол в плоскости Z-X: от </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="621"/>
+        <location filename="mainwindow.cpp" line="661"/>
         <source>  Radiation power selection:
 </source>
-        <translation>  Отбор по излучаемой мощьности:
+        <translation>  Отбор по излучаемой мощности:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="629"/>
+        <location filename="mainwindow.cpp" line="669"/>
         <source>            The emission power: from </source>
-        <translation>          Излучаемая мощьность: от </translation>
+        <translation>          Излучаемая мощность: от </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="635"/>
+        <location filename="mainwindow.cpp" line="675"/>
         <source>  Mode selection:
 </source>
         <translation>  Отбор по режиму:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="643"/>
+        <location filename="mainwindow.cpp" line="683"/>
         <source>            Mode </source>
         <translation>           Режим </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="646"/>
         <source>3. Codograms table:
 
 </source>
-        <translation>3. Таблица кодограм:
+        <translation type="vanished">3. Таблица кодограм:
 
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="704"/>
         <source>
 3. Codogramms table:
 
 </source>
-        <translation>
+        <translation type="vanished">
 3. Таблица кодограм:
 
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="705"/>
-        <location filename="mainwindow.cpp" line="874"/>
-        <location filename="mainwindow.cpp" line="968"/>
-        <location filename="mainwindow.cpp" line="1053"/>
+        <location filename="mainwindow.cpp" line="746"/>
+        <location filename="mainwindow.cpp" line="923"/>
+        <location filename="mainwindow.cpp" line="1019"/>
+        <location filename="mainwindow.cpp" line="1106"/>
         <source>№</source>
         <translation>№</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="706"/>
-        <location filename="mainwindow.cpp" line="875"/>
-        <location filename="mainwindow.cpp" line="969"/>
-        <location filename="mainwindow.cpp" line="1054"/>
+        <location filename="mainwindow.cpp" line="747"/>
+        <location filename="mainwindow.cpp" line="924"/>
+        <location filename="mainwindow.cpp" line="1020"/>
+        <location filename="mainwindow.cpp" line="1107"/>
         <source>TC</source>
         <translation>ТК</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="707"/>
-        <location filename="mainwindow.cpp" line="876"/>
-        <location filename="mainwindow.cpp" line="970"/>
-        <location filename="mainwindow.cpp" line="1055"/>
+        <location filename="mainwindow.cpp" line="748"/>
+        <location filename="mainwindow.cpp" line="925"/>
+        <location filename="mainwindow.cpp" line="1021"/>
+        <location filename="mainwindow.cpp" line="1108"/>
         <source>Execution time of codogram</source>
         <translation>Время генерации кодограмы</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="714"/>
+        <location filename="mainwindow.cpp" line="755"/>
         <source>[degrees]</source>
         <translation>[градусы]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="719"/>
+        <location filename="mainwindow.cpp" line="760"/>
         <source>Speed [</source>
         <translation>Скорость [</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="720"/>
+        <location filename="mainwindow.cpp" line="761"/>
         <source>Type AF
 </source>
         <translation>Тип ЛА
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="766"/>
+        <location filename="mainwindow.cpp" line="817"/>
         <source>1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="799"/>
-        <location filename="mainwindow.cpp" line="929"/>
-        <location filename="mainwindow.cpp" line="1017"/>
-        <location filename="mainwindow.cpp" line="1107"/>
+        <location filename="mainwindow.cpp" line="628"/>
+        <location filename="mainwindow.cpp" line="686"/>
+        <location filename="mainwindow.cpp" line="1068"/>
         <source>
 Number of codograms in the log: </source>
         <translation>
 Число кодограм в логе: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="801"/>
-        <location filename="mainwindow.cpp" line="931"/>
-        <location filename="mainwindow.cpp" line="1019"/>
-        <location filename="mainwindow.cpp" line="1109"/>
+        <location filename="mainwindow.cpp" line="541"/>
+        <source>
+No target type codogram
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="556"/>
+        <source>
+No antenna angle type codogram
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="567"/>
+        <source>
+No power type codogram
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="578"/>
+        <source>
+No mode type codogram
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="745"/>
+        <source>
+3. Codograms Target table:
+
+</source>
+        <translation>
+3. Таблица кодограм Цель:
+
+</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="850"/>
+        <source>
+Number of codograms target in the log: </source>
+        <translation>
+Число кодограм Цель в логе: </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="851"/>
+        <location filename="mainwindow.cpp" line="979"/>
+        <location filename="mainwindow.cpp" line="1069"/>
+        <location filename="mainwindow.cpp" line="1162"/>
         <source>
 Number of authenticated codograms: </source>
         <translation>
 Число кодограм, прошедших выборку: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="802"/>
-        <location filename="mainwindow.cpp" line="934"/>
-        <location filename="mainwindow.cpp" line="1022"/>
-        <location filename="mainwindow.cpp" line="1112"/>
+        <location filename="mainwindow.cpp" line="852"/>
+        <location filename="mainwindow.cpp" line="982"/>
+        <location filename="mainwindow.cpp" line="1072"/>
+        <location filename="mainwindow.cpp" line="1165"/>
         <source>
 The maximum values of fields: 
 </source>
@@ -587,35 +630,35 @@ The maximum values of fields:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="803"/>
-        <location filename="mainwindow.cpp" line="825"/>
-        <location filename="mainwindow.cpp" line="935"/>
-        <location filename="mainwindow.cpp" line="940"/>
-        <location filename="mainwindow.cpp" line="1023"/>
-        <location filename="mainwindow.cpp" line="1027"/>
-        <location filename="mainwindow.cpp" line="1113"/>
-        <location filename="mainwindow.cpp" line="1115"/>
+        <location filename="mainwindow.cpp" line="853"/>
+        <location filename="mainwindow.cpp" line="874"/>
+        <location filename="mainwindow.cpp" line="983"/>
+        <location filename="mainwindow.cpp" line="989"/>
+        <location filename="mainwindow.cpp" line="1073"/>
+        <location filename="mainwindow.cpp" line="1078"/>
+        <location filename="mainwindow.cpp" line="1166"/>
+        <location filename="mainwindow.cpp" line="1169"/>
         <source>    Execution time of codogram: </source>
         <translation>    Время генерации кодограмы: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="819"/>
-        <location filename="mainwindow.cpp" line="841"/>
+        <location filename="mainwindow.cpp" line="868"/>
+        <location filename="mainwindow.cpp" line="889"/>
         <source>
     Height: </source>
         <translation>
     Высота: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="821"/>
-        <location filename="mainwindow.cpp" line="843"/>
+        <location filename="mainwindow.cpp" line="870"/>
+        <location filename="mainwindow.cpp" line="891"/>
         <source>
     Speed: </source>
         <translation>
     Скорость: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="824"/>
+        <location filename="mainwindow.cpp" line="873"/>
         <source>
 
 The minimum values of fields: 
@@ -626,26 +669,42 @@ The minimum values of fields:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="917"/>
+        <location filename="mainwindow.cpp" line="922"/>
+        <source>3. Codograms Antenna Angle table:
+
+</source>
+        <translation>3. Таблица кодограм Угол антенны:
+
+</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="966"/>
         <source>2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="936"/>
-        <location filename="mainwindow.cpp" line="941"/>
+        <location filename="mainwindow.cpp" line="978"/>
+        <source>
+Number of codograms antenna angle in the log: </source>
+        <translation>
+Число кодограм Угол антенны в логе: </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="985"/>
+        <location filename="mainwindow.cpp" line="991"/>
         <source>    Angle in the Z-X plane: </source>
         <translation>    Угол в плоскости Z-X: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="937"/>
-        <location filename="mainwindow.cpp" line="942"/>
+        <location filename="mainwindow.cpp" line="986"/>
+        <location filename="mainwindow.cpp" line="992"/>
         <source>    Angle in the Z-Y plane: </source>
         <translation>    Угол в плоскости Z-Y: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="939"/>
-        <location filename="mainwindow.cpp" line="1026"/>
-        <location filename="mainwindow.cpp" line="1114"/>
+        <location filename="mainwindow.cpp" line="988"/>
+        <location filename="mainwindow.cpp" line="1077"/>
+        <location filename="mainwindow.cpp" line="1168"/>
         <source>
 The minimum values of fields: 
 </source>
@@ -654,42 +713,72 @@ The minimum values of fields:
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1006"/>
+        <location filename="mainwindow.cpp" line="1018"/>
+        <source>
+3. Codograms Power table:
+
+</source>
+        <translation>
+3. Таблица кодограм Мощность:
+
+</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="1057"/>
         <source>3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1024"/>
-        <location filename="mainwindow.cpp" line="1028"/>
+        <location filename="mainwindow.cpp" line="1075"/>
+        <location filename="mainwindow.cpp" line="1080"/>
         <source>    Power: </source>
         <translation>    Мощность: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1096"/>
+        <location filename="mainwindow.cpp" line="1105"/>
+        <source>
+3. Codograms Mode table:
+
+</source>
+        <translation>
+3. Таблица кодограм Режим:
+
+</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="1150"/>
         <source>4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1116"/>
+        <location filename="mainwindow.cpp" line="1161"/>
+        <source>
+Number of codograms mode in the log: </source>
+        <translation>
+Число кодограм Режим в логе: 
+</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="1171"/>
         <source>Standby mode is enabled </source>
         <translation>Дежурный режим включен </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1117"/>
+        <location filename="mainwindow.cpp" line="1172"/>
         <source> times.
  Battle mode is enabled </source>
         <translation> раз.
  Боевой режим включен </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1117"/>
+        <location filename="mainwindow.cpp" line="1172"/>
         <source> times.
 </source>
         <translation> раз.
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1125"/>
+        <location filename="mainwindow.cpp" line="1180"/>
         <source>
 Abbreviations: 
 TC - codogram type;
@@ -704,7 +793,7 @@ Type AF: </source>
 Тип ЛА: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1126"/>
+        <location filename="mainwindow.cpp" line="1181"/>
         <source>0 - Aircraft
               1 - Helicopter 
               2 - UAV
@@ -717,7 +806,7 @@ Type AF: </source>
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1133"/>
+        <location filename="mainwindow.cpp" line="1188"/>
         <source>
 Abbreviations used: 
 TC - codogram type;
@@ -728,12 +817,12 @@ TC - codogram type;
 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1221"/>
+        <location filename="mainwindow.cpp" line="1276"/>
         <source>Unknown codogram</source>
         <translation>Неизвестная кодограма</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1232"/>
+        <location filename="mainwindow.cpp" line="1287"/>
         <source>Could not open file</source>
         <translation>Невозможно открыть файл</translation>
     </message>

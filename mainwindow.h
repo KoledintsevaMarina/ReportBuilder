@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QTranslator>
 #include <QEvent>
+#include <QLocale>
 
 namespace Ui {
 class MainWindow;
@@ -106,6 +107,7 @@ struct Interface_4
 
 struct InterfaceState
 {
+QLocale locale;
 Interface_1 interfase1;
 Interface_2 interfase2;
 Interface_3 interfase3;
@@ -123,6 +125,8 @@ private:
         QDateTime dt_min;
         int coord_max[3];
         int coord_min[3];
+        double coord_max_polar[2];
+        double coord_min_polar[2];
         uint speed_max;
         uint speed_min;
         uint number_sorted_cdgr_target;
@@ -234,10 +238,15 @@ public:
 protected:
     void changeEvent(QEvent * event) override;
 
+private slots:
+    void on_action_English_triggered();
+
 private:
 
     Ui::MainWindow *ui;
     Log m_log;
+
+    QLocale m_locale;
     InterfaceState m_inter_state;
 
     void _save_interface_state();

@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QDebug>
+#include <QLocale>
 #ifndef QT_NO_PRINTER
 #include <QPrinter>
 #include <QPrintDialog>
@@ -22,18 +23,33 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect (ui->action_Russian, &QAction::triggered, this, [this] () {
+        m_locale = QLocale(QLocale::Russian, QLocale::Russia);
         qtLanguageTranslator.load(":translations/translations/translation.ru.qm");
         qApp->installTranslator(&qtLanguageTranslator);
+
+        _save_interface_state();
+        QString text_report = m_log.create_report(m_inter_state);
+        write_report(text_report);
     });
 
     connect (ui->action_Deutsch, &QAction::triggered, this, [this] () {
+        m_locale = QLocale(QLocale::German, QLocale::Germany);
         qtLanguageTranslator.load(":translations/translations/translation.de.qm");
         qApp->installTranslator(&qtLanguageTranslator);
+
+        _save_interface_state();
+        QString text_report = m_log.create_report(m_inter_state);
+        write_report(text_report);
     });
 
     connect (ui->action_English, &QAction::triggered, this, [this] () {
+        m_locale = QLocale(QLocale::English, QLocale::UnitedKingdom);
         qtLanguageTranslator.load(QString("QtLanguage_") + QString("en_UK"));
         qApp->installTranslator(&qtLanguageTranslator);
+
+        _save_interface_state();
+        QString text_report = m_log.create_report(m_inter_state);
+        write_report(text_report);
     });
 
     connect(ui->workField_xyButton, &QPushButton::toggled, this, [this](bool) {
@@ -425,6 +441,8 @@ void MainWindow::_save_interface_state()
 
     m_inter_state.dt_max_value = ui->dateTimeEdit_work_field_min->minimumDateTime();
     m_inter_state.dt_min_value = ui->dateTimeEdit_work_field_min->maximumDateTime();
+
+    m_inter_state.locale = m_locale;
 }
 
 void MainWindow::_clear_interfase_widgets()
@@ -519,6 +537,8 @@ QString Log::create_report(InterfaceState m_inter_state)
             report += append_codogram_to_tableTarget(sorted_codogram_target, m_inter_state);
             report += append_statistics_Target(statistics_target, m_inter_state);
         }
+        else
+            report += QObject::tr("\nNo target type codogram\n");
         report += write_bottom_report_WorkField();
     }
     else if (m_inter_state.report_type_index == 1)
@@ -532,6 +552,9 @@ QString Log::create_report(InterfaceState m_inter_state)
             report += append_codogram_to_tableAntennaAngle(sorted_codogram_angle);
             report += append_statistics_AntennaAngle(statistics_angle);
         }
+            else
+                report += QObject::tr("\nNo antenna angle type codogram\n");
+
         if (m_codogram_power.size() != 0)
         {
             QVector<Power> sorted_codogram_power = select_codogram_Power(m_inter_state);
@@ -540,6 +563,9 @@ QString Log::create_report(InterfaceState m_inter_state)
             report += append_codogram_to_tablePower(sorted_codogram_power);
             report += append_statistics_Power(statistics_power);
         }
+            else
+                report += QObject::tr("\nNo power type codogram\n");
+
         if (m_codogram_mode.size() != 0)
         {
             QVector<Mode> sorted_codogram_mode = select_codogram_Mode(m_inter_state);
@@ -548,6 +574,8 @@ QString Log::create_report(InterfaceState m_inter_state)
             report += append_codogram_to_tableMode(sorted_codogram_mode);
             report += append_statistics_Mode(statistics_mode);
         }
+                else
+                report += QObject::tr("\nNo mode type codogram\n");
         report += write_bottom_report_ActionOperator();
     }
     return report;
@@ -597,6 +625,8 @@ QString Log::write_top_report_WorkField(InterfaceState inter_state)
     {
         part_report += QObject::tr("  Selection of the target parameters: ") + QString::number(inter_state.interfase1.object) + "\n";
     }
+    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size()
+                                                                                       + m_codogram_angle.size() + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
     return part_report;
 }
 
@@ -653,7 +683,8 @@ QString Log::write_top_report_ActionOperator(InterfaceState inter_state)
             part_report += QObject::tr("            Mode ") + QString::number(inter_state.interfase4.mode) + "\n";
         }
     }
-    part_report += QObject::tr("3. Codograms table:\n\n");
+    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size()
+                                            + m_codogram_angle.size() + m_codogram_power.size() + m_codogram_mode.size()) + "\n\n";
     return part_report;
 }
 
@@ -711,7 +742,7 @@ QVector<Target> Log::select_codogram_Target(InterfaceState inter_state)
 QString Log::write_top_tableTarget(InterfaceState inter_state)
 {
     QString part_report = "", unit = "";
-    part_report += QObject::tr("\n3. Codogramms table:\n\n");
+    part_report += QObject::tr("\n3. Codograms Target table:\n\n");
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
@@ -740,23 +771,33 @@ Log::Statistics_target Log::compilation_statistics_Target(QVector<Target> sorted
     statistics_target.dt_min = inter_state.dt_min_value;
     for (int i = 0; i < 3; i++)
     {
-        statistics_target.coord_max[i] = 0;//[X,Y,Z]
-        statistics_target.coord_min[i] = 9999;//[X,Y,Z]
+        statistics_target.coord_max[i] = 0;//[X,Y,Z,A,R]
+        statistics_target.coord_min[i] = 9999;//[X,Y,Z,A,R]
     }
     statistics_target.speed_max = 1;
     statistics_target.speed_min = 1000;
+    statistics_target.coord_max_polar[0] = 0;//azimut
+    statistics_target.coord_min_polar[0] = 10;
+    statistics_target.coord_max_polar[1] = 0;//range
+    statistics_target.coord_min_polar[1] = 999999;
     statistics_target.number_sorted_cdgr_target = 0;
 
     for (Target & sorted_cdgr_target: sorted_codogram_target)
     {
         statistics_target.dt_max = qMax(statistics_target.dt_max, sorted_cdgr_target.creationTime);
         statistics_target.dt_min = qMin(statistics_target.dt_min, sorted_cdgr_target.creationTime);
+
         statistics_target.coord_max[0] = qMax(statistics_target.coord_max[0], sorted_cdgr_target.coordinate[0]);
         statistics_target.coord_min[0] = qMin(statistics_target.coord_min[0], sorted_cdgr_target.coordinate[0]);
         statistics_target.coord_max[1] = qMax(statistics_target.coord_max[1], sorted_cdgr_target.coordinate[1]);
         statistics_target.coord_min[1] = qMin(statistics_target.coord_min[1], sorted_cdgr_target.coordinate[1]);
         statistics_target.coord_max[2] = qMax(statistics_target.coord_max[2], sorted_cdgr_target.coordinate[2]);
         statistics_target.coord_min[2] = qMin(statistics_target.coord_min[2], sorted_cdgr_target.coordinate[2]);
+
+        statistics_target.coord_max_polar[0] = qMax(statistics_target.coord_max_polar[0], atan(sorted_cdgr_target.coordinate[1] / sorted_cdgr_target.coordinate[0]));
+        statistics_target.coord_min_polar[0] = qMin(statistics_target.coord_min_polar[0], atan(sorted_cdgr_target.coordinate[1] / sorted_cdgr_target.coordinate[0]));
+        statistics_target.coord_max_polar[1] = qMax(statistics_target.coord_max_polar[1], sqrt(pow(sorted_cdgr_target.coordinate[0], 2) + pow(sorted_cdgr_target.coordinate[1], 2)));
+        statistics_target.coord_min_polar[1] = qMin(statistics_target.coord_min_polar[1], sqrt(pow(sorted_cdgr_target.coordinate[0], 2) + pow(sorted_cdgr_target.coordinate[1], 2)));
         statistics_target.speed_max = qMax(statistics_target.speed_max, sorted_cdgr_target.speed);
         statistics_target.speed_min = qMin(statistics_target.speed_min, sorted_cdgr_target.speed);
         statistics_target.number_sorted_cdgr_target ++;
@@ -774,7 +815,7 @@ QString Log::append_codogram_to_tableTarget(QVector<Target> sorted_codogram_targ
         number++;
         part_report += QString("%1").arg(QString::number(number),-5,' ');
         part_report += QString("%1").arg(QObject::tr("1"),-5,' ');
-        part_report += QString("%1").arg(sorted_cdgr_target.creationTime.toString(),-40,' ');
+        part_report += QString("%1").arg(inter_state.locale.toString(sorted_cdgr_target.creationTime, QLocale::FormatType::ShortFormat),-40,' ');
 
         if (inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
         {
@@ -806,11 +847,11 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
     QString part_report = "";
     if (statistics_target.number_sorted_cdgr_target != 0)
     {
-        part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
-                                                                                           + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+        part_report += QObject::tr("\nNumber of codograms target in the log: ") + QString::number(m_codogram_target.size()) + "\n";
         part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_target.number_sorted_cdgr_target) + "\n";
         part_report += QObject::tr("\nThe maximum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_target.dt_max.toString() + "\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_target.dt_max, QLocale::FormatType::ShortFormat) + "\n";
         if (inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
         {
             part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_max[0]
@@ -820,10 +861,8 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
         }
         else if (inter_state.interfase1.coordinate_system == Coordinate_system::POLAR)
         {
-            part_report += "\n    " + inter_state.interfase1.coordinate1 + ": " +
-                    QString("%1").arg(atan(statistics_target.coord_max[1]/statistics_target.coord_max[0]),0,',',2);
-            part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " +
-                    QString("%1").arg(sqrt(pow(statistics_target.coord_max[0], 2) + pow(statistics_target.coord_max[1], 2))
+            part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_max_polar[0],0,',',2);
+            part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " + QString("%1").arg(statistics_target.coord_max_polar[1]
                     / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
         part_report += QObject::tr("\n    Height: ") + QString("%1").arg(statistics_target.coord_max[2]
@@ -832,7 +871,8 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
                                                                         * pow(3.6, inter_state.interfase1.speed_coeff),0,',',2);
 
         part_report += QObject::tr("\n\nThe minimum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_target.dt_min.toString() + "\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_target.dt_min, QLocale::FormatType::ShortFormat) + "\n";
         if (inter_state.interfase1.coordinate_system == Coordinate_system::CARTESIAN)
         {
             part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_min[0]
@@ -842,10 +882,8 @@ QString Log::append_statistics_Target(Statistics_target statistics_target, Inter
         }
         else if (inter_state.interfase1.coordinate_system == Coordinate_system::POLAR)
         {
-            part_report += "\n    " + inter_state.interfase1.coordinate1 + ": " +
-                    QString("%1").arg(atan(statistics_target.coord_min[1]/statistics_target.coord_min[0]),0,',',2);
-            part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " +
-                    QString("%1").arg(sqrt(pow(statistics_target.coord_min[0], 2) + pow(statistics_target.coord_min[1], 2))
+            part_report += "    " + inter_state.interfase1.coordinate1 + ": " + QString("%1").arg(statistics_target.coord_min_polar[0],0,',',2);
+            part_report += "\n    " + inter_state.interfase1.coordinate2 + ": " + QString("%1").arg(statistics_target.coord_min_polar[1]
                     / pow(1000,inter_state.interfase1.pos_coeff),0,',',2);
         }
         part_report += QObject::tr("\n    Height: ") + QString("%1").arg(statistics_target.coord_min[2]
@@ -881,6 +919,7 @@ QVector<Antenna_Angle> Log::select_codogram_AntennaAngle(InterfaceState inter_st
 QString Log::write_top_tableAntennaAngle()
 {
     QString part_report = "";
+    part_report += QObject::tr("3. Codograms Antenna Angle table:\n\n");
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
@@ -925,7 +964,7 @@ QString Log::append_codogram_to_tableAntennaAngle(QVector<Antenna_Angle> sorted_
         number++;
         part_report += QString("%1").arg(QString::number(number), -5, ' ');
         part_report += QString("%1").arg(QObject::tr("2"),-5,' ');
-        part_report += QString("%1").arg(sorted_cdgr_angle.creationTime.toString(),-40,' ');
+        part_report += QString("%1").arg(inter_state.locale.toString(sorted_cdgr_angle.creationTime, QLocale::FormatType::ShortFormat),-40,' ');
         part_report += QString("%1").arg(QString::number(sorted_cdgr_angle.angle_ZX), -30,' ');
         part_report += QString("%1").arg(QString::number(sorted_cdgr_angle.angle_ZY), -30,' ');
         part_report += "\n";
@@ -936,18 +975,19 @@ QString Log::append_codogram_to_tableAntennaAngle(QVector<Antenna_Angle> sorted_
 QString Log::append_statistics_AntennaAngle(Statistics_angle statistics_angle)
 {
     QString part_report = "";
-    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
-                                                                                       + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+    part_report += QObject::tr("\nNumber of codograms antenna angle in the log: ") + QString::number(m_codogram_angle.size()) + "\n";
     part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_angle.number_sorted_cdgr_angle) + "\n";
     if (statistics_angle.number_sorted_cdgr_angle != 0)
     {
         part_report += QObject::tr("\nThe maximum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_angle.dt_max.toString() + "\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_angle.dt_max, QLocale::FormatType::ShortFormat) + "\n";
         part_report += QObject::tr("    Angle in the Z-X plane: ") + QString::number(statistics_angle.angleZX_max) + "\n";
         part_report += QObject::tr("    Angle in the Z-Y plane: ") + QString::number(statistics_angle.angleZY_max) + "\n";
 
         part_report += QObject::tr("\nThe minimum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_angle.dt_min.toString() + "\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_angle.dt_min, QLocale::FormatType::ShortFormat) + "\n";
         part_report += QObject::tr("    Angle in the Z-X plane: ") + QString::number(statistics_angle.angleZX_min) + "\n";
         part_report += QObject::tr("    Angle in the Z-Y plane: ") + QString::number(statistics_angle.angleZY_min) + "\n";
     }
@@ -975,6 +1015,7 @@ QVector<Power> Log::select_codogram_Power(InterfaceState inter_state)
 QString Log::write_top_tablePower()
 {
     QString part_report = "";
+    part_report += QObject::tr("\n3. Codograms Power table:\n\n");
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
@@ -1014,7 +1055,7 @@ QString Log::append_codogram_to_tablePower(QVector<Power> sorted_codogram3)
         number++;
         part_report += QString("%1").arg(QString::number(number),-5,' ');
         part_report += QString("%1").arg(QObject::tr("3"),-5,' ');
-        part_report += QString("%1").arg(cdgr_power.creationTime.toString(),-40,' ');
+        part_report += QString("%1").arg(inter_state.locale.toString(cdgr_power.creationTime, QLocale::FormatType::ShortFormat),-40,' ');
         part_report += QString("%1").arg( QString::number(cdgr_power.powerValue), -30,' ');
         part_report += "\n";
     }
@@ -1024,17 +1065,18 @@ QString Log::append_codogram_to_tablePower(QVector<Power> sorted_codogram3)
 QString Log::append_statistics_Power(Statistics_power statistics_power)
 {
     QString part_report = "";
-    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size() + m_codogram_angle.size()
-                                                                                       + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_power.size()) + "\n";
     part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_power.number_sorted_cdgr_power) + "\n";
     if (statistics_power.number_sorted_cdgr_power != 0)
     {
         part_report += QObject::tr("\nThe maximum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_power.dt_max.toString() + "\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_power.dt_max, QLocale::FormatType::ShortFormat) + "\n";
         part_report += QObject::tr("    Power: ") + QString::number(statistics_power.power_max) + "\n";
 
         part_report += QObject::tr("\nThe minimum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_power.dt_min.toString() + "\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_power.dt_max, QLocale::FormatType::ShortFormat) + "\n";
         part_report += QObject::tr("    Power: ") + QString::number(statistics_power.power_min) + "\n";
     }
     return part_report;
@@ -1060,6 +1102,7 @@ QVector<Mode> Log::select_codogram_Mode(InterfaceState inter_state)
 QString Log::write_top_tableMode()
 {
     QString part_report = "";
+    part_report += QObject::tr("\n3. Codograms Mode table:\n\n");
     part_report += QString("%1").arg(QObject::tr("№"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("TC"),-5,' ');
     part_report += QString("%1").arg(QObject::tr("Execution time of codogram"),-40,' ');
@@ -1102,9 +1145,10 @@ QString Log::append_codogram_to_tableMode(QVector<Mode> sorted_codogram_mode)
     int number = 0;
     for (Mode & cdgr_mode: sorted_codogram_mode)
     {
+        number++;
         part_report += QString("%1").arg(QString::number(number),-5,' ');
         part_report += QString("%1").arg(QObject::tr("4"),-5,' ');
-        part_report += QString("%1").arg(cdgr_mode.creationTime.toString(),-40,' ');
+        part_report += QString("%1").arg(inter_state.locale.toString(cdgr_mode.creationTime, QLocale::FormatType::ShortFormat),-40,' ');
         part_report += QString("%1").arg( QString::number(cdgr_mode.modeValue), -30,' ');
         part_report += "\n";
     }
@@ -1114,15 +1158,16 @@ QString Log::append_codogram_to_tableMode(QVector<Mode> sorted_codogram_mode)
 QString Log::append_statistics_Mode(Statistics_mode statistics_mode)
 {
     QString part_report = "";
-    part_report += QObject::tr("\nNumber of codograms in the log: ") + QString::number(m_codogram_target.size()
-                                                                                       + m_codogram_angle.size() + m_codogram_power.size() + m_codogram_mode.size()) + "\n";
+    part_report += QObject::tr("\nNumber of codograms mode in the log: ") + QString::number(m_codogram_mode.size()) + "\n";
     part_report += QObject::tr("\nNumber of authenticated codograms: ") + QString::number(statistics_mode.number_sorted_cdgr_mode) + "\n";
     if (statistics_mode.number_sorted_cdgr_mode != 0)
     {
         part_report += QObject::tr("\nThe maximum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_mode.dt_max.toString() + "\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_mode.dt_max, QLocale::FormatType::ShortFormat) + "\n";
         part_report += QObject::tr("\nThe minimum values of fields: \n");
-        part_report += QObject::tr("    Execution time of codogram: ") + statistics_mode.dt_min.toString() + "\n\n";
+        part_report += QObject::tr("    Execution time of codogram: ")
+                + inter_state.locale.toString(statistics_mode.dt_min, QLocale::FormatType::ShortFormat) + "\n\n";
         part_report += QObject::tr("Standby mode is enabled ") + QString::number(statistics_mode.mode_0) +
                 QObject::tr(" times.\n Battle mode is enabled ") + QString::number(statistics_mode.mode_1) + QObject::tr(" times.\n");
     }
@@ -1249,4 +1294,9 @@ bool Log::add_log(QString path_to_file)
     }
     file.close();
     return true;
+}
+
+void MainWindow::on_action_English_triggered()
+{
+
 }
